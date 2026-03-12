@@ -7,7 +7,7 @@
     <title>Cowboys & Beans — Brand Guidelines v1</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
             --brand-950: oklch(15.0% 0.0400 50.0);
@@ -399,6 +399,34 @@
             .swatch {
                 min-height: 40px;
             }
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: var(--brand-950);
+            color: var(--brand-400);
+            padding: var(--space-l);
+            margin-top: var(--space-xl);
+        }
+        .footer-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer .brand {
+            font-family: 'Fraunces', serif;
+            font-size: var(--step-0);
+            font-weight: 700;
+            font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 36;
+            color: var(--brand-300);
+        }
+        .footer .brand .amp { color: var(--home-500); }
+        .footer .meta {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--brand-500);
         }
     </style>
 </head>
@@ -811,6 +839,16 @@
         </div>
 
     </div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- FOOTER                                                        -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="footer">
+  <div class="footer-inner">
+    <div class="brand">Cowboys <span class="amp">&amp;</span> Beans</div>
+    <div class="meta">Brand Guidelines · v1.0 · March 2026 · CC0 Public Domain</div>
+  </div>
+</div>
 
 </body>
 

@@ -531,34 +531,31 @@
         }
 
         /* ── FOOTER ── */
-        .doc-footer {
+        .footer {
             background: var(--brand-950);
             color: var(--brand-400);
-            padding: var(--space-xl) var(--space-l);
-            margin-top: var(--space-3xl);
+            padding: var(--space-l);
+            margin-top: var(--space-xl);
         }
-
-        .doc-footer .container {
-            padding: 0;
+        .footer-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-
-        .doc-footer p {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.72rem;
-            line-height: 1.8;
-            max-width: 60ch;
-        }
-
-        .doc-footer a {
+        .footer .brand {
+            font-family: 'Fraunces', serif;
+            font-size: var(--step-0);
+            font-weight: 700;
+            font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 36;
             color: var(--brand-300);
         }
-
-        .doc-footer .license {
-            margin-top: var(--space-s);
-            padding-top: var(--space-s);
-            border-top: 1px solid var(--brand-900);
+        .footer .brand .amp { color: var(--home-500); }
+        .footer .meta {
+            font-family: 'IBM Plex Mono', monospace;
             font-size: 0.65rem;
-            color: var(--brand-600);
+            color: var(--brand-500);
         }
 
         @media (max-width: 800px) {
@@ -1117,20 +1114,11 @@
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <!-- FOOTER                                                        -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
-    <div class="doc-footer">
-        <div class="container">
-            <p><strong>The Layout Philosophy</strong> — Cowboys &amp; Beans Design System<br>
-                A synthesis of Every Layout, Utopia, CUBE CSS, and the C&amp;B engineering manifesto.<br>
-                Companion to: The Colour Token System · The Type System · Brand Guidelines v1.1 · Design as Engineering · Breaking the Layout Monoculture</p>
-
-            <p>This document owes its existence to the extraordinary work of Heydon Pickering, Andy Bell, James Gilyead, Trys Mudford, Massimo Vignelli, Robert Bringhurst, Josef Müller-Brockmann, Jan Tschichold, and William Morris. The ideas here are a synthesis; the credit belongs to them.</p>
-
-            <div class="license">
-                <p>This work is released under <strong>CC0 1.0 Universal</strong> (Public Domain Dedication). You may copy, modify, distribute, and build upon it freely, for any purpose, without asking permission. We believe design knowledge should be common property.<br>
-                    <a href="https://creativecommons.org/publicdomain/zero/1.0/">creativecommons.org/publicdomain/zero/1.0/</a>
-                </p>
-            </div>
-        </div>
+    <div class="footer">
+      <div class="footer-inner">
+        <div class="brand">Cowboys <span class="amp">&amp;</span> Beans</div>
+        <div class="meta">Layout Philosophy · March 2026 · CC0 Public Domain</div>
+      </div>
     </div>
 
 </body>

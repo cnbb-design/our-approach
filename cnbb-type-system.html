@@ -412,6 +412,34 @@
                 padding: var(--space-l) var(--space-s);
             }
         }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: var(--brand-950);
+            color: var(--brand-400);
+            padding: var(--space-l);
+            margin-top: var(--space-xl);
+        }
+        .footer-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer .brand {
+            font-family: 'Fraunces', serif;
+            font-size: var(--step-0);
+            font-weight: 700;
+            font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 36;
+            color: var(--brand-300);
+        }
+        .footer .brand .amp { color: var(--home-500); }
+        .footer .meta {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--brand-500);
+        }
     </style>
 </head>
 
@@ -691,6 +719,16 @@
         </div>
 
     </div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- FOOTER                                                        -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="footer">
+  <div class="footer-inner">
+    <div class="brand">Cowboys <span class="amp">&amp;</span> Beans</div>
+    <div class="meta">Type System · March 2026 · CC0 Public Domain</div>
+  </div>
+</div>
 
 </body>
 
