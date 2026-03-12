@@ -25,6 +25,7 @@
             --brand-200: oklch(85.0% 0.0400 65.0);
             --brand-100: oklch(90.0% 0.0300 70.0);
             --brand-50: oklch(95.0% 0.0150 70.0);
+            --brand-25: oklch(97.5% 0.0080 70.0);
             --neutral-950: oklch(12.0% 0.0100 55.0);
             --neutral-900: oklch(22.0% 0.0120 55.0);
             --neutral-800: oklch(32.0% 0.0100 55.0);
@@ -303,39 +304,34 @@
         }
 
         /* ── PRINCIPLE CARDS ── */
-        .principle {
-            background: white;
+        .principle-card {
+            background: var(--brand-25);
+            border: 1px solid var(--neutral-200);
             border-radius: 8px;
-            box-shadow: 0 1px 4px oklch(0% 0 0 / 0.06), 0 4px 16px oklch(0% 0 0 / 0.03);
-            padding: var(--space-l);
+            padding: var(--space-m) var(--space-l);
             margin-bottom: var(--space-l);
             position: relative;
-            overflow: hidden;
         }
 
-        .principle::before {
-            content: attr(data-number);
+        .principle-card::before {
+            content: attr(data-numeral);
             position: absolute;
-            top: -0.15em;
-            right: var(--space-s);
+            top: var(--space-m);
+            right: var(--space-l);
             font-family: 'Fraunces', serif;
-            font-size: var(--step-5);
-            font-weight: 900;
-            font-variation-settings: 'SOFT' 100, 'WONK' 0, 'opsz' 144;
-            color: var(--brand-100);
+            font-size: var(--step-4);
+            font-weight: 200;
+            font-variation-settings: 'SOFT' 80, 'WONK' 0, 'opsz' 144;
+            color: var(--brand-200);
             line-height: 1;
-            pointer-events: none;
-            user-select: none;
         }
 
-        .principle h3 {
-            position: relative;
-            z-index: 1;
+        .principle-card h3 {
+            padding-right: 3rem;
         }
 
-        .principle .prose {
-            position: relative;
-            z-index: 1;
+        .principle-card .prose {
+            max-width: 58ch;
         }
 
         /* ── CONCEPT GRID ── */
@@ -610,6 +606,14 @@
             .hero {
                 padding: var(--space-2xl) var(--space-s) var(--space-l);
             }
+
+            .principle-card::before {
+                display: none;
+            }
+
+            .principle-card h3 {
+                padding-right: 0;
+            }
         }
     </style>
 </head>
@@ -731,8 +735,8 @@
         <h2>Seven Precepts for Fluid Composition</h2>
         <p class="section-desc">These precepts synthesise Every Layout's compositional thinking, Utopia's fluid mathematics, and the C&amp;B engineering manifesto's commitment to algebraic design into a single, coherent framework. They are not rules to follow but principles to internalise&thinsp;—&thinsp;once understood, they generate correct decisions automatically.</p>
 
-        <div class="principle" data-number="I">
-            <h3>I. Suggest, Never Prescribe</h3>
+        <div class="principle-card" data-numeral="I">
+            <h3>Suggest, Never Prescribe</h3>
             <div class="prose">
                 <p>The single most important principle. Every fixed value in your CSS is a place where you have overridden the browser's judgment with your own. Sometimes this is necessary&thinsp;—&thinsp;a maximum measure of <code>60ch</code>, a minimum touch-target of <code>44px</code>&thinsp;—&thinsp;but the default posture should always be to <em>suggest</em> rather than prescribe. Use <code>min-</code>, <code>max-</code>, and <code>clamp()</code> instead of fixed values. Use <code>auto</code> instead of <code>100%</code>. Use <code>flex-basis</code> instead of <code>width</code>. Each of these is an invitation for the browser to make a contextually appropriate decision.</p>
 
@@ -742,8 +746,8 @@
             </div>
         </div>
 
-        <div class="principle" data-number="II">
-            <h3>II. Compose, Never Inherit</h3>
+        <div class="principle-card" data-numeral="II">
+            <h3>Compose, Never Inherit</h3>
             <div class="prose">
                 <p>No layout should be designed as a monolithic component. Every layout is a composition of simpler, reusable primitives&thinsp;—&thinsp;Stacks for vertical flow, Boxes for padding, Centers for width constraints, Clusters for horizontal groups, Sidebars for main-plus-aside patterns, Switchers for responsive column-to-stack transitions, Covers for vertically centered content, Grids for repeating patterns, Frames for aspect-ratio-locked media, Reels for horizontal scrolling sequences.</p>
 
@@ -753,8 +757,8 @@
             </div>
         </div>
 
-        <div class="principle" data-number="III">
-            <h3>III. Let Dimensions Flow From Content</h3>
+        <div class="principle-card" data-numeral="III">
+            <h3>Let Dimensions Flow From Content</h3>
             <div class="prose">
                 <p>The web is a content-driven medium. The width of a paragraph should be determined by its measure (in <code>ch</code> units). The height of a section should be determined by the amount of content it contains. The gap between elements should be determined by the typographic scale (in <code>rem</code> or Utopia space tokens). The number of columns in a grid should be determined by the minimum acceptable item width and the available space (via <code>auto-fit</code> and <code>minmax()</code>).</p>
 
@@ -766,8 +770,8 @@
             </div>
         </div>
 
-        <div class="principle" data-number="IV">
-            <h3>IV. Scale by Ratio, Never by Addition</h3>
+        <div class="principle-card" data-numeral="IV">
+            <h3>Scale by Ratio, Never by Addition</h3>
             <div class="prose">
                 <p>Human perception is logarithmic. The jump from 16px to 20px (+4px) looks like a bigger change than the jump from 40px to 44px (+4px), even though both are the same absolute difference. This is Weber's Law, and it is the reason every sizing system in this philosophy is <em>multiplicative</em>.</p>
 
@@ -779,8 +783,8 @@
             </div>
         </div>
 
-        <div class="principle" data-number="V">
-            <h3>V. Encode Axioms, Not Artefacts</h3>
+        <div class="principle-card" data-numeral="V">
+            <h3>Encode Axioms, Not Artefacts</h3>
             <div class="prose">
                 <p>An axiom is a design rule that pervades the entire system without exception. "The measure shall not exceed 60ch." "The minimum touch target shall be 44px." "Spacing between sibling elements shall use Utopia space tokens." These are not guidelines to remember; they are <em>CSS declarations</em> that are written once and enforced everywhere.</p>
 
@@ -792,8 +796,8 @@
             </div>
         </div>
 
-        <div class="principle" data-number="VI">
-            <h3>VI. Unify Type, Space, and Grid</h3>
+        <div class="principle-card" data-numeral="VI">
+            <h3>Unify Type, Space, and Grid</h3>
             <div class="prose">
                 <p>In the Utopian system, type, space, and grid are not separate concerns. They are three expressions of a single mathematical structure. The base font size <em>is</em> the base space unit. The modular type scale <em>generates</em> the spacing palette. The spacing palette <em>defines</em> the grid gutters. Change the base, and everything changes in concert. Change the ratio, and every proportion in the system shifts harmoniously.</p>
 
@@ -805,8 +809,8 @@
             </div>
         </div>
 
-        <div class="principle" data-number="VII">
-            <h3>VII. Design Systems, Not Pages</h3>
+        <div class="principle-card" data-numeral="VII">
+            <h3>Design Systems, Not Pages</h3>
             <div class="prose">
                 <p>The word "system" has two meanings, as Heydon Pickering observes: a set of principles (a method), and a set of interconnecting parts (a mechanism). An effective design system is both&thinsp;—&thinsp;an exemplification of how to proceed. Weak systems are one or the other: either documentation without mechanism ("do as I say") or components without principles ("here's what was done").</p>
 
