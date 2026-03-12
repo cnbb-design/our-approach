@@ -7,78 +7,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/site.css">
 <style>
-  :root {
-    --brand-950: oklch(15.0% 0.0400 50.0);
-    --brand-900: oklch(25.0% 0.0650 50.0);
-    --brand-800: oklch(35.0% 0.0850 48.0);
-    --brand-700: oklch(45.0% 0.1100 47.0);
-    --brand-600: oklch(53.0% 0.1000 50.0);
-    --brand-500: oklch(60.0% 0.0850 53.0);
-    --brand-400: oklch(68.0% 0.0700 58.0);
-    --brand-300: oklch(76.0% 0.0560 60.0);
-    --brand-200: oklch(85.0% 0.0400 65.0);
-    --brand-100: oklch(90.0% 0.0300 70.0);
-    --brand-50:  oklch(95.0% 0.0150 70.0);
-    --neutral-950: oklch(12.0% 0.0100 55.0);
-    --neutral-900: oklch(22.0% 0.0120 55.0);
-    --neutral-800: oklch(32.0% 0.0100 55.0);
-    --neutral-700: oklch(42.0% 0.0100 55.0);
-    --neutral-600: oklch(52.0% 0.0100 55.0);
-    --neutral-500: oklch(62.0% 0.0100 55.0);
-    --neutral-400: oklch(72.0% 0.0100 55.0);
-    --neutral-300: oklch(82.0% 0.0080 55.0);
-    --neutral-200: oklch(90.0% 0.0060 55.0);
-    --neutral-100: oklch(95.0% 0.0040 55.0);
-    --neutral-50:  oklch(97.5% 0.0020 55.0);
-    --books-700: oklch(40.0% 0.1200 255.0);
-    --books-500: oklch(55.0% 0.1100 255.0);
-    --books-300: oklch(75.0% 0.0700 255.0);
-    --books-100: oklch(92.0% 0.0250 255.0);
-    --art-700: oklch(40.0% 0.0600 155.0);
-    --art-500: oklch(55.0% 0.0550 155.0);
-    --art-300: oklch(78.0% 0.0350 155.0);
-    --art-100: oklch(93.0% 0.0150 155.0);
-    --home-700: oklch(45.0% 0.1400 35.0);
-    --home-500: oklch(58.0% 0.1500 35.0);
-    --home-300: oklch(75.0% 0.0900 35.0);
-    --home-100: oklch(92.0% 0.0300 35.0);
-
-    --step--2: clamp(0.6944rem, 0.6546rem + 0.1988vi, 0.7502rem);
-    --step--1: clamp(0.8333rem, 0.7693rem + 0.3205vi, 1.0003rem);
-    --step-0:  clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
-    --step-1:  clamp(1.2rem, 1.0534rem + 0.7331vi, 1.7783rem);
-    --step-2:  clamp(1.44rem, 1.2266rem + 1.0672vi, 2.3706rem);
-    --step-3:  clamp(1.728rem, 1.4226rem + 1.5268vi, 3.1605rem);
-    --step-4:  clamp(2.0736rem, 1.6425rem + 2.1555vi, 4.2132rem);
-    --step-5:  clamp(2.4883rem, 1.8869rem + 3.0073vi, 5.6172rem);
-
-    --space-3xs: clamp(0.25rem, 0.2rem + 0.13vi, 0.3334rem);
-    --space-2xs: clamp(0.5rem, 0.4508rem + 0.2462vi, 0.6669rem);
-    --space-xs:  clamp(0.75rem, 0.6508rem + 0.4962vi, 1.0003rem);
-    --space-s:   clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
-    --space-m:   clamp(1.5rem, 1.3523rem + 0.7385vi, 2.0006rem);
-    --space-l:   clamp(2rem, 1.8030rem + 0.9848vi, 2.6674rem);
-    --space-xl:  clamp(3rem, 2.7045rem + 1.4773vi, 4.0011rem);
-    --space-2xl: clamp(4rem, 3.6061rem + 1.9697vi, 5.3348rem);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'Literata', serif;
-    background: var(--neutral-50);
-    color: var(--neutral-950);
-    line-height: 1.6;
-    font-optical-sizing: auto;
-  }
-
-  /* ── HERO ── */
+  /* ── HERO OVERRIDES (overview page) ── */
   .hero {
-    background: var(--brand-950);
-    color: var(--brand-50);
-    padding: var(--space-2xl) var(--space-xl) var(--space-xl);
-    position: relative;
     overflow: hidden;
   }
   .hero::before {
@@ -91,9 +23,6 @@
     pointer-events: none;
   }
   .hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
     height: 4px;
     background: linear-gradient(90deg,
       var(--brand-700) 0%, var(--home-500) 25%,
@@ -104,129 +33,37 @@
     position: relative;
     max-width: 900px;
   }
-  .hero .overline {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: var(--step--2);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    color: var(--brand-400);
-    margin-bottom: var(--space-xs);
-  }
   .hero h1 {
-    font-family: 'Fraunces', serif;
     font-size: var(--step-5);
     font-weight: 900;
-    font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 144;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
     margin-bottom: var(--space-s);
   }
-  .hero h1 .amp { color: var(--home-500); }
-  .hero h1 a { color: inherit; text-decoration: none; }
   .hero .subtitle {
-    font-family: 'Newsreader', serif;
-    font-size: var(--step-1);
-    font-weight: 300;
-    font-style: italic;
-    color: var(--brand-300);
-    max-width: 50ch;
-    line-height: 1.45;
     margin-bottom: var(--space-m);
   }
   .hero .tag-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    margin-top: 0;
   }
   .hero .tag {
-    display: inline-block;
-    padding: 3px 10px;
-    border: 1px solid var(--brand-700);
-    border-radius: 3px;
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 0.65rem;
-    color: var(--brand-400);
-    letter-spacing: 0.04em;
   }
 
-  /* ── CONTAINER ── */
-  .container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: var(--space-xl) var(--space-l);
-  }
-
-  .section-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--neutral-500);
-    margin-bottom: 6px;
-  }
-
-  h2 {
-    font-family: 'Fraunces', serif;
-    font-size: var(--step-3);
-    font-weight: 700;
-    font-variation-settings: 'SOFT' 30, 'WONK' 1, 'opsz' 72;
-    color: var(--brand-800);
-    line-height: 1.15;
-    margin-bottom: var(--space-2xs);
-  }
-
+  /* ── HEADING OVERRIDES ── */
   h3 {
-    font-family: 'Fraunces', serif;
     font-size: var(--step-2);
-    font-weight: 600;
     font-variation-settings: 'SOFT' 30, 'WONK' 0, 'opsz' 48;
-    color: var(--brand-700);
     line-height: 1.2;
-    margin-bottom: var(--space-2xs);
   }
 
-  .section-desc {
-    font-family: 'Literata', serif;
-    font-size: var(--step-0);
-    font-variation-settings: 'opsz' 14;
-    color: var(--neutral-700);
-    max-width: 60ch;
-    line-height: 1.65;
-    margin-bottom: var(--space-l);
-  }
-
-  .divider {
-    border: none;
-    height: 1px;
-    background: var(--neutral-200);
-    margin: var(--space-xl) 0;
-  }
-
-  /* ── PROSE ── */
+  /* ── PROSE OVERRIDES ── */
   .prose {
-    font-family: 'Literata', serif;
-    font-size: var(--step-0);
-    font-variation-settings: 'opsz' 14;
-    color: var(--neutral-800);
     max-width: 63ch;
     line-height: 1.72;
   }
-  .prose p { margin-bottom: var(--space-s); }
-  .prose p:last-child { margin-bottom: 0; }
-  .prose strong { color: var(--neutral-950); font-weight: 600; }
-  .prose em { color: var(--brand-600); font-style: italic; }
-  .prose code {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.82em;
-    background: var(--brand-100);
-    padding: 1px 5px;
-    border-radius: 3px;
-    color: var(--brand-800);
-  }
+  .prose strong { font-weight: 600; }
+  .prose em { color: var(--brand-600); }
 
-  /* ── DEEP-DIVE LINK ── */
+  /* ── DEEP-DIVE LINK (overview-specific) ── */
   .deep-dive {
     display: inline-flex;
     align-items: center;
@@ -248,7 +85,7 @@
   }
   .deep-dive:hover .arrow { transform: translateX(3px); }
 
-  /* ── QUICK-REF GRID ── */
+  /* ── QUICK-REF GRID (overview-specific) ── */
   .qr-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
@@ -287,7 +124,7 @@
     margin-top: 2px;
   }
 
-  /* ── PRINCIPLES ── */
+  /* ── PRINCIPLES (overview-specific) ── */
   .principles-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -317,7 +154,7 @@
     color: var(--neutral-900);
   }
 
-  /* ── SWATCH ROW ── */
+  /* ── SWATCH ROW (overview-specific) ── */
   .swatch-row {
     display: flex;
     gap: 3px;
@@ -341,54 +178,8 @@
     letter-spacing: 0.02em;
   }
 
-  /* ── ACCENT BLOCK ── */
-  .accent-block {
-    border-radius: 8px;
-    padding: var(--space-m) var(--space-l);
-    margin: var(--space-l) 0;
-  }
-  .accent-block h4 {
-    font-family: 'Fraunces', serif;
-    font-size: var(--step-1);
-    font-weight: 600;
-    font-variation-settings: 'SOFT' 20, 'WONK' 0, 'opsz' 36;
-    margin-bottom: var(--space-xs);
-  }
-
-  /* ── FOOTER ── */
-  .footer {
-    background: var(--brand-950);
-    color: var(--brand-400);
-    padding: var(--space-l);
-    margin-top: var(--space-xl);
-  }
-  .footer-inner {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-s);
-  }
-  .footer .brand {
-    font-family: 'Fraunces', serif;
-    font-size: var(--step-0);
-    font-weight: 700;
-    font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 36;
-    color: var(--brand-300);
-  }
-  .footer .brand .amp { color: var(--home-500); }
-  .footer .brand a { color: inherit; text-decoration: none; }
-  .footer .meta {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--brand-500);
-  }
-
+  /* ── RESPONSIVE (overview-specific) ── */
   @media (max-width: 700px) {
-    .hero { padding: var(--space-xl) var(--space-s) var(--space-l); }
-    .container { padding: var(--space-l) var(--space-s); }
     .principles-grid { grid-template-columns: 1fr; }
     .qr-grid { grid-template-columns: 1fr; }
   }
