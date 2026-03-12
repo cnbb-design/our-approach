@@ -98,6 +98,17 @@
                     var(--home-500) 100%);
         }
 
+        .hero-monogram {
+            position: absolute;
+            top: var(--space-xl);
+            right: var(--space-xl);
+            width: clamp(48px, 5vw, 72px);
+            height: auto;
+            opacity: 0.85;
+            transition: opacity 0.2s ease;
+        }
+        .hero-monogram:hover { opacity: 1; }
+
         .hero .overline {
             font-family: 'IBM Plex Mono', monospace;
             font-size: var(--step--2);
@@ -586,6 +597,7 @@
     <!-- HERO -->
     <!-- ═══════════════════════════════════════════════════════ -->
     <div class="hero">
+        <a href="index.html"><img src="images/cowboys-and-beans_monogram-1.1-on-dark.png" alt="Cowboys &amp; Beans — Back to home" class="hero-monogram"></a>
         <p class="overline">Colour theory, typography, & layout-composition</p>
         <h1>Foundational Research for a Visual Design Knowledge Base</h1>
         <p class="subtitle">The field of visual design possesses formal structure, empirical grounding, and mathematical depth fully comparable to graduate-level mathematics or post-doctoral music theory. This research validates a domain taxonomy, maps 55 competency questions across three tiers, analyses 30+ foundational sources, and documents the mathematical underpinnings that will give a technically sophisticated reader first-principles access to the discipline.</p>

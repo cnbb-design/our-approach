@@ -98,6 +98,17 @@
                     var(--home-500) 100%);
         }
 
+        .hero-monogram {
+            position: absolute;
+            top: var(--space-xl);
+            right: var(--space-xl);
+            width: clamp(48px, 5vw, 72px);
+            height: auto;
+            opacity: 0.85;
+            transition: opacity 0.2s ease;
+        }
+        .hero-monogram:hover { opacity: 1; }
+
         .hero .overline {
             font-family: 'IBM Plex Mono', monospace;
             font-size: var(--step--2);
@@ -588,6 +599,7 @@
     <!-- HERO -->
     <!-- ═══════════════════════════════════════════════════════ -->
     <div class="hero">
+        <a href="index.html"><img src="images/cowboys-and-beans_monogram-1.1-on-dark.png" alt="Cowboys &amp; Beans — Back to home" class="hero-monogram"></a>
         <p class="overline">Strategies for Post-Template Web Design</p>
         <h1>Breaking the Layout Monoculture</h1>
         <p class="subtitle"></p>
