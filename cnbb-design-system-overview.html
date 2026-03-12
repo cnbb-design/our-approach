@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cowboys & Beans — Design System Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand-950: oklch(15.0% 0.0400 50.0);
+    --brand-900: oklch(25.0% 0.0650 50.0);
+    --brand-800: oklch(35.0% 0.0850 48.0);
+    --brand-700: oklch(45.0% 0.1100 47.0);
+    --brand-600: oklch(53.0% 0.1000 50.0);
+    --brand-500: oklch(60.0% 0.0850 53.0);
+    --brand-400: oklch(68.0% 0.0700 58.0);
+    --brand-300: oklch(76.0% 0.0560 60.0);
+    --brand-200: oklch(85.0% 0.0400 65.0);
+    --brand-100: oklch(90.0% 0.0300 70.0);
+    --brand-50:  oklch(95.0% 0.0150 70.0);
+    --neutral-950: oklch(12.0% 0.0100 55.0);
+    --neutral-900: oklch(22.0% 0.0120 55.0);
+    --neutral-800: oklch(32.0% 0.0100 55.0);
+    --neutral-700: oklch(42.0% 0.0100 55.0);
+    --neutral-600: oklch(52.0% 0.0100 55.0);
+    --neutral-500: oklch(62.0% 0.0100 55.0);
+    --neutral-400: oklch(72.0% 0.0100 55.0);
+    --neutral-300: oklch(82.0% 0.0080 55.0);
+    --neutral-200: oklch(90.0% 0.0060 55.0);
+    --neutral-100: oklch(95.0% 0.0040 55.0);
+    --neutral-50:  oklch(97.5% 0.0020 55.0);
+    --books-700: oklch(40.0% 0.1200 255.0);
+    --books-500: oklch(55.0% 0.1100 255.0);
+    --books-300: oklch(75.0% 0.0700 255.0);
+    --books-100: oklch(92.0% 0.0250 255.0);
+    --art-700: oklch(40.0% 0.0600 155.0);
+    --art-500: oklch(55.0% 0.0550 155.0);
+    --art-300: oklch(78.0% 0.0350 155.0);
+    --art-100: oklch(93.0% 0.0150 155.0);
+    --home-700: oklch(45.0% 0.1400 35.0);
+    --home-500: oklch(58.0% 0.1500 35.0);
+    --home-300: oklch(75.0% 0.0900 35.0);
+    --home-100: oklch(92.0% 0.0300 35.0);
+
+    --step--2: clamp(0.6944rem, 0.6546rem + 0.1988vi, 0.7502rem);
+    --step--1: clamp(0.8333rem, 0.7693rem + 0.3205vi, 1.0003rem);
+    --step-0:  clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
+    --step-1:  clamp(1.2rem, 1.0534rem + 0.7331vi, 1.7783rem);
+    --step-2:  clamp(1.44rem, 1.2266rem + 1.0672vi, 2.3706rem);
+    --step-3:  clamp(1.728rem, 1.4226rem + 1.5268vi, 3.1605rem);
+    --step-4:  clamp(2.0736rem, 1.6425rem + 2.1555vi, 4.2132rem);
+    --step-5:  clamp(2.4883rem, 1.8869rem + 3.0073vi, 5.6172rem);
+
+    --space-3xs: clamp(0.25rem, 0.2rem + 0.13vi, 0.3334rem);
+    --space-2xs: clamp(0.5rem, 0.4508rem + 0.2462vi, 0.6669rem);
+    --space-xs:  clamp(0.75rem, 0.6508rem + 0.4962vi, 1.0003rem);
+    --space-s:   clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
+    --space-m:   clamp(1.5rem, 1.3523rem + 0.7385vi, 2.0006rem);
+    --space-l:   clamp(2rem, 1.8030rem + 0.9848vi, 2.6674rem);
+    --space-xl:  clamp(3rem, 2.7045rem + 1.4773vi, 4.0011rem);
+    --space-2xl: clamp(4rem, 3.6061rem + 1.9697vi, 5.3348rem);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Literata', serif;
+    background: var(--neutral-50);
+    color: var(--neutral-950);
+    line-height: 1.6;
+    font-optical-sizing: auto;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--brand-950);
+    color: var(--brand-50);
+    padding: var(--space-2xl) var(--space-xl) var(--space-xl);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse at 20% 80%, oklch(25% 0.06 50 / 0.3) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, oklch(25% 0.04 47 / 0.2) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg,
+      var(--brand-700) 0%, var(--home-500) 25%,
+      var(--brand-400) 50%,
+      var(--books-500) 75%, var(--art-500) 100%);
+  }
+  .hero-inner {
+    position: relative;
+    max-width: 900px;
+  }
+  .hero .overline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: var(--step--2);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--brand-400);
+    margin-bottom: var(--space-xs);
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: var(--step-5);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 144;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-s);
+  }
+  .hero h1 .amp { color: var(--home-500); }
+  .hero .subtitle {
+    font-family: 'Newsreader', serif;
+    font-size: var(--step-1);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--brand-300);
+    max-width: 50ch;
+    line-height: 1.45;
+    margin-bottom: var(--space-m);
+  }
+  .hero .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .hero .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border: 1px solid var(--brand-700);
+    border-radius: 3px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--brand-400);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── CONTAINER ── */
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-l);
+  }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--neutral-500);
+    margin-bottom: 6px;
+  }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: var(--step-3);
+    font-weight: 700;
+    font-variation-settings: 'SOFT' 30, 'WONK' 1, 'opsz' 72;
+    color: var(--brand-800);
+    line-height: 1.15;
+    margin-bottom: var(--space-2xs);
+  }
+
+  h3 {
+    font-family: 'Fraunces', serif;
+    font-size: var(--step-2);
+    font-weight: 600;
+    font-variation-settings: 'SOFT' 30, 'WONK' 0, 'opsz' 48;
+    color: var(--brand-700);
+    line-height: 1.2;
+    margin-bottom: var(--space-2xs);
+  }
+
+  .section-desc {
+    font-family: 'Literata', serif;
+    font-size: var(--step-0);
+    font-variation-settings: 'opsz' 14;
+    color: var(--neutral-700);
+    max-width: 60ch;
+    line-height: 1.65;
+    margin-bottom: var(--space-l);
+  }
+
+  .divider {
+    border: none;
+    height: 1px;
+    background: var(--neutral-200);
+    margin: var(--space-xl) 0;
+  }
+
+  /* ── PROSE ── */
+  .prose {
+    font-family: 'Literata', serif;
+    font-size: var(--step-0);
+    font-variation-settings: 'opsz' 14;
+    color: var(--neutral-800);
+    max-width: 63ch;
+    line-height: 1.72;
+  }
+  .prose p { margin-bottom: var(--space-s); }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose strong { color: var(--neutral-950); font-weight: 600; }
+  .prose em { color: var(--brand-600); font-style: italic; }
+  .prose code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82em;
+    background: var(--brand-100);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--brand-800);
+  }
+
+  /* ── DEEP-DIVE LINK ── */
+  .deep-dive {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: var(--space-xs);
+    padding: 8px 18px;
+    border-radius: 5px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+  }
+  .deep-dive:hover { transform: translateY(-1px); }
+  .deep-dive .arrow {
+    transition: transform 0.15s ease;
+    font-size: 0.85em;
+  }
+  .deep-dive:hover .arrow { transform: translateX(3px); }
+
+  /* ── QUICK-REF GRID ── */
+  .qr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: var(--space-m);
+    margin: var(--space-m) 0;
+  }
+  .qr-card {
+    padding: var(--space-s);
+    border: 1px solid var(--neutral-200);
+    border-radius: 8px;
+    background: white;
+  }
+  .qr-card .qr-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--neutral-500);
+    margin-bottom: 8px;
+  }
+  .qr-card .qr-item {
+    margin-bottom: 10px;
+  }
+  .qr-card .qr-item:last-child { margin-bottom: 0; }
+  .qr-card .qr-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-variation-settings: 'SOFT' 20, 'WONK' 0, 'opsz' 24;
+    font-size: 0.95rem;
+    color: var(--neutral-950);
+  }
+  .qr-card .qr-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--neutral-500);
+    margin-top: 2px;
+  }
+
+  /* ── PRINCIPLES ── */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-xs);
+    margin: var(--space-m) 0;
+  }
+  .principle-chip {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 12px 16px;
+    background: white;
+    border: 1px solid var(--brand-200);
+    border-radius: 6px;
+  }
+  .principle-chip .num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  .principle-chip .name {
+    font-family: 'Fraunces', serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    font-variation-settings: 'SOFT' 20, 'WONK' 0, 'opsz' 24;
+    color: var(--neutral-900);
+  }
+
+  /* ── SWATCH ROW ── */
+  .swatch-row {
+    display: flex;
+    gap: 3px;
+    margin: var(--space-s) 0;
+    border-radius: 6px;
+    overflow: hidden;
+    height: 40px;
+  }
+  .swatch-row .swatch {
+    flex: 1;
+    position: relative;
+  }
+  .swatch-row .swatch .label {
+    position: absolute;
+    bottom: 3px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── ACCENT BLOCK ── */
+  .accent-block {
+    border-radius: 8px;
+    padding: var(--space-m) var(--space-l);
+    margin: var(--space-l) 0;
+  }
+  .accent-block h4 {
+    font-family: 'Fraunces', serif;
+    font-size: var(--step-1);
+    font-weight: 600;
+    font-variation-settings: 'SOFT' 20, 'WONK' 0, 'opsz' 36;
+    margin-bottom: var(--space-xs);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--brand-950);
+    color: var(--brand-400);
+    padding: var(--space-l);
+    margin-top: var(--space-xl);
+  }
+  .footer-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+  }
+  .footer .brand {
+    font-family: 'Fraunces', serif;
+    font-size: var(--step-0);
+    font-weight: 700;
+    font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 36;
+    color: var(--brand-300);
+  }
+  .footer .brand .amp { color: var(--home-500); }
+  .footer .meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--brand-500);
+  }
+
+  @media (max-width: 700px) {
+    .hero { padding: var(--space-xl) var(--space-s) var(--space-l); }
+    .container { padding: var(--space-l) var(--space-s); }
+    .principles-grid { grid-template-columns: 1fr; }
+    .qr-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- HERO                                                          -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="overline">Design System Overview</div>
+    <h1>Cowboys <span class="amp">&amp;</span> Beans</h1>
+    <p class="subtitle">A unified design system for an independent publishing and arts collective. Three sites, three personalities, one principled foundation.</p>
+    <div class="tag-row">
+      <span class="tag">OKLCH colour</span>
+      <span class="tag">Fraunces · Literata · Plex Mono</span>
+      <span class="tag">Perfect fourth scale</span>
+      <span class="tag">Every Layout · Utopia · CUBE CSS</span>
+      <span class="tag">CC0 Public Domain</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- PHILOSOPHY                                                    -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="section-label">Foundation</div>
+<h2>The Governing Philosophy</h2>
+
+<div class="prose">
+  <p>This design system treats aesthetic decisions not as matters of taste but as <strong>engineering problems</strong>&thinsp;—&thinsp;constrained, measurable, and composable. It is built on the observation that the three most influential design systems of the current era&thinsp;—&thinsp;Google's Material Design, IBM's Carbon, and Shopify's Polaris&thinsp;—&thinsp;were developed independently and yet converged on the same fundamental architecture. That convergence is evidence of <em>underlying mathematical structure</em>, not fashion.</p>
+
+  <p>Every decision in this system derives from a small set of interlocking convictions. Human perception is logarithmic, so scales must be geometric. Colour harmony requires perceptual uniformity, so the colour space must be OKLCH. Spatial relationships carry structural meaning, so spacing must encode hierarchy. Layout should be composed from tested primitives, not built bespoke for every page. Type, space, and grid should flow from a single mathematical root. And the browser is a collaborator, not an adversary&thinsp;—&thinsp;our CSS should suggest constraints within which good outcomes are inevitable, not prescribe blueprints that work in one context and break in all others.</p>
+
+  <p>The manifesto articulates seven engineering principles. The layout philosophy articulates seven compositional precepts. Together, they form the intellectual skeleton of the system.</p>
+</div>
+
+<h3 style="margin-top: var(--space-l);">The Engineering Principles</h3>
+<div class="principles-grid">
+  <div class="principle-chip"><span class="num" style="color: var(--home-500);">I</span><span class="name">Multiply, Never Add</span></div>
+  <div class="principle-chip"><span class="num" style="color: var(--home-500);">II</span><span class="name">Perception Is the Only Coordinate System</span></div>
+  <div class="principle-chip"><span class="num" style="color: var(--home-500);">III</span><span class="name">Name the Role, Not the Value</span></div>
+  <div class="principle-chip"><span class="num" style="color: var(--home-500);">IV</span><span class="name">Constraint Liberates</span></div>
+  <div class="principle-chip"><span class="num" style="color: var(--home-500);">V</span><span class="name">Unity Is Not Uniformity</span></div>
+  <div class="principle-chip"><span class="num" style="color: var(--home-500);">VI</span><span class="name">Proximity Carries Meaning</span></div>
+  <div class="principle-chip"><span class="num" style="color: var(--home-500);">VII</span><span class="name">Design the Invariants, Not the Instances</span></div>
+</div>
+
+<a href="cnbb-design-manifesto.html" class="deep-dive" style="background: var(--neutral-900); color: var(--neutral-100);">Read the Manifesto <span class="arrow">&rarr;</span></a>
+
+<h3 style="margin-top: var(--space-l);">The Compositional Precepts</h3>
+<div class="principles-grid">
+  <div class="principle-chip"><span class="num" style="color: var(--art-500);">I</span><span class="name">Suggest, Never Prescribe</span></div>
+  <div class="principle-chip"><span class="num" style="color: var(--art-500);">II</span><span class="name">Compose, Never Inherit</span></div>
+  <div class="principle-chip"><span class="num" style="color: var(--art-500);">III</span><span class="name">Let Dimensions Flow From Content</span></div>
+  <div class="principle-chip"><span class="num" style="color: var(--art-500);">IV</span><span class="name">Scale by Ratio, Never by Addition</span></div>
+  <div class="principle-chip"><span class="num" style="color: var(--art-500);">V</span><span class="name">Encode Axioms, Not Artefacts</span></div>
+  <div class="principle-chip"><span class="num" style="color: var(--art-500);">VI</span><span class="name">Unify Type, Space, and Grid</span></div>
+  <div class="principle-chip"><span class="num" style="color: var(--art-500);">VII</span><span class="name">Design Systems, Not Pages</span></div>
+</div>
+
+<a href="cnbb-layout-philosophy.html" class="deep-dive" style="background: var(--art-700); color: var(--art-100);">Read the Layout Philosophy <span class="arrow">&rarr;</span></a>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- COLOUR                                                        -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="section-label">Colour</div>
+<h2>The Colour System</h2>
+
+<div class="prose">
+  <p>The entire colour system is built in <strong>OKLCH</strong>&thinsp;—&thinsp;a perceptually uniform colour space where equal changes in the L (lightness) parameter produce equal perceived brightness changes across all hues. This is not an aesthetic preference; it is a mathematical requirement for accessible palette generation. In the older HSL space, a "50% lightness" yellow looks dramatically brighter than a "50% lightness" blue. In OKLCH, they match.</p>
+
+  <p>The <strong>brand brown scale</strong> (11 steps, 50–950) was extracted from the logo artwork and anchored to a hue angle of ~50°. The <strong>warm neutral scale</strong> carries a subtle chromatic tint at hue 55° rather than being pure grey, giving the system warmth without sacrificing versatility. Three <strong>accent palettes</strong> serve the three C&amp;B sites: Ink Blue (hue 255°) for the bookshop, Sage Green (hue 155°) for the gallery, and Terracotta (hue 35°) for the parent brand.</p>
+</div>
+
+<!-- Live swatch rows -->
+<div style="margin: var(--space-m) 0;">
+  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--neutral-500); margin-bottom: 4px;">Brand Brown</div>
+  <div class="swatch-row">
+    <div class="swatch" style="background: var(--brand-950);"><span class="label" style="color: var(--brand-400);">950</span></div>
+    <div class="swatch" style="background: var(--brand-800);"><span class="label" style="color: var(--brand-200);">800</span></div>
+    <div class="swatch" style="background: var(--brand-700);"><span class="label" style="color: var(--brand-100);">700</span></div>
+    <div class="swatch" style="background: var(--brand-500);"><span class="label" style="color: var(--brand-950);">500</span></div>
+    <div class="swatch" style="background: var(--brand-300);"><span class="label" style="color: var(--brand-800);">300</span></div>
+    <div class="swatch" style="background: var(--brand-100);"><span class="label" style="color: var(--brand-700);">100</span></div>
+    <div class="swatch" style="background: var(--brand-50);"><span class="label" style="color: var(--brand-600);">50</span></div>
+  </div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-xs); margin-bottom: var(--space-m);">
+  <div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--neutral-500); margin-bottom: 4px;">Ink Blue · Books</div>
+    <div class="swatch-row" style="height: 28px;">
+      <div class="swatch" style="background: var(--books-700);"></div>
+      <div class="swatch" style="background: var(--books-500);"></div>
+      <div class="swatch" style="background: var(--books-300);"></div>
+      <div class="swatch" style="background: var(--books-100);"></div>
+    </div>
+  </div>
+  <div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--neutral-500); margin-bottom: 4px;">Sage Green · Art</div>
+    <div class="swatch-row" style="height: 28px;">
+      <div class="swatch" style="background: var(--art-700);"></div>
+      <div class="swatch" style="background: var(--art-500);"></div>
+      <div class="swatch" style="background: var(--art-300);"></div>
+      <div class="swatch" style="background: var(--art-100);"></div>
+    </div>
+  </div>
+  <div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--neutral-500); margin-bottom: 4px;">Terracotta · Home</div>
+    <div class="swatch-row" style="height: 28px;">
+      <div class="swatch" style="background: var(--home-700);"></div>
+      <div class="swatch" style="background: var(--home-500);"></div>
+      <div class="swatch" style="background: var(--home-300);"></div>
+      <div class="swatch" style="background: var(--home-100);"></div>
+    </div>
+  </div>
+</div>
+
+<div class="prose">
+  <p>Colours follow a <strong>three-tier token architecture</strong> aligned with the DTCG specification: primitive tokens (<code>brand-700</code>), semantic tokens (<code>interactive-primary</code>), and component tokens (<code>button-primary-bg</code>). This mirrors the separation of concerns in software engineering&thinsp;—&thinsp;a brand colour change propagates through the semantic and component layers automatically.</p>
+</div>
+
+<a href="cnbb-colour-system.html" class="deep-dive" style="background: var(--brand-700); color: var(--brand-50);">View the Colour System <span class="arrow">&rarr;</span></a>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- TYPOGRAPHY                                                    -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="section-label">Typography</div>
+<h2>The Type System</h2>
+
+<div class="prose">
+  <p>Three typefaces, three roles, one mathematical skeleton.</p>
+
+  <p><strong style="font-family: 'Fraunces', serif; font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 36;">Fraunces</strong> handles display and headlines. A soft-serif with four variable axes (weight, optical size, softness, and the distinctive "wonk" that tilts certain letterforms), it carries the hand-painted warmth of the C&amp;B visual identity without being a novelty font. Per-site axis settings give each property its own typographic voice: sharp and editorial for books, light and airy for the gallery, bold and characterful for the parent brand.</p>
+
+  <p><strong style="font-family: 'Literata', serif; font-variation-settings: 'opsz' 14;">Literata</strong> handles body text and long-form reading. Designed by TypeTogether as the custom typeface for Google Play Books, it was literally engineered for reading on screens. Its optical size axis adjusts stroke contrast, x-height, and spacing automatically&thinsp;—&thinsp;high-contrast elegance at display sizes, sturdy openness at caption sizes.</p>
+
+  <p><strong style="font-family: 'IBM Plex Mono', monospace;">IBM Plex Mono</strong> handles system UI, metadata, captions, ISBNs, code, and everything functional. A monospace that balances technical precision with human warmth.</p>
+</div>
+
+<div class="prose" style="margin-top: var(--space-m);">
+  <p>The <strong>modular type scale</strong> uses a perfect fourth ratio (4:3 = 1.333), made fluid via Utopia's <code>clamp()</code> interpolation. At the smallest viewport (360px), the ratio tightens to 1.2 (minor third). At the largest (1440px), it opens to the full perfect fourth. This means headings grow <em>faster</em> than body text as the viewport widens&thinsp;—&thinsp;a mathematically inevitable consequence of interpolating between two geometric progressions, producing a visual hierarchy that intensifies on larger screens without anyone having to specify that behaviour.</p>
+</div>
+
+<a href="cnbb-type-system.html" class="deep-dive" style="background: var(--books-700); color: oklch(92% 0.025 255);">View the Type System <span class="arrow">&rarr;</span></a>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- LAYOUT                                                        -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="section-label">Layout</div>
+<h2>The Layout Philosophy</h2>
+
+<div class="prose">
+  <p>The layout system is a synthesis of two bodies of work. <strong>Every Layout</strong> (Pickering &amp; Bell) defines thirteen composable primitives&thinsp;—&thinsp;Stack, Box, Center, Cluster, Sidebar, Switcher, Cover, Grid, Frame, Reel, Imposter, Icon, Container&thinsp;—&thinsp;that handle spatial relationships without media queries. <strong>Utopia</strong> (Gilyead &amp; Mudford) provides the fluid mathematics that sizes everything continuously across viewports via <code>clamp()</code>.</p>
+
+  <p>The two systems connect at a clean interface: Utopia produces fluid spacing tokens, Every Layout's primitives consume them. One decides <em>where things go</em>; the other decides <em>how big they are</em>. Together, they form a complete layout architecture that requires zero breakpoints, derives column counts from content rather than prescribing them, and scales harmoniously from 320px to 4K.</p>
+
+  <p>Above this foundation, <strong>CUBE CSS</strong> (Andy Bell) provides the organisational methodology&thinsp;—&thinsp;Composition, Utility, Block, Exception&thinsp;—&thinsp;that structures how primitives, utilities, and component-specific styles interact in the stylesheet. And modern CSS features (container queries, subgrid, <code>:has()</code>, scroll-driven animations, view transitions) layer progressively on top as enhancement, not dependency.</p>
+
+  <p>The philosophy's deepest connection is to the <strong>Arts &amp; Crafts movement</strong>. William Morris didn't design wallpapers; he designed systems for generating patterns. Our layout system doesn't produce "a layout"; it produces an infinite family of layouts&thinsp;—&thinsp;all consistent, all fluid, all grounded in the same mathematical structure, and every one of them different. Mission chairs, not metal folding chairs.</p>
+</div>
+
+<a href="cnbb-layout-philosophy.html" class="deep-dive" style="background: var(--art-700); color: var(--art-100);">Read the Layout Philosophy <span class="arrow">&rarr;</span></a>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- BRAND                                                         -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="section-label">Brand</div>
+<h2>Brand Architecture</h2>
+
+<div class="prose">
+  <p>Cowboys &amp; Beans is a small independent publishing and arts collective operating three digital properties, each with its own personality but sharing a unified design foundation.</p>
+</div>
+
+<div class="qr-grid">
+  <div class="qr-card" style="border-color: var(--books-300);">
+    <div class="qr-label" style="color: var(--books-500);">books.cnbb.pub</div>
+    <div class="qr-item">
+      <div class="qr-name" style="font-variation-settings: 'SOFT' 20, 'WONK' 0, 'opsz' 24;">The Typographer</div>
+      <div class="qr-meta">Ink Blue · Sharp Fraunces (SOFT 20, WONK 0) · Editorial precision</div>
+    </div>
+  </div>
+  <div class="qr-card" style="border-color: var(--art-300);">
+    <div class="qr-label" style="color: var(--art-500);">art.cnbb.pub</div>
+    <div class="qr-item">
+      <div class="qr-name" style="font-weight: 300; font-variation-settings: 'SOFT' 70, 'WONK' 0, 'opsz' 24;">The Gallerist</div>
+      <div class="qr-meta">Sage Green · Light Fraunces (SOFT 70, wght 300) · Restrained elegance</div>
+    </div>
+  </div>
+  <div class="qr-card" style="border-color: var(--home-300);">
+    <div class="qr-label" style="color: var(--home-500);">cnbb.pub</div>
+    <div class="qr-item">
+      <div class="qr-name" style="font-weight: 900; font-variation-settings: 'SOFT' 60, 'WONK' 1, 'opsz' 24;">The Brand Storyteller</div>
+      <div class="qr-meta">Terracotta · Bold Fraunces (SOFT 60, WONK 1, wght 900) · Characterful warmth</div>
+    </div>
+  </div>
+</div>
+
+<div class="prose">
+  <p>The three-logo identity system (primary wordmark, publisher's stamp, monogram) adapts across contexts. The brand guidelines document covers the complete specifications: logo usage, colour application, typography rules, spacing principles, and the DTCG token architecture that makes it all implementable in code.</p>
+</div>
+
+<a href="cnbb-brand-guidelines-v1.html" class="deep-dive" style="background: var(--home-700); color: var(--home-100);">View Brand Guidelines <span class="arrow">&rarr;</span></a>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- RESEARCH                                                      -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="section-label">Research</div>
+<h2>The Intellectual Foundations</h2>
+
+<div class="prose">
+  <p>This design system didn't emerge from nothing. It is grounded in a substantial body of research&thinsp;—&thinsp;deep dives into the academic literature, source analysis of 25+ canonical design texts, synthesis across six domains (colour theory, typography, layout, UI/UX, perception science, and design systems), and an investigation into why the web looks the way it does and what can be done about it.</p>
+
+  <p>The <strong>Foundations of Visual Design</strong> research document traces the intellectual lineage from perception science (Arnheim, Ware, gestalt research) through design principles (Norman, Nielsen, Laws of UX) through practical patterns (Krug, Refactoring UI) through system architecture (Frost, Curtis) to CSS implementation (Comeau, Eckles, Every Layout, Utopia). It maps the cross-domain bridges&thinsp;—&thinsp;the places where music theory, software engineering, and colour science share rigorous mathematical structure with visual design, not just metaphor.</p>
+
+  <p><strong>Breaking the Layout Monoculture</strong> asks why all websites look the same and what can be done about it. It synthesises the CHI 2021 research measuring web homogenisation, cognitive science on banner blindness and inattentional filtering, modern CSS capabilities, museum wayfinding design, and editorial layout traditions into seven concrete, CSS-implementable strategies for building layouts that break free from template thinking. Its key insight: breaking layout conventions effectively requires <em>stronger</em> principles, not weaker ones.</p>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-s);">
+  <a href="research-foundations-of-design.html" class="deep-dive" style="background: oklch(35% 0.08 280); color: oklch(92% 0.02 280);">Foundations of Visual Design <span class="arrow">&rarr;</span></a>
+  <a href="research-breaking-the-layout-monoculture.html" class="deep-dive" style="background: oklch(35% 0.08 280); color: oklch(92% 0.02 280);">Breaking the Layout Monoculture <span class="arrow">&rarr;</span></a>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- QUICK REFERENCE                                               -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="section-label">Quick Reference</div>
+<h2>At a Glance</h2>
+
+<div class="qr-grid">
+  <div class="qr-card">
+    <div class="qr-label">Type Stack</div>
+    <div class="qr-item">
+      <div class="qr-name" style="font-family: 'Fraunces', serif; font-variation-settings: 'SOFT' 30, 'WONK' 0, 'opsz' 36; font-size: 1.1rem;">Fraunces</div>
+      <div class="qr-meta">Display · 4 axes · SOFT / WONK / opsz / wght</div>
+    </div>
+    <div class="qr-item">
+      <div class="qr-name" style="font-family: 'Literata', serif; font-weight: 400; font-variation-settings: 'opsz' 14; font-size: 1.05rem;">Literata</div>
+      <div class="qr-meta">Body · Optical sizing · Scotch Roman roots</div>
+    </div>
+    <div class="qr-item">
+      <div class="qr-name" style="font-family: 'IBM Plex Mono', monospace; font-weight: 400; font-size: 0.95rem;">IBM Plex Mono</div>
+      <div class="qr-meta">System · UI · Metadata · Captions</div>
+    </div>
+  </div>
+
+  <div class="qr-card">
+    <div class="qr-label">Token Architecture</div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; line-height: 2; color: var(--neutral-800);">
+      <span style="color: var(--brand-600);">Primitive</span> brand-700<br>
+      <span style="padding-left: 12px; color: var(--neutral-400);">&darr;</span><br>
+      <span style="color: var(--books-500);">Semantic</span> interactive-primary<br>
+      <span style="padding-left: 12px; color: var(--neutral-400);">&darr;</span><br>
+      <span style="color: var(--home-500);">Component</span> button-primary-bg
+    </div>
+    <div class="qr-meta" style="margin-top: 8px;">DTCG spec · CSS custom properties · JSON source</div>
+  </div>
+
+  <div class="qr-card">
+    <div class="qr-label">Layout Primitives</div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; line-height: 2; color: var(--neutral-700);">
+      Stack · Box · Center · Cluster<br>
+      Sidebar · Switcher · Cover · Grid<br>
+      Frame · Reel · Imposter · Icon<br>
+      Container
+    </div>
+    <div class="qr-meta" style="margin-top: 8px;">Every Layout · Zero breakpoints · Utopia tokens</div>
+  </div>
+</div>
+
+</div><!-- /.container -->
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- FOOTER                                                        -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="footer">
+  <div class="footer-inner">
+    <div class="brand">Cowboys <span class="amp">&amp;</span> Beans</div>
+    <div class="meta">Design System Overview · v2.0 · March 2026 · CC0 Public Domain</div>
+  </div>
+</div>
+
+</body>
+</html>
