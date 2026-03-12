@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cowboys & Beans — Type System Proposal</title>
+
+<!-- THE TYPE STACK -->
+<!-- Display/Editorial: Fraunces — soft-serif with wonk, softness, optical size, weight axes -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    /* Brand colours from the palette system */
+    --brand-950: oklch(15.0% 0.0400 50.0);
+    --brand-900: oklch(25.0% 0.0650 50.0);
+    --brand-800: oklch(35.0% 0.0850 48.0);
+    --brand-700: oklch(45.0% 0.1100 47.0);
+    --brand-600: oklch(53.0% 0.1000 50.0);
+    --brand-500: oklch(60.0% 0.0850 53.0);
+    --brand-400: oklch(68.0% 0.0700 58.0);
+    --brand-300: oklch(76.0% 0.0560 60.0);
+    --brand-200: oklch(85.0% 0.0400 65.0);
+    --brand-100: oklch(90.0% 0.0300 70.0);
+    --brand-50:  oklch(95.0% 0.0150 70.0);
+    --neutral-950: oklch(12.0% 0.0100 55.0);
+    --neutral-900: oklch(22.0% 0.0120 55.0);
+    --neutral-800: oklch(32.0% 0.0100 55.0);
+    --neutral-700: oklch(42.0% 0.0100 55.0);
+    --neutral-600: oklch(52.0% 0.0100 55.0);
+    --neutral-500: oklch(62.0% 0.0100 55.0);
+    --neutral-400: oklch(72.0% 0.0100 55.0);
+    --neutral-300: oklch(82.0% 0.0080 55.0);
+    --neutral-200: oklch(90.0% 0.0060 55.0);
+    --neutral-100: oklch(95.0% 0.0040 55.0);
+    --neutral-50:  oklch(97.5% 0.0020 55.0);
+    --books-700: oklch(40.0% 0.1200 255.0);
+    --books-500: oklch(55.0% 0.1100 255.0);
+    --books-100: oklch(92.0% 0.0250 255.0);
+    --art-700: oklch(40.0% 0.0600 155.0);
+    --art-500: oklch(55.0% 0.0550 155.0);
+    --art-100: oklch(93.0% 0.0150 155.0);
+    --home-700: oklch(45.0% 0.1400 35.0);
+    --home-500: oklch(58.0% 0.1500 35.0);
+    --home-100: oklch(92.0% 0.0300 35.0);
+
+    /* ── MODULAR SCALE: Perfect Fourth (4:3 = 1.333) ── */
+    /* Base: 1rem = 16px. Using Utopia-style fluid clamp(). */
+    /* At 360px viewport: ratio 1.25 (major third — tighter) */
+    /* At 1440px viewport: ratio 1.333 (perfect fourth — open) */
+    /* This means headings grow FASTER than body text as viewport widens */
+    --step--2: clamp(0.6944rem, 0.6546rem + 0.1988vi, 0.7502rem);
+    --step--1: clamp(0.8333rem, 0.7693rem + 0.3205vi, 1.0003rem);
+    --step-0:  clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
+    --step-1:  clamp(1.2rem, 1.0534rem + 0.7331vi, 1.7783rem);
+    --step-2:  clamp(1.44rem, 1.2266rem + 1.0672vi, 2.3706rem);
+    --step-3:  clamp(1.728rem, 1.4226rem + 1.5268vi, 3.1605rem);
+    --step-4:  clamp(2.0736rem, 1.6425rem + 2.1555vi, 4.2132rem);
+    --step-5:  clamp(2.4883rem, 1.8869rem + 3.0073vi, 5.6172rem);
+
+    /* Spacing scale */
+    --space-3xs: clamp(0.25rem, 0.2rem + 0.13vi, 0.3334rem);
+    --space-2xs: clamp(0.5rem, 0.4508rem + 0.2462vi, 0.6669rem);
+    --space-xs:  clamp(0.75rem, 0.6508rem + 0.4962vi, 1.0003rem);
+    --space-s:   clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
+    --space-m:   clamp(1.5rem, 1.3523rem + 0.7385vi, 2.0006rem);
+    --space-l:   clamp(2rem, 1.8030rem + 0.9848vi, 2.6674rem);
+    --space-xl:  clamp(3rem, 2.7045rem + 1.4773vi, 4.0011rem);
+    --space-2xl: clamp(4rem, 3.6061rem + 1.9697vi, 5.3348rem);
+    --space-3xl: clamp(6rem, 5.4091rem + 2.9545vi, 8.0022rem);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--neutral-50);
+    color: var(--neutral-950);
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    background: var(--brand-950);
+    color: var(--brand-50);
+    padding: var(--space-2xl) var(--space-xl) var(--space-xl);
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      var(--brand-700) 0%, var(--brand-400) 33%,
+      var(--books-500) 50%, var(--art-500) 67%,
+      var(--home-500) 100%);
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: var(--step-4);
+    font-weight: 800;
+    font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 144;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: var(--space-xs);
+  }
+  .hero .subtitle {
+    font-family: 'Newsreader', serif;
+    font-size: var(--step-0);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--brand-300);
+    max-width: 60ch;
+    line-height: 1.5;
+  }
+  .hero .tag-row {
+    display: flex;
+    gap: 8px;
+    margin-top: var(--space-s);
+    flex-wrap: wrap;
+  }
+  .hero .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border: 1px solid var(--brand-700);
+    border-radius: 3px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--brand-400);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-l);
+  }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--neutral-500);
+    margin-bottom: 6px;
+  }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: var(--step-2);
+    font-weight: 700;
+    font-variation-settings: 'SOFT' 30, 'WONK' 1, 'opsz' 72;
+    color: var(--brand-800);
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .section-desc {
+    font-family: 'Literata', serif;
+    font-size: var(--step-0);
+    font-variation-settings: 'opsz' 14;
+    color: var(--neutral-700);
+    max-width: 60ch;
+    margin-bottom: var(--space-l);
+    line-height: 1.65;
+  }
+
+  .divider {
+    border: none;
+    height: 1px;
+    background: var(--neutral-200);
+    margin: var(--space-xl) 0;
+  }
+
+  /* ── THE PITCH: Three fonts, three roles ── */
+  .pitch-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-m);
+    margin: var(--space-l) 0;
+  }
+
+  .pitch-card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px oklch(0% 0 0 / 0.06), 0 4px 16px oklch(0% 0 0 / 0.03);
+  }
+  .pitch-card .card-head {
+    padding: var(--space-m) var(--space-s);
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .pitch-card .role {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 6px;
+    opacity: 0.7;
+  }
+  .pitch-card .font-name {
+    font-size: var(--step-2);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  .pitch-card .font-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    margin-top: 6px;
+    opacity: 0.65;
+  }
+  .pitch-card .card-body {
+    padding: var(--space-s);
+  }
+  .pitch-card .card-body p {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: var(--neutral-800);
+    margin-bottom: 8px;
+  }
+  .pitch-card .card-body p:last-child { margin-bottom: 0; }
+  .pitch-card .card-body strong { color: var(--neutral-950); }
+  .pitch-card .card-body code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8em;
+    background: var(--brand-100);
+    padding: 1px 4px;
+    border-radius: 2px;
+    color: var(--brand-800);
+  }
+
+  /* ── SCALE SPECIMEN ── */
+  .scale-specimen {
+    margin: var(--space-l) 0;
+  }
+  .scale-step {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    align-items: baseline;
+    gap: var(--space-s);
+    margin-bottom: var(--space-xs);
+    border-bottom: 1px solid var(--neutral-100);
+    padding-bottom: var(--space-xs);
+  }
+  .scale-step:last-child { border-bottom: none; }
+  .scale-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--neutral-500);
+    line-height: 1.4;
+  }
+  .scale-meta .step-name {
+    color: var(--neutral-700);
+    font-weight: 500;
+  }
+
+  /* ── SITE PERSONALITY DEMOS ── */
+  .site-demo {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: var(--space-l);
+    box-shadow: 0 2px 8px oklch(0% 0 0 / 0.06), 0 8px 32px oklch(0% 0 0 / 0.04);
+  }
+  .site-demo .demo-bar {
+    padding: 10px var(--space-s);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .site-demo .demo-bar .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .site-demo .demo-bar .url {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    opacity: 0.6;
+    margin-left: 8px;
+  }
+  .site-demo .demo-content {
+    padding: var(--space-l) var(--space-l) var(--space-xl);
+  }
+
+  /* ── NOTES CARD ── */
+  .notes {
+    background: var(--brand-50);
+    border: 1px solid var(--brand-200);
+    border-radius: 8px;
+    padding: var(--space-m) var(--space-l);
+  }
+  .notes h3 {
+    font-family: 'Fraunces', serif;
+    font-size: var(--step-1);
+    font-variation-settings: 'SOFT' 30, 'WONK' 0, 'opsz' 36;
+    color: var(--brand-800);
+    margin-bottom: var(--space-xs);
+  }
+  .notes p {
+    font-family: 'Literata', serif;
+    color: var(--neutral-800);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    margin-bottom: var(--space-xs);
+    max-width: 65ch;
+  }
+  .notes p:last-child { margin-bottom: 0; }
+  .notes code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82em;
+    background: var(--brand-100);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--brand-800);
+  }
+  .notes em { color: var(--brand-600); }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-m) 0;
+    font-size: 0.85rem;
+  }
+  .compare-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--neutral-600);
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--neutral-200);
+    font-weight: 500;
+  }
+  .compare-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--neutral-100);
+    color: var(--neutral-800);
+    vertical-align: top;
+  }
+  .compare-table td:first-child {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--neutral-600);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 800px) {
+    .pitch-grid { grid-template-columns: 1fr; }
+    .scale-step { grid-template-columns: 80px 1fr; }
+    .container { padding: var(--space-l) var(--space-s); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="hero">
+  <h1>The Type System</h1>
+  <p class="subtitle">Three typefaces, three roles, one mathematical skeleton. A type stack for Cowboys & Beans that honours tradition, exploits variable font technology, and scales fluidly from phone to ultrawide.</p>
+  <div class="tag-row">
+    <span class="tag">Fraunces · Literata · IBM Plex Mono</span>
+    <span class="tag">Perfect Fourth scale (4:3)</span>
+    <span class="tag">Utopia fluid interpolation</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- THE THREE TYPEFACES -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section-label">The Stack</div>
+<h2>Three Voices, One Ensemble</h2>
+<p class="section-desc">Each typeface was chosen for a specific role in the hierarchy and for properties that serve the C&B brand. No defaults, no usual suspects. Every choice has a reason.</p>
+
+<div class="pitch-grid">
+  <!-- FRAUNCES -->
+  <div class="pitch-card">
+    <div class="card-head" style="background: var(--brand-950); color: var(--brand-100);">
+      <div class="role" style="color: var(--brand-400);">Display & Headlines</div>
+      <div class="font-name" style="font-family: 'Fraunces', serif; font-weight: 800; font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 72;">Fraunces</div>
+      <div class="font-meta" style="color: var(--brand-400);">4 axes · Wonk · Softness · Optical · Weight</div>
+    </div>
+    <div class="card-body" style="background: var(--brand-50);">
+      <p><strong>Why Fraunces?</strong> It's a soft-serif inspired by early 20th-century display faces — Windsor, Souvenir, Cooper — but rebuilt with variable font technology that would make Bringhurst weep with joy.</p>
+      <p>Four variable axes: <code>WONK</code> toggles the playful leaning characters (the tilted n/m/h that give it personality). <code>SOFT</code> dials the ink softness from sharp to rounded. <code>opsz</code> adjusts for optical size. <code>wght</code> spans Thin to Black.</p>
+      <p><strong>The C&B connection:</strong> The hand-painted warmth of your cowboy hat illustration lives in the same aesthetic territory as Fraunces's soft-serif forms. It's characterful without being kitschy. Western-adjacent without being a "western font."</p>
+    </div>
+  </div>
+
+  <!-- LITERATA -->
+  <div class="pitch-card">
+    <div class="card-head" style="background: var(--neutral-100); color: var(--neutral-950); border-bottom: 1px solid var(--neutral-200);">
+      <div class="role" style="color: var(--neutral-600);">Body Text & Long-form</div>
+      <div class="font-name" style="font-family: 'Literata', serif; font-weight: 400; font-variation-settings: 'opsz' 14;">Literata</div>
+      <div class="font-meta" style="color: var(--neutral-500);">Variable · Optical size · Weight · OFL</div>
+    </div>
+    <div class="card-body" style="background: var(--neutral-50);">
+      <p><strong>Why Literata?</strong> Designed by TypeTogether as the custom typeface for Google Play Books — literally engineered for reading books on screens. Scotch Roman roots with modern screen optimisation.</p>
+      <p>Its optical size axis adjusts stroke contrast, x-height, and spacing automatically — <code>opsz: 72</code> for headlines is elegant and high-contrast; <code>opsz: 10</code> for captions is sturdy and open. One variable font file replaces what would be 15+ static files.</p>
+      <p><strong>The C&B connection:</strong> For a publishing house, your body text IS your product. Literata reads beautifully for exactly the use case you need: book descriptions, author bios, chapter excerpts. It has the gravitas of Baskerville without its screen-rendering limitations.</p>
+    </div>
+  </div>
+
+  <!-- IBM PLEX MONO -->
+  <div class="pitch-card">
+    <div class="card-head" style="background: var(--neutral-900); color: var(--neutral-100);">
+      <div class="role" style="color: var(--neutral-400);">UI, Captions & System</div>
+      <div class="font-name" style="font-family: 'IBM Plex Mono', monospace; font-weight: 400;">IBM Plex Mono</div>
+      <div class="font-meta" style="color: var(--neutral-400);">Monospace · 6 weights · OFL</div>
+    </div>
+    <div class="card-body" style="background: var(--neutral-50);">
+      <p><strong>Why Plex Mono?</strong> A monospace that balances technical precision with human warmth — the rounded dots and open counters keep it from feeling robotic. It's the typographic equivalent of your engineer-artist duality.</p>
+      <p>Used for: metadata, dates, ISBNs, price tags, navigation labels, code snippets, form labels, captions. Everything that's <em>functional</em> rather than <em>editorial</em>. The mono width creates natural alignment in lists and data.</p>
+      <p><strong>The C&B connection:</strong> A monospace third voice adds the systematic, engineered layer. It signals "this is a considered, well-built thing" — which is exactly what your design system approach communicates.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- THE MODULAR SCALE -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section-label">The Scale</div>
+<h2>Perfect Fourth · 4:3 · 1.333</h2>
+<p class="section-desc">Every font size is generated by multiplying the base (1rem) by powers of 4/3 — the same ratio as the musical interval of a perfect fourth. As Tim Brown showed, these ratios produce typographic harmony for the same mathematical reason they produce auditory harmony. This scale is fluid: at narrow viewports it tightens to a major third (1.25); at wide viewports it opens to the full perfect fourth.</p>
+
+<div class="scale-specimen">
+  <div class="scale-step">
+    <div class="scale-meta"><span class="step-name">step 5</span><br>Display</div>
+    <div style="font-family: 'Fraunces', serif; font-size: var(--step-5); font-weight: 800; font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 144; line-height: 1.05; color: var(--brand-800);">Cowboys</div>
+  </div>
+  <div class="scale-step">
+    <div class="scale-meta"><span class="step-name">step 4</span><br>Hero heading</div>
+    <div style="font-family: 'Fraunces', serif; font-size: var(--step-4); font-weight: 700; font-variation-settings: 'SOFT' 40, 'WONK' 1, 'opsz' 96; line-height: 1.1; color: var(--brand-800);">& Beans Publishing</div>
+  </div>
+  <div class="scale-step">
+    <div class="scale-meta"><span class="step-name">step 3</span><br>Section heading</div>
+    <div style="font-family: 'Fraunces', serif; font-size: var(--step-3); font-weight: 600; font-variation-settings: 'SOFT' 30, 'WONK' 1, 'opsz' 72; line-height: 1.15; color: var(--neutral-950);">The Weight of Stars</div>
+  </div>
+  <div class="scale-step">
+    <div class="scale-meta"><span class="step-name">step 2</span><br>Subsection</div>
+    <div style="font-family: 'Fraunces', serif; font-size: var(--step-2); font-weight: 600; font-variation-settings: 'SOFT' 20, 'WONK' 0, 'opsz' 48; line-height: 1.2; color: var(--neutral-950);">A Novel of First Contact</div>
+  </div>
+  <div class="scale-step">
+    <div class="scale-meta"><span class="step-name">step 1</span><br>Lead / large body</div>
+    <div style="font-family: 'Literata', serif; font-size: var(--step-1); font-variation-settings: 'opsz' 20; font-weight: 400; line-height: 1.45; color: var(--neutral-800); max-width: 60ch;">The ship had been falling for eleven years before anyone on board realised it was also arriving.</div>
+  </div>
+  <div class="scale-step">
+    <div class="scale-meta"><span class="step-name">step 0</span><br>Body text</div>
+    <div style="font-family: 'Literata', serif; font-size: var(--step-0); font-variation-settings: 'opsz' 14; font-weight: 400; line-height: 1.65; color: var(--neutral-800); max-width: 60ch;">There was a particular quality to the light in the observation deck that Dr. Kaur had never found words for — not in English, not in Punjabi, not in the mathematical notation she preferred. It existed only in the grammar of photons scattered through seventeen metres of engineered atmosphere, filtered by the triple-layered viewport that separated human air from vacuum.</div>
+  </div>
+  <div class="scale-step">
+    <div class="scale-meta"><span class="step-name">step −1</span><br>Small / caption</div>
+    <div style="font-family: 'Literata', serif; font-size: var(--step--1); font-variation-settings: 'opsz' 10; font-weight: 400; line-height: 1.55; color: var(--neutral-700); max-width: 60ch;">Cover illustration by House Artist · Cowboys & Beans Publishing, 2026 · First Edition · ISBN 978-0-000000-00-0</div>
+  </div>
+  <div class="scale-step">
+    <div class="scale-meta"><span class="step-name">step −2</span><br>Micro / meta</div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: var(--step--2); font-weight: 400; line-height: 1.5; color: var(--neutral-600);">PUBLISHED 2026-03-15 · GENRE: SCIENCE FICTION · 384 PAGES · HARDCOVER + EBOOK</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- PER-SITE PERSONALITY -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section-label">Per-Site Expression</div>
+<h2>Same Instruments, Different Music</h2>
+<p class="section-desc">Each site uses the same three typefaces and the same scale but emphasises different weights, optical sizes, and axis settings to create its own voice.</p>
+
+<!-- BOOKS SITE -->
+<div class="site-demo">
+  <div class="demo-bar" style="background: var(--neutral-200);">
+    <div class="dot" style="background: oklch(65% 0.18 15);"></div>
+    <div class="dot" style="background: oklch(80% 0.15 85);"></div>
+    <div class="dot" style="background: oklch(70% 0.12 145);"></div>
+    <span class="url">books.cnbb.pub</span>
+  </div>
+  <div class="demo-content" style="background: var(--brand-50);">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--books-500); margin-bottom: 4px;">New Release · Science Fiction</div>
+    <div style="font-family: 'Fraunces', serif; font-size: var(--step-3); font-weight: 700; font-variation-settings: 'SOFT' 20, 'WONK' 0, 'opsz' 72; line-height: 1.15; color: var(--neutral-950); margin-bottom: 8px;">The Weight of Stars</div>
+    <div style="font-family: 'Literata', serif; font-size: var(--step-0); font-style: italic; font-variation-settings: 'opsz' 16; color: var(--neutral-700); margin-bottom: var(--space-s);">A story of first contact, told in the language of physics and the silence between words.</div>
+    <div style="font-family: 'Literata', serif; font-size: var(--step-0); font-variation-settings: 'opsz' 14; line-height: 1.7; color: var(--neutral-800); max-width: 60ch; margin-bottom: var(--space-m);">
+      Eleven years into a mission that was supposed to take eight, the research vessel <em>Apsara</em> receives a signal that isn't a signal. It doesn't repeat. It doesn't fade. It simply <em>is</em> — a standing wave in the fabric of local spacetime that seems to have been waiting for someone to notice.
+    </div>
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <span style="display: inline-block; padding: 10px 24px; background: var(--books-700); color: var(--books-100); font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em; border-radius: 4px;">PRE-ORDER</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--neutral-500);">Available June 2026 · $27.95 hardcover</span>
+    </div>
+  </div>
+</div>
+
+<!-- ART SITE -->
+<div class="site-demo">
+  <div class="demo-bar" style="background: var(--neutral-200);">
+    <div class="dot" style="background: oklch(65% 0.18 15);"></div>
+    <div class="dot" style="background: oklch(80% 0.15 85);"></div>
+    <div class="dot" style="background: oklch(70% 0.12 145);"></div>
+    <span class="url">art.cnbb.pub</span>
+  </div>
+  <div class="demo-content" style="background: var(--neutral-50);">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--neutral-500); margin-bottom: var(--space-m);">Gallery</div>
+    <div style="font-family: 'Fraunces', serif; font-size: var(--step-4); font-weight: 300; font-variation-settings: 'SOFT' 70, 'WONK' 0, 'opsz' 96; line-height: 1.1; color: var(--neutral-950); margin-bottom: 6px;">House Artist Name</div>
+    <div style="font-family: 'Literata', serif; font-size: var(--step--1); font-variation-settings: 'opsz' 10; color: var(--neutral-600); margin-bottom: var(--space-l); letter-spacing: 0.02em;">Traditional Drawing & Painting</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; margin-bottom: var(--space-m);">
+      <div style="aspect-ratio: 3/4; background: var(--neutral-200); border-radius: 2px;"></div>
+      <div style="aspect-ratio: 3/4; background: var(--neutral-300); border-radius: 2px;"></div>
+      <div style="aspect-ratio: 3/4; background: var(--neutral-200); border-radius: 2px;"></div>
+    </div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--neutral-500);">
+      <em style="font-family: 'Literata', serif; font-size: 0.8rem; color: var(--neutral-700);">Untitled (Study in Ochre)</em> · 2025 · Graphite and ink on paper · 18 × 24 in
+    </div>
+  </div>
+</div>
+
+<!-- PARENT SITE -->
+<div class="site-demo">
+  <div class="demo-bar" style="background: var(--neutral-200);">
+    <div class="dot" style="background: oklch(65% 0.18 15);"></div>
+    <div class="dot" style="background: oklch(80% 0.15 85);"></div>
+    <div class="dot" style="background: oklch(70% 0.12 145);"></div>
+    <span class="url">cnbb.pub</span>
+  </div>
+  <div class="demo-content" style="background: var(--brand-950); color: var(--brand-50);">
+    <div style="font-family: 'Fraunces', serif; font-size: var(--step-5); font-weight: 900; font-variation-settings: 'SOFT' 60, 'WONK' 1, 'opsz' 144; line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 8px;">
+      <span style="color: var(--brand-300);">Cowboys</span>
+      <span style="color: var(--home-500);">&</span>
+      <span style="color: var(--brand-300);">Beans</span>
+    </div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--brand-500); margin-bottom: var(--space-l);">Art · Books · Film · Music</div>
+    <div style="font-family: 'Literata', serif; font-size: var(--step-1); font-variation-settings: 'opsz' 20; font-weight: 300; line-height: 1.55; color: var(--brand-200); max-width: 50ch;">
+      A small, independent publishing and arts collective based in southern Minnesota. We make things with care.
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- HOW FRAUNCES ADAPTS -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section-label">Variable Axes in Practice</div>
+<h2>Fraunces Across the Sites</h2>
+<p class="section-desc">The same typeface, tuned differently per context. This is where variable fonts earn their keep — not just weight variation but genuine personality adjustment via the SOFT and WONK axes.</p>
+
+<table class="compare-table">
+  <thead>
+    <tr>
+      <th>Context</th>
+      <th>Weight</th>
+      <th>SOFT</th>
+      <th>WONK</th>
+      <th>opsz</th>
+      <th>Character</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>books — heading</td>
+      <td style="font-family: 'Fraunces', serif; font-weight: 700; font-variation-settings: 'SOFT' 20, 'WONK' 0, 'opsz' 72;">700 · The Weight of Stars</td>
+      <td>20</td><td>0</td><td>72</td>
+      <td style="font-family: 'Literata', serif; font-size: 0.8rem; color: var(--neutral-600);">Sharp, no wonk. Editorial precision. The Typographer.</td>
+    </tr>
+    <tr>
+      <td>art — artist name</td>
+      <td style="font-family: 'Fraunces', serif; font-weight: 300; font-variation-settings: 'SOFT' 70, 'WONK' 0, 'opsz' 96;">300 · Artist Name</td>
+      <td>70</td><td>0</td><td>96</td>
+      <td style="font-family: 'Literata', serif; font-size: 0.8rem; color: var(--neutral-600);">Light, soft, airy. Recessive. The Gallerist.</td>
+    </tr>
+    <tr>
+      <td>home — brand</td>
+      <td style="font-family: 'Fraunces', serif; font-weight: 900; font-variation-settings: 'SOFT' 60, 'WONK' 1, 'opsz' 144;">900 · Cowboys & Beans</td>
+      <td>60</td><td>1</td><td>144</td>
+      <td style="font-family: 'Literata', serif; font-size: 0.8rem; color: var(--neutral-600);">Heavy, soft, WONKY. Full personality. The Storyteller.</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ALTERNATIVE CONSIDERED: Newsreader -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="section-label">Alternative Considered</div>
+<h2 style="font-family: 'Newsreader', serif; font-variation-settings: 'opsz' 48; font-weight: 700;">Newsreader — The Road Not Taken (Yet)</h2>
+<p class="section-desc">Production Type's Newsreader was a strong contender for body text. It's also a variable font with optical sizing, designed for long-form reading. Where Literata draws on Scotch Roman tradition, Newsreader channels transitional old-style — more kinetic, more editorial. I've loaded it here so you can compare:</p>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-m); margin: var(--space-m) 0;">
+  <div style="padding: var(--space-s); background: var(--brand-50); border-radius: 6px;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--neutral-500); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.1em;">Literata (recommended)</div>
+    <p style="font-family: 'Literata', serif; font-size: var(--step-0); font-variation-settings: 'opsz' 14; line-height: 1.7; color: var(--neutral-800);">The ship had been falling for eleven years before anyone on board realised it was also arriving. Dr. Kaur watched the instruments with the particular stillness of someone who has just understood that everything they believed was wrong in the most beautiful possible way.</p>
+  </div>
+  <div style="padding: var(--space-s); background: var(--brand-50); border-radius: 6px;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--neutral-500); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.1em;">Newsreader (alternative)</div>
+    <p style="font-family: 'Newsreader', serif; font-size: var(--step-0); font-variation-settings: 'opsz' 14; line-height: 1.7; color: var(--neutral-800);">The ship had been falling for eleven years before anyone on board realised it was also arriving. Dr. Kaur watched the instruments with the particular stillness of someone who has just understood that everything they believed was wrong in the most beautiful possible way.</p>
+  </div>
+</div>
+
+<div class="notes" style="margin-top: var(--space-m);">
+  <h3>My Recommendation & Your Call</h3>
+  <p><strong>Literata</strong> gets my recommendation because it was purpose-built for exactly our use case — a publishing platform where people read book descriptions, excerpts, and long-form content on screens. Its Scotch Roman roots give it warmth and presence without the editorial urgency of Newsreader. For a publisher's site, Literata says "sit down and read"; Newsreader says "here's what happened today."</p>
+  <p>That said, <strong>Newsreader</strong> has gorgeous italics and could work brilliantly if you prefer a slightly more kinetic, less bookish feel. Both are free, both are variable, both have optical sizing. You could even use Newsreader for the art site's captions (where the editorial energy fits) and Literata for the books site (where the reading quality matters most) — though that adds complexity.</p>
+  <p><strong>Fraunces</strong> I feel quite strongly about. No other free variable font gives you this combination of display personality, axis-driven adaptability, and warm-serif character that matches your brand. The WONK axis alone — the ability to dial personality up for the parent site and off for the books site — is worth the entire selection.</p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- MATHEMATICAL RATIONALE -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="notes">
+  <h3>The Mathematics Behind the Scale</h3>
+  <p>The perfect fourth ratio (4:3 = 1.333…) generates this sequence when applied to a 1rem base: 1.000, 1.333, 1.777, 2.369, 3.157, 4.209. Each step is <code>base × ratio^n</code>. The negative steps are <code>base × ratio^(-n)</code>: 0.750, 0.563.</p>
+  <p>Why perfect fourth rather than, say, golden ratio (1.618)? The golden ratio produces too much contrast between adjacent steps for body text — the jump from step 0 to step 1 is 62%, which makes it hard to create subtle hierarchies. The perfect fourth's 33% jump is assertive enough for clear hierarchy but gentle enough for nuanced intermediate levels. For reference: <em>major second</em> (1.125) is too flat; <em>perfect fifth</em> (1.500) is too dramatic for most web work; <em>major third</em> (1.250) is the safe choice. We chose one step bolder.</p>
+  <p>The fluid interpolation uses <code>clamp(min, preferred, max)</code> where the preferred value is a linear function of <code>vi</code> (viewport inline size). At 360px the effective ratio is 1.25 (major third); at 1440px it's 1.333 (perfect fourth). This means headings grow proportionally faster than body text as the viewport widens — Bringhurst's principle that display type needs more air, and text type needs more density, implemented in pure CSS mathematics.</p>
+  <p>Weber-Fechner tells us why this matters: just-noticeable differences in size are proportional to the size itself (ΔI/I = k). A geometric scale with ratio r means each step is <em>equally noticeable</em> — the perceived difference between step 0→1 is the same as step 3→4. An arithmetic scale (adding, say, 4px each step) would make large sizes feel compressed and small sizes feel spread out.</p>
+</div>
+
+</div>
+
+</body>
+</html>

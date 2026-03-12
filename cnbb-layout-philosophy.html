@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cowboys & Beans — The Layout Philosophy</title>
+
+<!-- THE TYPE STACK -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    /* Brand colours from the C&B palette system */
+    --brand-950: oklch(15.0% 0.0400 50.0);
+    --brand-900: oklch(25.0% 0.0650 50.0);
+    --brand-800: oklch(35.0% 0.0850 48.0);
+    --brand-700: oklch(45.0% 0.1100 47.0);
+    --brand-600: oklch(53.0% 0.1000 50.0);
+    --brand-500: oklch(60.0% 0.0850 53.0);
+    --brand-400: oklch(68.0% 0.0700 58.0);
+    --brand-300: oklch(76.0% 0.0560 60.0);
+    --brand-200: oklch(85.0% 0.0400 65.0);
+    --brand-100: oklch(90.0% 0.0300 70.0);
+    --brand-50:  oklch(95.0% 0.0150 70.0);
+    --neutral-950: oklch(12.0% 0.0100 55.0);
+    --neutral-900: oklch(22.0% 0.0120 55.0);
+    --neutral-800: oklch(32.0% 0.0100 55.0);
+    --neutral-700: oklch(42.0% 0.0100 55.0);
+    --neutral-600: oklch(52.0% 0.0100 55.0);
+    --neutral-500: oklch(62.0% 0.0100 55.0);
+    --neutral-400: oklch(72.0% 0.0100 55.0);
+    --neutral-300: oklch(82.0% 0.0080 55.0);
+    --neutral-200: oklch(90.0% 0.0060 55.0);
+    --neutral-100: oklch(95.0% 0.0040 55.0);
+    --neutral-50:  oklch(97.5% 0.0020 55.0);
+    --books-700: oklch(40.0% 0.1200 255.0);
+    --books-500: oklch(55.0% 0.1100 255.0);
+    --books-300: oklch(75.0% 0.0700 255.0);
+    --books-100: oklch(92.0% 0.0250 255.0);
+    --art-700: oklch(40.0% 0.0600 155.0);
+    --art-500: oklch(55.0% 0.0550 155.0);
+    --art-300: oklch(78.0% 0.0350 155.0);
+    --art-100: oklch(93.0% 0.0150 155.0);
+    --home-700: oklch(45.0% 0.1400 35.0);
+    --home-500: oklch(58.0% 0.1500 35.0);
+    --home-300: oklch(75.0% 0.0900 35.0);
+    --home-100: oklch(92.0% 0.0300 35.0);
+
+    /* Utopia fluid type scale: Perfect Fourth (4:3 = 1.333) */
+    --step--2: clamp(0.6944rem, 0.6546rem + 0.1988vi, 0.7502rem);
+    --step--1: clamp(0.8333rem, 0.7693rem + 0.3205vi, 1.0003rem);
+    --step-0:  clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
+    --step-1:  clamp(1.2rem, 1.0534rem + 0.7331vi, 1.7783rem);
+    --step-2:  clamp(1.44rem, 1.2266rem + 1.0672vi, 2.3706rem);
+    --step-3:  clamp(1.728rem, 1.4226rem + 1.5268vi, 3.1605rem);
+    --step-4:  clamp(2.0736rem, 1.6425rem + 2.1555vi, 4.2132rem);
+    --step-5:  clamp(2.4883rem, 1.8869rem + 3.0073vi, 5.6172rem);
+
+    /* Utopia fluid space scale */
+    --space-3xs: clamp(0.25rem, 0.2rem + 0.13vi, 0.3334rem);
+    --space-2xs: clamp(0.5rem, 0.4508rem + 0.2462vi, 0.6669rem);
+    --space-xs:  clamp(0.75rem, 0.6508rem + 0.4962vi, 1.0003rem);
+    --space-s:   clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
+    --space-m:   clamp(1.5rem, 1.3523rem + 0.7385vi, 2.0006rem);
+    --space-l:   clamp(2rem, 1.8030rem + 0.9848vi, 2.6674rem);
+    --space-xl:  clamp(3rem, 2.7045rem + 1.4773vi, 4.0011rem);
+    --space-2xl: clamp(4rem, 3.6061rem + 1.9697vi, 5.3348rem);
+    --space-3xl: clamp(6rem, 5.4091rem + 2.9545vi, 8.0022rem);
+
+    /* Space pairs (one-up) for steeper fluid interpolation */
+    --space-s-m:  clamp(1rem, 0.7523rem + 1.2385vi, 2.0006rem);
+    --space-m-l:  clamp(1.5rem, 1.2030rem + 1.4848vi, 2.6674rem);
+    --space-l-xl: clamp(2rem, 1.5045rem + 2.4773vi, 4.0011rem);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--neutral-50);
+    color: var(--neutral-950);
+    line-height: 1.6;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--brand-950);
+    color: var(--brand-50);
+    padding: var(--space-3xl) var(--space-xl) var(--space-xl);
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+      var(--brand-700) 0%, var(--brand-400) 33%,
+      var(--books-500) 50%, var(--art-500) 67%,
+      var(--home-500) 100%);
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: var(--step-5);
+    font-weight: 800;
+    font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 144;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin-bottom: var(--space-xs);
+    max-width: 20ch;
+  }
+  .hero .subtitle {
+    font-family: 'Newsreader', serif;
+    font-size: var(--step-1);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--brand-300);
+    max-width: 50ch;
+    line-height: 1.45;
+  }
+  .hero .tag-row {
+    display: flex;
+    gap: 8px;
+    margin-top: var(--space-s);
+    flex-wrap: wrap;
+  }
+  .hero .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border: 1px solid var(--brand-700);
+    border-radius: 3px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--brand-400);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-l);
+  }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--neutral-500);
+    margin-bottom: 6px;
+  }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: var(--step-3);
+    font-weight: 700;
+    font-variation-settings: 'SOFT' 30, 'WONK' 1, 'opsz' 72;
+    color: var(--brand-800);
+    margin-bottom: var(--space-2xs);
+    line-height: 1.15;
+  }
+
+  h3 {
+    font-family: 'Fraunces', serif;
+    font-size: var(--step-2);
+    font-weight: 600;
+    font-variation-settings: 'SOFT' 30, 'WONK' 0, 'opsz' 48;
+    color: var(--brand-700);
+    margin-bottom: var(--space-2xs);
+    line-height: 1.2;
+  }
+
+  h4 {
+    font-family: 'Fraunces', serif;
+    font-size: var(--step-1);
+    font-weight: 600;
+    font-variation-settings: 'SOFT' 20, 'WONK' 0, 'opsz' 36;
+    color: var(--neutral-800);
+    margin-bottom: var(--space-2xs);
+    line-height: 1.25;
+  }
+
+  .section-desc {
+    font-family: 'Literata', serif;
+    font-size: var(--step-0);
+    font-variation-settings: 'opsz' 14;
+    color: var(--neutral-700);
+    max-width: 60ch;
+    margin-bottom: var(--space-l);
+    line-height: 1.65;
+  }
+
+  .divider {
+    border: none;
+    height: 1px;
+    background: var(--neutral-200);
+    margin: var(--space-xl) 0;
+  }
+
+  /* ── PROSE ── */
+  .prose {
+    font-family: 'Literata', serif;
+    font-size: var(--step-0);
+    font-variation-settings: 'opsz' 14;
+    color: var(--neutral-800);
+    max-width: 65ch;
+    line-height: 1.72;
+  }
+  .prose p { margin-bottom: var(--space-s); }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose strong { color: var(--neutral-950); font-weight: 600; }
+  .prose em { color: var(--brand-600); font-style: italic; }
+  .prose code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.82em;
+    background: var(--brand-100);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--brand-800);
+  }
+
+  /* ── EPIGRAPH ── */
+  .epigraph {
+    border-left: 3px solid var(--brand-300);
+    padding: var(--space-xs) var(--space-m);
+    margin: var(--space-l) 0;
+    background: var(--brand-50);
+    border-radius: 0 6px 6px 0;
+  }
+  .epigraph blockquote {
+    font-family: 'Newsreader', serif;
+    font-size: var(--step-1);
+    font-style: italic;
+    color: var(--brand-800);
+    line-height: 1.5;
+    max-width: 50ch;
+  }
+  .epigraph .attr {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--neutral-500);
+    margin-top: var(--space-2xs);
+    letter-spacing: 0.02em;
+  }
+
+  /* ── PRINCIPLE CARDS ── */
+  .principle {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px oklch(0% 0 0 / 0.06), 0 4px 16px oklch(0% 0 0 / 0.03);
+    padding: var(--space-l);
+    margin-bottom: var(--space-l);
+    position: relative;
+    overflow: hidden;
+  }
+  .principle::before {
+    content: attr(data-number);
+    position: absolute;
+    top: -0.15em;
+    right: var(--space-s);
+    font-family: 'Fraunces', serif;
+    font-size: var(--step-5);
+    font-weight: 900;
+    font-variation-settings: 'SOFT' 100, 'WONK' 0, 'opsz' 144;
+    color: var(--brand-100);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+  .principle h3 {
+    position: relative;
+    z-index: 1;
+  }
+  .principle .prose {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── CONCEPT GRID ── */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: var(--space-m);
+    margin: var(--space-l) 0;
+  }
+  .concept-card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px oklch(0% 0 0 / 0.06), 0 4px 16px oklch(0% 0 0 / 0.03);
+  }
+  .concept-card .card-head {
+    padding: var(--space-s) var(--space-s) var(--space-xs);
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .concept-card .card-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 4px;
+    opacity: 0.7;
+  }
+  .concept-card .card-title {
+    font-family: 'Fraunces', serif;
+    font-size: var(--step-1);
+    font-weight: 700;
+    font-variation-settings: 'SOFT' 30, 'WONK' 1, 'opsz' 48;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  .concept-card .card-body {
+    padding: var(--space-s);
+  }
+  .concept-card .card-body p {
+    font-family: 'Literata', serif;
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: var(--neutral-800);
+    margin-bottom: 8px;
+  }
+  .concept-card .card-body p:last-child { margin-bottom: 0; }
+  .concept-card .card-body strong { color: var(--neutral-950); }
+  .concept-card .card-body code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8em;
+    background: var(--brand-100);
+    padding: 1px 4px;
+    border-radius: 2px;
+    color: var(--brand-800);
+  }
+
+  /* ── LAYER DIAGRAM ── */
+  .layer-stack {
+    margin: var(--space-l) 0;
+    max-width: 720px;
+  }
+  .layer {
+    padding: var(--space-s) var(--space-m);
+    border-left: 4px solid;
+    margin-bottom: 2px;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: var(--space-s);
+    align-items: baseline;
+  }
+  .layer .layer-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .layer .layer-desc {
+    font-family: 'Literata', serif;
+    font-size: 0.88rem;
+    color: var(--neutral-700);
+    line-height: 1.55;
+  }
+
+  /* ── CSS CODE BLOCKS ── */
+  .code-block {
+    background: var(--neutral-900);
+    color: var(--neutral-100);
+    border-radius: 6px;
+    padding: var(--space-s) var(--space-m);
+    margin: var(--space-m) 0;
+    overflow-x: auto;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 1.7;
+  }
+  .code-block .comment { color: var(--neutral-500); }
+  .code-block .prop { color: var(--brand-300); }
+  .code-block .val { color: var(--art-300); }
+  .code-block .sel { color: var(--home-300); }
+
+  /* ── NOTES ── */
+  .notes {
+    background: var(--brand-50);
+    border: 1px solid var(--brand-200);
+    border-radius: 8px;
+    padding: var(--space-m) var(--space-l);
+    margin: var(--space-l) 0;
+  }
+  .notes h4 {
+    color: var(--brand-800);
+    margin-bottom: var(--space-xs);
+  }
+  .notes .prose { color: var(--neutral-700); max-width: 60ch; }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-m) 0;
+    font-size: 0.85rem;
+  }
+  .compare-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--neutral-600);
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--neutral-200);
+    font-weight: 500;
+  }
+  .compare-table td {
+    font-family: 'Literata', serif;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--neutral-100);
+    color: var(--neutral-800);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .compare-table td:first-child {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--neutral-600);
+    white-space: nowrap;
+  }
+
+  /* ── ACCENT BLOCKS ── */
+  .accent-block {
+    border-radius: 8px;
+    padding: var(--space-m) var(--space-l);
+    margin: var(--space-l) 0;
+  }
+  .accent-block.books {
+    background: var(--books-100);
+    border: 1px solid var(--books-300);
+  }
+  .accent-block.books h4 { color: var(--books-700); }
+  .accent-block.art {
+    background: var(--art-100);
+    border: 1px solid var(--art-300);
+  }
+  .accent-block.art h4 { color: var(--art-700); }
+  .accent-block.home {
+    background: var(--home-100);
+    border: 1px solid var(--home-300);
+  }
+  .accent-block.home h4 { color: var(--home-700); }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    background: var(--brand-950);
+    color: var(--brand-400);
+    padding: var(--space-xl) var(--space-l);
+    margin-top: var(--space-3xl);
+  }
+  .doc-footer .container {
+    padding: 0;
+  }
+  .doc-footer p {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    line-height: 1.8;
+    max-width: 60ch;
+  }
+  .doc-footer a { color: var(--brand-300); }
+  .doc-footer .license {
+    margin-top: var(--space-s);
+    padding-top: var(--space-s);
+    border-top: 1px solid var(--brand-900);
+    font-size: 0.65rem;
+    color: var(--brand-600);
+  }
+
+  @media (max-width: 800px) {
+    .concept-grid { grid-template-columns: 1fr; }
+    .layer { grid-template-columns: 100px 1fr; }
+    .container { padding: var(--space-l) var(--space-s); }
+    .hero { padding: var(--space-2xl) var(--space-s) var(--space-l); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- HERO                                                          -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <h1>The Layout Philosophy</h1>
+  <p class="subtitle">On fluid composition, algorithmic restraint, and the art of letting the browser think. A unified layout design philosophy for Cowboys&nbsp;&amp;&nbsp;Beans projects.</p>
+  <div class="tag-row">
+    <span class="tag">Intrinsic Design</span>
+    <span class="tag">Every Layout · Utopia · CUBE CSS</span>
+    <span class="tag">CC0 — Public Domain</span>
+    <span class="tag">March 2026</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- PREAMBLE                                                      -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="section-label">Preamble</div>
+<h2>Why This Document Exists</h2>
+
+<div class="prose">
+  <p>This is the layout counterpart to the Cowboys &amp; Beans colour system, type system, and brand guidelines. Where those documents describe <em>what things look like</em>, this one describes <em>how things are arranged</em>&thinsp;—&thinsp;and, more importantly, <em>why</em>.</p>
+
+  <p>Most layout documentation tells you which CSS properties to use. This document does something different. It articulates a <strong>philosophy of spatial composition</strong> that can generate an infinite variety of layouts from a small set of principles&thinsp;—&thinsp;all of them consistent, all of them fluid, none of them requiring media-query breakpoints, and every one of them genuinely tailored to its content rather than stamped from a template.</p>
+
+  <p>The philosophy synthesises two bodies of work that represent the current state of the art in CSS layout thinking: <strong>Every Layout</strong> by Heydon Pickering and Andy Bell, which defines composable layout primitives; and <strong>Utopia</strong> by James Gilyead and Trys Mudford, which defines fluid responsive mathematics. It also draws from the Arts &amp; Crafts tradition, from Müller-Brockmann's grid systems, from Vignelli's systematic restraint, and from the C&amp;B engineering manifesto's conviction that good design is algebraic structure, not decorative intuition.</p>
+
+  <p>The goal is not to create a new set of constraints in which to bind ourselves. It is to provide the knowledge, the vocabulary, and the tools with which anyone can build the layout that <em>their</em> project needs&thinsp;—&thinsp;a layout that is beautiful, functional, and makes people want to stay and explore. And perhaps even inspires them to build their own.</p>
+</div>
+
+<div class="epigraph">
+  <blockquote>Think of yourself as the browser's mentor, rather than its micro-manager.</blockquote>
+  <div class="attr">— Heydon Pickering &amp; Andy Bell, Every Layout</div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- I. THE INTELLECTUAL FOUNDATIONS                                -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="section-label">Part I</div>
+<h2>The Intellectual Foundations</h2>
+<p class="section-desc">Two independent projects, arriving at the same truth from different directions. Understanding where they converge&thinsp;—&thinsp;and where each one picks up where the other leaves off&thinsp;—&thinsp;is the key to the whole system.</p>
+
+<h3>Every Layout: The Grammar of Spatial Relationships</h3>
+
+<div class="prose">
+  <p>Every Layout begins with a radical premise: <strong>the web is already responsive</strong>. Before any CSS is written, browsers know how to wrap text, scroll content, and fit boxes to their containers. The vast majority of layout problems arise not from CSS's limitations but from designers fighting its built-in algorithms&thinsp;—&thinsp;applying fixed widths where flexible ones would do, using pixel values where proportional ones would adapt, writing media queries to undo the damage of earlier rigid declarations.</p>
+
+  <p>The project's six "Rudiment" chapters build up a complete epistemology of CSS layout from first principles. It starts with <strong>Boxes</strong>&thinsp;—&thinsp;the insight that everything on the web occupies a rectangular region, and that the dimensions of that region should be <em>derived from content and context</em>, not prescribed. The crucial technical point is the difference between <code>width: 100%</code> (which prescribes a size and then adds padding on top of it) and <code>width: auto</code> (which lets the box fit its context naturally). This is not pedantry. It is the atomic distinction between fighting the browser and collaborating with it.</p>
+
+  <p>From Boxes, Every Layout moves to <strong>Composition</strong>&thinsp;—&thinsp;the explicit application of the Gang of Four software engineering principle "composition over inheritance" to CSS layout. Where a typical approach might create a bespoke <code>.dialog</code> class with dedicated styles for header, body, and footer, compositional thinking decomposes the same dialog into a Stack (for vertical spacing), a Box (for padding), a Cluster (for the button row), and a Center (for the content width). The dialog is not a thing to be styled; it is a <em>composition</em> of simpler things, each with a single, reusable responsibility.</p>
+
+  <p>The <strong>Units</strong> chapter makes the case against pixels with precision. The value of <code>1px</code> is not what it seems&thinsp;—&thinsp;it varies across devices, zoom levels, and display densities. More importantly, pixels create <em>no relationship</em> between the value and the content it measures. The <code>ch</code> unit, by contrast, is defined by the font's own geometry: <code>60ch</code> is always roughly 60 characters wide, regardless of font size or screen density. The <code>rem</code> unit anchors to the user's chosen root font size, respecting their accessibility preferences. The <code>em</code> unit creates local proportional relationships, so that a child element scales with its parent. Each unit encodes a <em>kind of relationship</em>, and choosing the right unit is choosing the right relationship.</p>
+
+  <p><strong>Global and local styling</strong> establishes a three-tier architecture: universal styles that pervade the entire document (set with the <code>*</code> selector and element selectors), layout primitives that compose spatial relationships (set with class selectors), and utility classes that provide targeted overrides. The insight is that CSS's cascade is not a bug to be worked around but a <em>feature to be exploited</em>&thinsp;—&thinsp;the most general rules should be the most pervasive, and exceptions should be layered on top with increasing specificity.</p>
+
+  <p>The <strong>Modular scale</strong> chapter introduces the mathematical foundation that Utopia will later make fluid. A modular scale generates values through repeated multiplication by a ratio&thinsp;—&thinsp;the same ratios used in musical intervals. A perfect fourth (4:3 = 1.333) produces steps of 1rem, 1.333rem, 1.777rem, 2.369rem. The relationships between these values are <em>proportional</em>, which is what human perception requires: Weber's Law tells us that we perceive differences as ratios, not as absolute distances.</p>
+
+  <p>Finally, <strong>Axioms</strong> introduces the most philosophically rich concept in the entire project: <em>designing by constraint rather than by artifact</em>. An axiom is a rule that pervades the system without exception&thinsp;—&thinsp;"the measure should never exceed 60ch," for instance. You don't manually apply this rule to each element; you write it once, as a universal style, and then <em>the browser enforces it everywhere</em>. The consequences that emerge from this axiom may surprise you&thinsp;—&thinsp;elements with larger font sizes will be physically wider, because <code>1ch</code> scales with font size&thinsp;—&thinsp;but those consequences are <em>sound</em>. They are your CSS doing exactly what you intended. Designing for the web, Pickering and Bell argue, is designing <em>without seeing</em>&thinsp;—&thinsp;writing programs that generate visual artefacts, rather than crafting the artefacts directly.</p>
+</div>
+
+<div class="epigraph">
+  <blockquote>Instead of telling browsers what to do, we allow browsers to make their own calculations, and draw their own conclusions, to best suit the user, their screen, and device.</blockquote>
+  <div class="attr">— Every Layout, "Boxes"</div>
+</div>
+
+<h3>Utopia: The Mathematics of Continuous Adaptation</h3>
+
+<div class="prose">
+  <p>Where Every Layout asks <em>how should things be arranged?</em>, Utopia asks <em>how large should things be?</em> And it answers with a single, elegant idea: define your design at two viewport sizes, and let the browser interpolate smoothly between them.</p>
+
+  <p>The origin story is instructive. James Gilyead, a designer at Clearleft, had grown frustrated with breakpoint-based typography. Every responsive design required specifying font sizes at three, four, or five breakpoints&thinsp;—&thinsp;a process that felt like "equal parts guesswork and compromise, where the better we want it to work, the more stuff we need to design." The insight that changed his practice was deceptively simple: instead of setting discrete sizes at discrete widths, define a <em>modular type scale</em> for small screens (say, 1.2 at 360px) and a different one for large screens (say, 1.25 at 1240px), then let each step in the scale interpolate linearly between the two endpoints. The result is a set of type sizes that is always proportionally harmonious&thinsp;—&thinsp;always "in tune with itself"&thinsp;—&thinsp;at every possible viewport width, not just the three or four you happened to design for.</p>
+
+  <p>The CSS mechanism is <code>clamp()</code>, which takes a minimum value, a preferred value (expressed as a linear function of viewport width), and a maximum value. But the power of Utopia is not in the CSS function itself&thinsp;—&thinsp;it is in the <em>system</em> that generates the <code>clamp()</code> declarations. Because both the minimum and maximum scales are modular (generated by repeated multiplication), the interpolated values at any viewport width are also modular. Headings grow <em>faster</em> than body text as the viewport widens, because they occupy higher steps in the scale, and higher steps have a greater absolute difference between their minimum and maximum values. This is not an accidental side effect; it is a mathematically necessary consequence of interpolating between two geometric progressions.</p>
+
+  <p>Trys Mudford, Utopia's developer co-creator, extended the same principle to <strong>spacing</strong>. The base spacing unit ("S") equals the base type size ("step 0"). From this origin, multipliers generate a palette of space tokens: 3XS, 2XS, XS, S, M, L, XL, 2XL, 3XL. Because they are built on the same fluid base, every space token is inherently responsive. But Utopia's masterstroke is <strong>space pairs</strong>&thinsp;—&thinsp;interpolations <em>between</em> two space tokens. Where an individual token like "M" grows modestly from mobile to desktop, a pair like "S→L" grows at a much steeper rate. This gives developers precise control over how aggressively different spacings scale, using a single custom property: <code>var(--space-s-l)</code> in one declaration instead of separate values at multiple breakpoints.</p>
+
+  <p>Utopia's most recent extension, the <strong>fluid layout grid</strong>, completes the system. The grid calculator generates column and gutter widths from the same space palette, so that the layout grid is mathematically entangled with the type and space system. Change the base font size, and the grid adjusts. Change the modular scale ratio, and every proportion in the system shifts in concert. Gilyead describes this as <em>declarative design</em>&thinsp;—&thinsp;"we describe some rules and let the browser interpret those rules according to its current situation."</p>
+</div>
+
+<div class="epigraph">
+  <blockquote>Instead of tightening our grip by loading up on breakpoints, we can let go, embracing the ebb and flow with a more fluid and systematic approach to our design foundations.</blockquote>
+  <div class="attr">— Utopia homepage</div>
+</div>
+
+<h3>Where They Meet: The Interface Between Composition and Scale</h3>
+
+<div class="prose">
+  <p>Every Layout and Utopia are solving different problems, and their overlap is narrow&thinsp;—&thinsp;but that narrow overlap is the joint at which the entire system connects.</p>
+
+  <p>Every Layout's primitives <em>consume</em> spacing values. The Stack needs a <code>space</code> property. The Cluster needs a <code>gap</code>. The Grid needs a gutter. But Every Layout is deliberately silent about where those values come from. Utopia <em>produces</em> spacing values&thinsp;—&thinsp;fluid tokens that interpolate continuously across viewports. The interface between the two systems is clean: Utopia provides the tokens, Every Layout consumes them. One decides <em>where things go</em>; the other decides <em>how big they are</em>.</p>
+
+  <p>The shared philosophical commitments run deeper than the technical interface. Both projects advocate: letting the browser resolve layout rather than prescribing it; using constraints and tolerances rather than fixed values; choosing CSS units that encode meaningful relationships; treating the web as a fluid medium rather than a collection of fixed canvases. Both projects were created by practitioners who had grown tired of fighting CSS and decided to <em>listen to it instead</em>.</p>
+
+  <p>This is the foundation upon which our layout philosophy is built.</p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- II. THE SEVEN PRECEPTS                                        -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="section-label">Part II</div>
+<h2>Seven Precepts for Fluid Composition</h2>
+<p class="section-desc">These precepts synthesise Every Layout's compositional thinking, Utopia's fluid mathematics, and the C&amp;B engineering manifesto's commitment to algebraic design into a single, coherent framework. They are not rules to follow but principles to internalise&thinsp;—&thinsp;once understood, they generate correct decisions automatically.</p>
+
+<div class="principle" data-number="I">
+  <h3>I. Suggest, Never Prescribe</h3>
+  <div class="prose">
+    <p>The single most important principle. Every fixed value in your CSS is a place where you have overridden the browser's judgment with your own. Sometimes this is necessary&thinsp;—&thinsp;a maximum measure of <code>60ch</code>, a minimum touch-target of <code>44px</code>&thinsp;—&thinsp;but the default posture should always be to <em>suggest</em> rather than prescribe. Use <code>min-</code>, <code>max-</code>, and <code>clamp()</code> instead of fixed values. Use <code>auto</code> instead of <code>100%</code>. Use <code>flex-basis</code> instead of <code>width</code>. Each of these is an invitation for the browser to make a contextually appropriate decision.</p>
+
+    <p>This is not laziness. It is recognition that the browser knows things you do not&thinsp;—&thinsp;the user's font size preferences, their zoom level, their screen dimensions, whether they are using a split-screen view, whether they have a notch or a toolbar. Your CSS should provide <em>constraints within which good outcomes are inevitable</em>, not blueprints that are correct in one context and broken in all others.</p>
+
+    <p><strong>The test:</strong> if you removed every media query from your stylesheet, would the layout still be usable? If not, your constraints are not yet well enough chosen.</p>
+  </div>
+</div>
+
+<div class="principle" data-number="II">
+  <h3>II. Compose, Never Inherit</h3>
+  <div class="prose">
+    <p>No layout should be designed as a monolithic component. Every layout is a composition of simpler, reusable primitives&thinsp;—&thinsp;Stacks for vertical flow, Boxes for padding, Centers for width constraints, Clusters for horizontal groups, Sidebars for main-plus-aside patterns, Switchers for responsive column-to-stack transitions, Covers for vertically centered content, Grids for repeating patterns, Frames for aspect-ratio-locked media, Reels for horizontal scrolling sequences.</p>
+
+    <p>These primitives have no semantic meaning in isolation. A Stack is not a "card body" or a "page section"&thinsp;—&thinsp;it is just vertical space between adjacent elements. Meaning emerges from <em>composition</em>: a card is a Box containing a Stack; a page header is a Cover containing a Center containing a Stack. By working with primitives, you guarantee that every spatial relationship in your system comes from a small, tested vocabulary. Inconsistency becomes structurally impossible.</p>
+
+    <p><strong>The test:</strong> can you describe any layout in your system as a composition of named primitives? If you need a word that is not a primitive name, you have either found a new primitive or you are thinking at the wrong level of abstraction.</p>
+  </div>
+</div>
+
+<div class="principle" data-number="III">
+  <h3>III. Let Dimensions Flow From Content</h3>
+  <div class="prose">
+    <p>The web is a content-driven medium. The width of a paragraph should be determined by its measure (in <code>ch</code> units). The height of a section should be determined by the amount of content it contains. The gap between elements should be determined by the typographic scale (in <code>rem</code> or Utopia space tokens). The number of columns in a grid should be determined by the minimum acceptable item width and the available space (via <code>auto-fit</code> and <code>minmax()</code>).</p>
+
+    <p>When you prescribe a height, you are declaring that you know how much content will be present. You almost certainly do not. When you prescribe a width in pixels, you are declaring that you know the user's viewport size. You do not. When you prescribe a column count, you are declaring that you know the container's width. In a world of container queries and intrinsic design, you should not need to.</p>
+
+    <p>Content determines dimensions. Context determines arrangement. The designer's job is to set the <em>rules of derivation</em>, not the values themselves.</p>
+
+    <p><strong>The test:</strong> if the content doubles in length, does the layout still work? If the viewport halves in width, does it still work? If both happen simultaneously, does it still work?</p>
+  </div>
+</div>
+
+<div class="principle" data-number="IV">
+  <h3>IV. Scale by Ratio, Never by Addition</h3>
+  <div class="prose">
+    <p>Human perception is logarithmic. The jump from 16px to 20px (+4px) looks like a bigger change than the jump from 40px to 44px (+4px), even though both are the same absolute difference. This is Weber's Law, and it is the reason every sizing system in this philosophy is <em>multiplicative</em>.</p>
+
+    <p>Type sizes are generated by a modular scale: each step is the previous step multiplied by a ratio (perfect fourth at 1.333 for C&amp;B projects). Spacing tokens are multiples of the base type size. Fluid interpolation between two modular scales preserves the proportional relationships at every viewport width. This is the mathematical invariant that holds the entire system together: <em>proportions are constant across contexts</em>.</p>
+
+    <p>The Utopia system makes this concrete. Because both the minimum-viewport and maximum-viewport scales use modular ratios, the interpolated scale at <em>any</em> intermediate viewport is also modular. Headings grow faster than body text, larger gaps grow faster than smaller gaps, and the visual hierarchy intensifies on larger screens&thinsp;—&thinsp;not because anyone specified that behaviour, but because it is a mathematical consequence of interpolating between two geometric progressions.</p>
+
+    <p><strong>The test:</strong> are all the size values in your system derivable from a base value and a ratio? If any value is arbitrary ("I just thought 24px looked right here"), it is a crack in the system.</p>
+  </div>
+</div>
+
+<div class="principle" data-number="V">
+  <h3>V. Encode Axioms, Not Artefacts</h3>
+  <div class="prose">
+    <p>An axiom is a design rule that pervades the entire system without exception. "The measure shall not exceed 60ch." "The minimum touch target shall be 44px." "Spacing between sibling elements shall use Utopia space tokens." These are not guidelines to remember; they are <em>CSS declarations</em> that are written once and enforced everywhere.</p>
+
+    <p>The crucial insight from Every Layout's Axioms chapter is that designing by axiom means designing <em>without seeing</em>. You cannot predict every visual consequence of a well-chosen axiom, and <em>you do not need to</em>. The axiom generates correct outcomes in contexts you never anticipated, because it encodes a <em>principle</em> rather than a <em>specific arrangement</em>. This is what makes axiom-based design scale: it does not require a designer to manually verify every combination of content and context.</p>
+
+    <p>Axioms are best implemented using exception-based CSS: apply the rule to everything (<code>*</code>), then remove it from the specific elements that are logical exceptions (containers, wrappers, structural elements). This inverted approach means you only need to <em>remember the exceptions</em>, not enumerate every element that should follow the rule.</p>
+
+    <p><strong>The test:</strong> can you state each design rule in a single sentence? Can that sentence be translated into a single CSS declaration? If so, it is an axiom. If not, it may be a convention masquerading as a principle.</p>
+  </div>
+</div>
+
+<div class="principle" data-number="VI">
+  <h3>VI. Unify Type, Space, and Grid</h3>
+  <div class="prose">
+    <p>In the Utopian system, type, space, and grid are not separate concerns. They are three expressions of a single mathematical structure. The base font size <em>is</em> the base space unit. The modular type scale <em>generates</em> the spacing palette. The spacing palette <em>defines</em> the grid gutters. Change the base, and everything changes in concert. Change the ratio, and every proportion in the system shifts harmoniously.</p>
+
+    <p>This unification has practical consequences. You never need to choose a spacing value by eye, because the palette is already determined by the type system. You never need to wonder whether a gutter is "consistent" with the rest of the design, because it is derived from the same mathematical root. The system cannot become inconsistent unless you explicitly break it by introducing values from outside the scale.</p>
+
+    <p>Massimo Vignelli called this "syntactical consistency"&thinsp;—&thinsp;the quality that emerges when every element in a composition follows the same proportional logic. When your type scale is built on musical interval ratios, your space system inherits that proportional harmony automatically, and your grid inherits it from both. The entire visual system resonates at the same frequency.</p>
+
+    <p><strong>The test:</strong> is every numerical value in your CSS traceable back to the base font size and the modular scale ratio? If any value exists in isolation, it is a foreign body in the system.</p>
+  </div>
+</div>
+
+<div class="principle" data-number="VII">
+  <h3>VII. Design Systems, Not Pages</h3>
+  <div class="prose">
+    <p>The word "system" has two meanings, as Heydon Pickering observes: a set of principles (a method), and a set of interconnecting parts (a mechanism). An effective design system is both&thinsp;—&thinsp;an exemplification of how to proceed. Weak systems are one or the other: either documentation without mechanism ("do as I say") or components without principles ("here's what was done").</p>
+
+    <p>An algorithmic approach to layout design is the synthesis. Your primitives are the mechanism. Your axioms are the principles. Your fluid tokens are the mathematical glue. Together, they constitute a <em>program for generating layouts</em>&thinsp;—&thinsp;not a collection of pre-built pages, but a generative system from which any page can be composed.</p>
+
+    <p>This is the deepest connection between our layout philosophy and the Arts &amp; Crafts movement that inspires C&amp;B's broader identity. William Morris did not design wallpapers; he designed <em>systems for generating patterns</em>. His repeating motifs follow strict mathematical symmetry groups (the 17 wallpaper groups, the 7 frieze groups), but the patterns they produce are endlessly various. Similarly, our layout system does not produce "a C&amp;B layout." It produces an <em>infinite family of layouts</em>, all consistent, all fluid, all grounded in the same mathematical structure, and every one of them different.</p>
+
+    <p><strong>The test:</strong> could someone who has never seen any existing C&amp;B page use these principles to create a new layout that is recognisably part of the family? If so, the system works. If they would need to copy an existing page as a starting point, it is a template, not a system.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- III. THE ARCHITECTURE                                         -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="section-label">Part III</div>
+<h2>The Architecture in Practice</h2>
+<p class="section-desc">How the seven precepts materialise as CSS. This is the technical layer&thinsp;—&thinsp;the specific primitives, tokens, and patterns that implement the philosophy.</p>
+
+<h3>The Fluid Foundation: Utopia Tokens</h3>
+
+<div class="prose">
+  <p>Every C&amp;B project begins by defining two states: a <code>@min</code> viewport (typically 360px) and a <code>@max</code> viewport (typically 1440px). At <code>@min</code>, the base font size is 16px and the type scale ratio is 1.2 (minor third). At <code>@max</code>, the base is 20px and the ratio is 1.333 (perfect fourth). The Utopia calculators generate the <code>clamp()</code> declarations for each step.</p>
+
+  <p>These two endpoints&thinsp;—&thinsp;and the modular ratios that govern them&thinsp;—&thinsp;are the <em>only design decisions</em> required to generate the entire type and space system. Everything else is mathematics.</p>
+</div>
+
+<div class="code-block">
+<span class="comment">/* The two design decisions that generate everything */</span>
+<span class="comment">/* @min: 360px viewport, 16px base, 1.200 ratio (minor third) */</span>
+<span class="comment">/* @max: 1440px viewport, 20px base, 1.333 ratio (perfect fourth) */</span>
+
+<span class="sel">:root</span> {
+  <span class="comment">/* Type scale: each step is a clamp() between the two scales */</span>
+  <span class="prop">--step-0</span>:  <span class="val">clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem)</span>;
+  <span class="prop">--step-1</span>:  <span class="val">clamp(1.2rem, 1.0534rem + 0.7331vi, 1.7783rem)</span>;
+  <span class="prop">--step-2</span>:  <span class="val">clamp(1.44rem, 1.2266rem + 1.0672vi, 2.3706rem)</span>;
+  <span class="comment">/* ... and so on */</span>
+
+  <span class="comment">/* Space scale: derived from the same base */</span>
+  <span class="prop">--space-s</span>:   <span class="val">var(--step-0)</span>;  <span class="comment">/* Space "S" = type "step 0" */</span>
+  <span class="prop">--space-m</span>:   <span class="val">clamp(1.5rem, 1.3523rem + 0.7385vi, 2.0006rem)</span>;
+  <span class="prop">--space-l</span>:   <span class="val">clamp(2rem, 1.8030rem + 0.9848vi, 2.6674rem)</span>;
+  <span class="comment">/* ... */</span>
+
+  <span class="comment">/* Space pairs: steeper interpolation for component padding */</span>
+  <span class="prop">--space-s-m</span>:  <span class="val">clamp(1rem, 0.7523rem + 1.2385vi, 2.0006rem)</span>;
+  <span class="prop">--space-s-l</span>:  <span class="val">clamp(1rem, 0.5038rem + 2.4808vi, 2.6674rem)</span>;
+}
+</div>
+
+<h3>The Compositional Layer: Every Layout Primitives</h3>
+
+<div class="prose">
+  <p>With the fluid foundation in place, layouts are composed from a vocabulary of spatial primitives. Each primitive has a single responsibility and is implemented as a CSS class (following CUBE CSS methodology). They consume Utopia tokens for their spacing values.</p>
+</div>
+
+<div class="concept-grid">
+  <!-- STACK -->
+  <div class="concept-card">
+    <div class="card-head" style="background: var(--brand-950); color: var(--brand-100);">
+      <div class="card-label" style="color: var(--brand-400);">Vertical Flow</div>
+      <div class="card-title">The Stack</div>
+    </div>
+    <div class="card-body" style="background: var(--brand-50);">
+      <p><strong>Responsibility:</strong> vertical spacing between adjacent sibling elements. The most frequently used primitive&thinsp;—&thinsp;nearly every block of content lives inside a Stack.</p>
+      <p><strong>Mechanism:</strong> <code>display: flex; flex-direction: column;</code> with <code>gap</code> set to a Utopia space token. The owl selector (<code>* + *</code>) variant is also common.</p>
+      <p><strong>Key parameter:</strong> <code>--space</code> (which Utopia token to use for the gap).</p>
+    </div>
+  </div>
+
+  <!-- BOX -->
+  <div class="concept-card">
+    <div class="card-head" style="background: var(--neutral-100); color: var(--neutral-950); border-bottom: 1px solid var(--neutral-200);">
+      <div class="card-label" style="color: var(--neutral-600);">Padding & Containment</div>
+      <div class="card-title" style="font-variation-settings: 'SOFT' 30, 'WONK' 0, 'opsz' 48;">The Box</div>
+    </div>
+    <div class="card-body" style="background: var(--neutral-50);">
+      <p><strong>Responsibility:</strong> inset padding around content. A Box is any element that needs uniform internal spacing.</p>
+      <p><strong>Mechanism:</strong> <code>padding</code> set to a Utopia space token, with optional <code>border</code> and <code>background</code>.</p>
+      <p><strong>Key parameter:</strong> <code>--padding</code> (which Utopia token, typically a space pair like <code>--space-s-m</code> for fluid component padding).</p>
+    </div>
+  </div>
+
+  <!-- CENTER -->
+  <div class="concept-card">
+    <div class="card-head" style="background: var(--books-700); color: var(--books-100);">
+      <div class="card-label" style="color: var(--books-300);">Width Constraint</div>
+      <div class="card-title">The Center</div>
+    </div>
+    <div class="card-body" style="background: var(--books-100);">
+      <p><strong>Responsibility:</strong> constraining content to a maximum width and centring it horizontally. The measure axiom is typically enforced here.</p>
+      <p><strong>Mechanism:</strong> <code>max-inline-size</code> with <code>margin-inline: auto</code>. Uses <code>box-sizing: content-box</code> so that padding does not reduce the content area.</p>
+      <p><strong>Key parameter:</strong> <code>--measure</code> (maximum width, typically <code>60ch</code> for prose, wider for layout containers).</p>
+    </div>
+  </div>
+
+  <!-- CLUSTER -->
+  <div class="concept-card">
+    <div class="card-head" style="background: var(--art-700); color: var(--art-100);">
+      <div class="card-label" style="color: var(--art-300);">Horizontal Grouping</div>
+      <div class="card-title">The Cluster</div>
+    </div>
+    <div class="card-body" style="background: var(--art-100);">
+      <p><strong>Responsibility:</strong> grouping items horizontally with wrapping. Tags, button rows, navigation links, metadata.</p>
+      <p><strong>Mechanism:</strong> <code>display: flex; flex-wrap: wrap; gap</code> set to a Utopia space token. Items wrap naturally when space runs out.</p>
+      <p><strong>Key parameter:</strong> <code>--space</code> and <code>justify-content</code> for alignment.</p>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="concept-card">
+    <div class="card-head" style="background: var(--home-700); color: var(--home-100);">
+      <div class="card-label" style="color: var(--home-300);">Main + Aside</div>
+      <div class="card-title">The Sidebar</div>
+    </div>
+    <div class="card-body" style="background: var(--home-100);">
+      <p><strong>Responsibility:</strong> a two-element layout where one element has a preferred width (the sidebar) and the other takes the remaining space. Stacks vertically when the main element would become too narrow.</p>
+      <p><strong>Mechanism:</strong> Flexbox with <code>flex-basis</code> on the sidebar and <code>flex-grow</code> on the main content. The <code>clamp()</code>-based variant uses no media query at all.</p>
+      <p><strong>Key parameter:</strong> <code>--sidebar-width</code> and <code>--content-min</code> (minimum main content percentage before stacking).</p>
+    </div>
+  </div>
+
+  <!-- SWITCHER -->
+  <div class="concept-card">
+    <div class="card-head" style="background: var(--neutral-900); color: var(--neutral-100);">
+      <div class="card-label" style="color: var(--neutral-400);">Responsive Columns</div>
+      <div class="card-title" style="font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: var(--step-1);">The Switcher</div>
+    </div>
+    <div class="card-body" style="background: var(--neutral-50);">
+      <p><strong>Responsibility:</strong> switching between a multi-column and a single-column layout based on available space. No breakpoints.</p>
+      <p><strong>Mechanism:</strong> <code>flex-wrap: wrap</code> with a calculated <code>flex-basis</code> that causes items to wrap at the threshold width. The threshold is defined by the content, not the viewport.</p>
+      <p><strong>Key parameter:</strong> <code>--threshold</code> (the container width at which items stack).</p>
+    </div>
+  </div>
+</div>
+
+<div class="notes">
+  <h4>The Remaining Primitives</h4>
+  <div class="prose">
+    <p>The <strong>Cover</strong> centres one child vertically within a minimum-height container (hero sections, full-viewport panels). The <strong>Grid</strong> creates repeating equal-width columns using <code>auto-fit</code> and <code>minmax()</code>, requiring no column count declaration&thinsp;—&thinsp;the number of columns is derived from the minimum item width and the available space. The <strong>Frame</strong> locks media to an aspect ratio. The <strong>Reel</strong> creates horizontal overflow scrolling (carousels, image strips). The <strong>Imposter</strong> positions an element outside normal flow (modals, tooltips). The <strong>Icon</strong> sizes an inline SVG relative to its adjacent text. The <strong>Container</strong> provides the outermost width constraint for page content.</p>
+    <p>Together, these thirteen primitives can compose any layout. They are the <em>atoms</em> of the system. Everything else&thinsp;—&thinsp;cards, headers, navigation, forms, footers&thinsp;—&thinsp;is a <em>molecule</em> composed from these atoms.</p>
+  </div>
+</div>
+
+<h3>The Unified Stack</h3>
+
+<div class="prose">
+  <p>When the Utopia fluid foundation and the Every Layout compositional primitives are combined, they form a layered architecture that covers the full spectrum of layout concerns.</p>
+</div>
+
+<div class="layer-stack">
+  <div class="layer" style="border-color: var(--brand-700); background: var(--brand-50);">
+    <div class="layer-name" style="color: var(--brand-800);">Typography</div>
+    <div class="layer-desc">Utopia fluid type scale. Breakpoint-free, modular, accessible. Governs all font sizes from captions to display headings.</div>
+  </div>
+  <div class="layer" style="border-color: var(--brand-600); background: oklch(96% 0.01 55);">
+    <div class="layer-name" style="color: var(--brand-700);">Spacing</div>
+    <div class="layer-desc">Utopia fluid space scale + space pairs. Derived from the type scale. Provides every margin, padding, and gap value in the system.</div>
+  </div>
+  <div class="layer" style="border-color: var(--books-500); background: var(--books-100);">
+    <div class="layer-name" style="color: var(--books-700);">Composition</div>
+    <div class="layer-desc">Every Layout primitives (Stack, Box, Center, Cluster, Sidebar, Switcher, Cover, Grid, Frame, Reel, Imposter, Icon, Container). Consumes Utopia tokens.</div>
+  </div>
+  <div class="layer" style="border-color: var(--art-500); background: var(--art-100);">
+    <div class="layer-name" style="color: var(--art-700);">Methodology</div>
+    <div class="layer-desc">CUBE CSS (Composition, Utility, Block, Exception). The organisational principle that structures how primitives, utilities, and component-specific styles interact.</div>
+  </div>
+  <div class="layer" style="border-color: var(--home-500); background: var(--home-100);">
+    <div class="layer-name" style="color: var(--home-700);">Enhancement</div>
+    <div class="layer-desc">Modern CSS features (container queries, subgrid, <code>:has()</code>, scroll-driven animations, view transitions) layered progressively on top of the intrinsic base.</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- IV. THE ARTS & CRAFTS CONNECTION                              -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="section-label">Part IV</div>
+<h2>The Deeper Current: Layout as Craft</h2>
+<p class="section-desc">Why this philosophy belongs to a tradition older than the web itself.</p>
+
+<div class="prose">
+  <p>William Morris, the founder of the Arts &amp; Crafts movement, did not rail against machines because he hated technology. He railed against machines that produced <em>thoughtless work</em>&thinsp;—&thinsp;objects that were identical, characterless, and disconnected from the people who made or used them. His response was not to reject industrialisation but to insist that even industrially produced objects should be made with care, intention, and respect for the craft.</p>
+
+  <p>The web design monoculture is our version of Morris's factory. Bootstrap, WordPress themes, and Tailwind UI templates produce layouts that are functional but characterless&thinsp;—&thinsp;the metal folding chairs of the digital world. The CHI 2021 research confirms this: web design has measurably homogenised by 30% over sixteen years. Every SaaS landing page follows the same hero-features-testimonials-CTA-footer pattern. Users have learned to filter it out.</p>
+
+  <p>Our response mirrors Morris's: not to reject the tools, but to insist on <em>craft within the tools</em>. Every Layout and Utopia are not anti-framework; they are the intellectual infrastructure for building layouts that <em>deserve to exist</em>. A layout composed from tested primitives, scaled by mathematical proportion, and fluid across every viewport is not a template. It is a <em>considered response to specific content in a specific context</em>.</p>
+
+  <p>The Arts &amp; Crafts movement believed that beautiful, well-made objects had moral force&thinsp;—&thinsp;that they improved the lives of both their makers and their users. We believe something similar about layout. A site whose spatial relationships are harmonious, whose typography breathes at every viewport width, whose composition responds to content rather than imposing a grid upon it&thinsp;—&thinsp;such a site is not merely functional. It is <em>hospitable</em>. It invites people in. It respects their time and their attention. And it demonstrates, by example, that the web can be better than it currently is.</p>
+
+  <p>This document is released under CC0 because we believe this knowledge should be common property&thinsp;—&thinsp;not locked behind a paywall or a proprietary framework. The point is not that everyone should make C&amp;B layouts. The point is that everyone should be able to make <em>their own</em> layouts, with the same rigour, the same mathematical foundation, and the same respect for the medium. Mission chairs, not metal folding chairs. But not <em>only</em> Mission chairs&thinsp;—&thinsp;whatever chair <em>you</em> need, built beautifully.</p>
+</div>
+
+<div class="epigraph">
+  <blockquote>Have nothing in your houses that you do not know to be useful, or believe to be beautiful.</blockquote>
+  <div class="attr">— William Morris, 1880</div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- V. PRACTICAL APPLICATION                                      -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="section-label">Part V</div>
+<h2>Applying the Philosophy: A Worked Example</h2>
+<p class="section-desc">To demonstrate that these principles are practical and not merely aspirational, here is how a C&amp;B book detail page might be composed from the system.</p>
+
+<div class="prose">
+  <p>Imagine a page displaying a single book: cover image, title, author, description, publication details, and related titles. A template approach would design this page once, pixel-perfect at 1440px, then add breakpoints at 1024px, 768px, and 375px to adapt it. That is four designs, four sets of spacing values, four column configurations, and a maintenance burden that grows with every design change.</p>
+
+  <p>The intrinsic approach composes the page from primitives and lets the mathematics handle responsiveness.</p>
+</div>
+
+<div class="code-block">
+<span class="comment">/* The page structure — no breakpoints, no media queries */</span>
+
+<span class="comment">/* Page: Container → Stack */</span>
+<span class="sel">.page</span> { <span class="comment">/* Container: max-width, centred */</span>
+  <span class="prop">max-inline-size</span>: <span class="val">1200px</span>;
+  <span class="prop">margin-inline</span>: <span class="val">auto</span>;
+  <span class="prop">padding-inline</span>: <span class="val">var(--space-s-l)</span>;  <span class="comment">/* Fluid side padding */</span>
+}
+
+<span class="comment">/* Hero: Sidebar (cover image + title info) */</span>
+<span class="sel">.book-hero</span> {  <span class="comment">/* Sidebar primitive */</span>
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">flex-wrap</span>: <span class="val">wrap</span>;
+  <span class="prop">gap</span>: <span class="val">var(--space-l-xl)</span>;  <span class="comment">/* Steep fluid gap */</span>
+}
+<span class="sel">.book-hero > .cover</span> {  <span class="comment">/* Frame: aspect-ratio locked */</span>
+  <span class="prop">flex-basis</span>: <span class="val">clamp(200px, 30%, 400px)</span>;
+  <span class="prop">flex-grow</span>: <span class="val">0</span>;
+}
+<span class="sel">.book-hero > .info</span> {  <span class="comment">/* Stack: title, author, metadata */</span>
+  <span class="prop">flex-basis</span>: <span class="val">0</span>;
+  <span class="prop">flex-grow</span>: <span class="val">999</span>;
+  <span class="prop">min-inline-size</span>: <span class="val">55%</span>;  <span class="comment">/* Stacks when too narrow */</span>
+}
+
+<span class="comment">/* Description: Center (measure-constrained prose) */</span>
+<span class="sel">.book-description</span> {
+  <span class="prop">max-inline-size</span>: <span class="val">60ch</span>;  <span class="comment">/* The measure axiom */</span>
+}
+
+<span class="comment">/* Related titles: Grid (intrinsic column count) */</span>
+<span class="sel">.related-grid</span> {
+  <span class="prop">display</span>: <span class="val">grid</span>;
+  <span class="prop">grid-template-columns</span>: <span class="val">repeat(auto-fit, minmax(min(100%, 180px), 1fr))</span>;
+  <span class="prop">gap</span>: <span class="val">var(--space-s-m)</span>;
+}
+</div>
+
+<div class="prose">
+  <p>This stylesheet is approximately 30 lines of CSS. It handles every viewport from 320px to 4K. The cover image and title info sit side-by-side on wide viewports and stack on narrow ones, with no breakpoint&thinsp;—&thinsp;the <code>min-inline-size: 55%</code> on the info panel triggers the stack naturally when the sidebar primitive runs out of room. The related titles grid shows 1 column on phones, 2 on tablets, 3–4 on desktops, and more on ultrawides, with no column count ever specified&thinsp;—&thinsp;it is derived from the minimum acceptable card width (180px) and the available space. All spacing is fluid, all type is fluid, and the whole thing is a composition of four named primitives: Container, Sidebar, Center, and Grid.</p>
+
+  <p>This is what "designing systems, not pages" looks like in practice.</p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- VI. SOURCES AND LINEAGE                                       -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="section-label">Part VI</div>
+<h2>Sources, Lineage, and Further Reading</h2>
+<p class="section-desc">This philosophy stands on the shoulders of extraordinary work. Here is where to go deeper.</p>
+
+<table class="compare-table">
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>What It Provides</th>
+      <th>Where to Find It</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Every Layout</td>
+      <td>The 13 compositional primitives, the Rudiments philosophy (Boxes, Composition, Units, Global/Local, Modular Scale, Axioms), and the EPUB/website.</td>
+      <td>every-layout.dev — paid, partially free</td>
+    </tr>
+    <tr>
+      <td>Utopia</td>
+      <td>Fluid type and space calculators, the philosophical blog posts, utopia-core (JS/TS), utopia-core-scss, postcss-utopia, Figma plugins.</td>
+      <td>utopia.fyi — free tools, free blog</td>
+    </tr>
+    <tr>
+      <td>CUBE CSS</td>
+      <td>The organisational methodology (Composition, Utility, Block, Exception) that structures how primitives and utilities interact in a stylesheet.</td>
+      <td>cube.fyi — free</td>
+    </tr>
+    <tr>
+      <td>Vignelli Canon</td>
+      <td>Systematic restraint, syntactical consistency, the discipline of working within a chosen set of proportions.</td>
+      <td>Free PDF from RIT</td>
+    </tr>
+    <tr>
+      <td>Müller-Brockmann</td>
+      <td>Mathematical grid construction, compound grids, the Swiss typographic tradition that anticipated CSS Grid by 40 years.</td>
+      <td>Grid Systems in Graphic Design</td>
+    </tr>
+    <tr>
+      <td>Bringhurst</td>
+      <td>Typographic measure, proportional systems, the musical-interval ratios that Tim Brown brought into web typography.</td>
+      <td>Elements of Typographic Style, v4.0</td>
+    </tr>
+    <tr>
+      <td>Refactoring UI</td>
+      <td>Tactical, pattern-oriented design guidance for developers. Constrained spacing scales, the "design in greyscale first" heuristic.</td>
+      <td>refactoringui.com</td>
+    </tr>
+    <tr>
+      <td>Dao of Web Design</td>
+      <td>John Allsopp's 2000 essay arguing that web designers must relinquish control to the medium — the philosophical ancestor of everything in this document.</td>
+      <td>alistapart.com/article/dao/</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="accent-block books">
+  <h4>For the mathematically inclined</h4>
+  <div class="prose">
+    <p>The fluid interpolation in Utopia's <code>clamp()</code> declarations is a linear function: <code>y = mx + b</code>, where <code>m</code> is the slope between the min and max values and <code>b</code> is the y-intercept. The <code>vi</code> unit (viewport inline) is used instead of <code>vw</code> because it respects writing direction and, critically, does not prevent browser zoom from scaling text&thinsp;—&thinsp;satisfying WCAG SC 1.4.4. The modular scale itself is a geometric progression: <code>size(n) = base × ratio^n</code>. Interpolating between two geometric progressions produces a family of curves, each asymptotically approaching the higher progression as the viewport widens. This is why the visual hierarchy intensifies on larger screens without any explicit instruction to do so.</p>
+  </div>
+</div>
+
+<div class="accent-block art">
+  <h4>For the philosophically inclined</h4>
+  <div class="prose">
+    <p>Every Layout's concept of "axioms" derives from Euclid's postulates&thinsp;—&thinsp;simple, irreducible rules from which complex geometries follow. The Utopian idea of "declarative design" maps to the same distinction computer science draws between imperative and declarative programming: specify <em>what</em> you want, not <em>how</em> to achieve it. The Arts &amp; Crafts connection runs through Morris's pattern mathematics: the 17 wallpaper symmetry groups are themselves a kind of generative design system, producing infinite variation from finite rules. The throughline is always the same: good design is not about making beautiful things; it is about making systems that <em>produce</em> beautiful things.</p>
+  </div>
+</div>
+
+<div class="accent-block home">
+  <h4>For the practically inclined</h4>
+  <div class="prose">
+    <p>Start at utopia.fyi and generate a type scale and space scale. Paste the custom properties into your stylesheet. Read the Every Layout chapters on Stack and Sidebar&thinsp;—&thinsp;those two primitives alone cover the majority of layout needs. Set <code>max-inline-size: 60ch</code> on all text elements. Use <code>gap</code> with Utopia space tokens for all spacing. Write zero media queries. You will be astonished at how far this gets you.</p>
+  </div>
+</div>
+
+</div><!-- /.container -->
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- FOOTER                                                        -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="doc-footer">
+  <div class="container">
+    <p><strong>The Layout Philosophy</strong> — Cowboys &amp; Beans Design System<br>
+    A synthesis of Every Layout, Utopia, CUBE CSS, and the C&amp;B engineering manifesto.<br>
+    Companion to: The Colour Token System · The Type System · Brand Guidelines v1.1 · Design as Engineering · Breaking the Layout Monoculture</p>
+
+    <p>This document owes its existence to the extraordinary work of Heydon Pickering, Andy Bell, James Gilyead, Trys Mudford, Massimo Vignelli, Robert Bringhurst, Josef Müller-Brockmann, Jan Tschichold, and William Morris. The ideas here are a synthesis; the credit belongs to them.</p>
+
+    <div class="license">
+      <p>This work is released under <strong>CC0 1.0 Universal</strong> (Public Domain Dedication). You may copy, modify, distribute, and build upon it freely, for any purpose, without asking permission. We believe design knowledge should be common property.<br>
+      <a href="https://creativecommons.org/publicdomain/zero/1.0/">creativecommons.org/publicdomain/zero/1.0/</a></p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

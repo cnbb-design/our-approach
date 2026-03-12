@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cowboys & Beans — Brand Guidelines v1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand-950: oklch(15.0% 0.0400 50.0);
+    --brand-900: oklch(25.0% 0.0650 50.0);
+    --brand-800: oklch(35.0% 0.0850 48.0);
+    --brand-700: oklch(45.0% 0.1100 47.0);
+    --brand-600: oklch(53.0% 0.1000 50.0);
+    --brand-500: oklch(60.0% 0.0850 53.0);
+    --brand-400: oklch(68.0% 0.0700 58.0);
+    --brand-300: oklch(76.0% 0.0560 60.0);
+    --brand-200: oklch(85.0% 0.0400 65.0);
+    --brand-100: oklch(90.0% 0.0300 70.0);
+    --brand-50:  oklch(95.0% 0.0150 70.0);
+    --neutral-950: oklch(12.0% 0.0100 55.0);
+    --neutral-900: oklch(22.0% 0.0120 55.0);
+    --neutral-800: oklch(32.0% 0.0100 55.0);
+    --neutral-700: oklch(42.0% 0.0100 55.0);
+    --neutral-600: oklch(52.0% 0.0100 55.0);
+    --neutral-500: oklch(62.0% 0.0100 55.0);
+    --neutral-400: oklch(72.0% 0.0100 55.0);
+    --neutral-300: oklch(82.0% 0.0080 55.0);
+    --neutral-200: oklch(90.0% 0.0060 55.0);
+    --neutral-100: oklch(95.0% 0.0040 55.0);
+    --neutral-50:  oklch(97.5% 0.0020 55.0);
+    --books-700: oklch(40.0% 0.1200 255.0);
+    --books-500: oklch(55.0% 0.1100 255.0);
+    --books-100: oklch(92.0% 0.0250 255.0);
+    --art-500: oklch(55.0% 0.0550 155.0);
+    --art-100: oklch(93.0% 0.0150 155.0);
+    --home-700: oklch(45.0% 0.1400 35.0);
+    --home-500: oklch(58.0% 0.1500 35.0);
+    --home-100: oklch(92.0% 0.0300 35.0);
+
+    --step--2: clamp(0.6944rem, 0.6546rem + 0.1988vi, 0.7502rem);
+    --step--1: clamp(0.8333rem, 0.7693rem + 0.3205vi, 1.0003rem);
+    --step-0:  clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
+    --step-1:  clamp(1.2rem, 1.0534rem + 0.7331vi, 1.7783rem);
+    --step-2:  clamp(1.44rem, 1.2266rem + 1.0672vi, 2.3706rem);
+    --step-3:  clamp(1.728rem, 1.4226rem + 1.5268vi, 3.1605rem);
+    --step-4:  clamp(2.0736rem, 1.6425rem + 2.1555vi, 4.2132rem);
+    --space-xs: clamp(0.75rem, 0.6508rem + 0.4962vi, 1.0003rem);
+    --space-s: clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
+    --space-m: clamp(1.5rem, 1.3523rem + 0.7385vi, 2.0006rem);
+    --space-l: clamp(2rem, 1.8030rem + 0.9848vi, 2.6674rem);
+    --space-xl: clamp(3rem, 2.7045rem + 1.4773vi, 4.0011rem);
+    --space-2xl: clamp(4rem, 3.6061rem + 1.9697vi, 5.3348rem);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Literata', serif;
+    background: var(--neutral-50);
+    color: var(--neutral-950);
+    line-height: 1.6;
+    font-optical-sizing: auto;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--brand-950);
+    color: var(--brand-50);
+    padding: var(--space-2xl) var(--space-xl) var(--space-xl);
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--brand-700), var(--brand-400), var(--brand-700));
+  }
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: var(--step-4);
+    font-weight: 800;
+    font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 144;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .hero .subtitle {
+    font-size: var(--step-0);
+    font-weight: 300;
+    color: var(--brand-300);
+    max-width: 60ch;
+    line-height: 1.5;
+  }
+  .hero .tag {
+    display: inline-block;
+    margin-top: var(--space-s);
+    padding: 3px 10px;
+    border: 1px solid var(--brand-700);
+    border-radius: 3px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--brand-400);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1000px; margin: 0 auto; padding: var(--space-xl) var(--space-l); }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--neutral-500); margin-bottom: 6px;
+  }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: var(--step-2); font-weight: 700;
+    font-variation-settings: 'SOFT' 30, 'WONK' 0, 'opsz' 72;
+    color: var(--brand-800); line-height: 1.2; margin-bottom: 6px;
+  }
+  h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--neutral-600); margin-top: var(--space-m); margin-bottom: 8px;
+  }
+  .desc {
+    font-size: var(--step-0); font-variation-settings: 'opsz' 14;
+    color: var(--neutral-700); max-width: 60ch; line-height: 1.65;
+    margin-bottom: var(--space-m);
+  }
+  p { max-width: 60ch; line-height: 1.7; margin-bottom: var(--space-xs); color: var(--neutral-800); }
+  p:last-child { margin-bottom: 0; }
+  strong { color: var(--neutral-950); }
+  code {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.85em;
+    background: var(--brand-100); padding: 1px 5px; border-radius: 3px; color: var(--brand-800);
+  }
+  .divider { border: none; height: 1px; background: var(--neutral-200); margin: var(--space-xl) 0; }
+
+  /* ── LOGO DISPLAY ── */
+  .logo-showcase {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-l);
+    border-radius: 8px;
+    margin: var(--space-s) 0 var(--space-m);
+  }
+  .logo-showcase img { max-height: 200px; width: auto; }
+  .logo-showcase.on-dark { background: var(--brand-950); }
+  .logo-showcase.on-light {
+    background: var(--neutral-100);
+    border: 1px solid var(--neutral-200);
+  }
+
+  /* ── PERSONA CARDS ── */
+  .persona-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-s); margin: var(--space-m) 0;
+  }
+  .persona-card {
+    border-radius: 8px; overflow: hidden;
+    box-shadow: 0 1px 4px oklch(0% 0 0 / 0.05);
+  }
+  .persona-card .head {
+    padding: var(--space-s) var(--space-s);
+  }
+  .persona-card .head h4 {
+    font-family: 'Fraunces', serif; font-size: var(--step-1);
+    line-height: 1.2; margin-bottom: 4px;
+  }
+  .persona-card .head .site {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; opacity: 0.7;
+  }
+  .persona-card .body {
+    padding: var(--space-xs) var(--space-s) var(--space-s);
+    font-size: 0.9rem; line-height: 1.6; color: var(--neutral-800);
+  }
+
+  /* ── SWATCH ROWS ── */
+  .swatch-row {
+    display: flex; gap: 0; border-radius: 6px; overflow: hidden;
+    box-shadow: 0 1px 3px oklch(0% 0 0 / 0.06); margin-bottom: 8px;
+  }
+  .swatch {
+    flex: 1; min-height: 56px; display: flex;
+    flex-direction: column; justify-content: flex-end; padding: 6px;
+  }
+  .swatch span {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem; opacity: 0.8;
+  }
+  .swatch.lt span { color: var(--brand-50); }
+  .swatch.dk span { color: var(--brand-950); }
+
+  /* ── SEMANTIC TABLE ── */
+  .token-table {
+    width: 100%; border-collapse: collapse; margin: var(--space-s) 0; font-size: 0.85rem;
+  }
+  .token-table th {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--neutral-600); text-align: left;
+    padding: 8px 10px; border-bottom: 2px solid var(--neutral-200); font-weight: 500;
+  }
+  .token-table td {
+    padding: 8px 10px; border-bottom: 1px solid var(--neutral-100);
+    color: var(--neutral-800); vertical-align: top;
+  }
+  .token-table td:first-child {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--neutral-600); white-space: nowrap;
+  }
+  .token-table td:nth-child(2) {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--brand-700);
+  }
+
+  /* ── SCALE TABLE ── */
+  .scale-table {
+    width: 100%; border-collapse: collapse; margin: var(--space-s) 0; font-size: 0.85rem;
+  }
+  .scale-table th {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--neutral-600); text-align: left;
+    padding: 8px 10px; border-bottom: 2px solid var(--neutral-200); font-weight: 500;
+  }
+  .scale-table td {
+    padding: 8px 10px; border-bottom: 1px solid var(--neutral-100); color: var(--neutral-800);
+  }
+  .scale-table td:first-child {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--neutral-600);
+  }
+
+  /* ── NOTES ── */
+  .notes {
+    background: var(--brand-50); border: 1px solid var(--brand-200);
+    border-radius: 8px; padding: var(--space-m) var(--space-l); margin-top: var(--space-l);
+  }
+  .notes h4 {
+    font-family: 'Fraunces', serif; font-size: var(--step-1);
+    font-variation-settings: 'SOFT' 30, 'WONK' 0, 'opsz' 36;
+    color: var(--brand-800); margin-bottom: var(--space-xs); text-transform: none; letter-spacing: 0;
+  }
+
+  @media (max-width: 700px) {
+    .hero { padding: var(--space-xl) var(--space-s) var(--space-l); }
+    .container { padding: var(--space-l) var(--space-s); }
+    .persona-grid { grid-template-columns: 1fr; }
+    .swatch { min-height: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Brand Guidelines</h1>
+  <p class="subtitle">Unified identity system for Cowboys & Beans — covering logos, colour, typography, spacing, and implementation across cnbb.pub, books.cnbb.pub, and art.cnbb.pub.</p>
+  <span class="tag">Version 1.0 · March 2026</span>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 1. BRAND IDENTITY -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section-label">Section 1</div>
+<h2>Brand Identity</h2>
+<p class="desc">Cowboys & Beans is a small, independent publishing and arts collective based in southern Minnesota. Founded in 2015, C&B publishes fiction across genres — with a current focus on science fiction — and operates an online gallery for traditional artists. The brand communicates warmth, craft, and intellectual depth.</p>
+
+<h3>Primary Logo</h3>
+<p>Horizontal lockup. Use on dark backgrounds, hero sections, and the parent site. Includes full wordmark, motion lines, and coffee bean motif.</p>
+<div class="logo-showcase on-dark">
+  <img src="cowboys-and-beans_primary-logo-y1000.png" alt="Cowboys & Beans primary logo" style="max-height: 120px;">
+</div>
+
+<h3>Publisher's Stamp</h3>
+<p>Circular badge mark. Use on book pages, colophons, and the books site. Includes "Est. 2015" and "Publishing Co." text. Works at small sizes.</p>
+<div class="logo-showcase on-light">
+  <img src="cowboys-and-beans_publisher-stamp-x1000.png" alt="Publisher's stamp" style="max-height: 180px;">
+</div>
+
+<h3>Monogram</h3>
+<p>C&B lettermark with cowboy hat. Use for favicons, social avatars, and small-format applications where the full wordmark would be illegible.</p>
+<div class="logo-showcase on-light">
+  <img src="cowboys-and-beans_monogram-1_1.png" alt="C&B monogram" style="max-height: 140px;">
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- BRAND ARCHITECTURE -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section-label">Section 1.2</div>
+<h2>Brand Architecture</h2>
+<p class="desc">Three sites, three personalities, one system. Each site is designed as if by a different specialist — but all three draw from the same token foundation.</p>
+
+<div class="persona-grid">
+  <div class="persona-card">
+    <div class="head" style="background: var(--brand-950); color: var(--brand-100);">
+      <h4 style="font-weight: 700; font-variation-settings: 'SOFT' 20, 'WONK' 0, 'opsz' 36;">The Typographer</h4>
+      <div class="site">books.cnbb.pub</div>
+    </div>
+    <div class="body" style="background: var(--brand-50);">Editorial, literary, structured. Classical proportions and typographic precision. Fraunces sharp (SOFT 20, WONK 0). Ink Blue accent. This is the reading room.</div>
+  </div>
+  <div class="persona-card">
+    <div class="head" style="background: var(--neutral-100); color: var(--neutral-900); border-bottom: 1px solid var(--neutral-200);">
+      <h4 style="font-weight: 300; font-variation-settings: 'SOFT' 70, 'WONK' 0, 'opsz' 36;">The Gallerist</h4>
+      <div class="site">art.cnbb.pub</div>
+    </div>
+    <div class="body" style="background: var(--neutral-50);">Visual-first, restrained, generous whitespace. The design recedes to let artwork dominate. Fraunces light (SOFT 70). Sage Green accent. This is the gallery.</div>
+  </div>
+  <div class="persona-card">
+    <div class="head" style="background: var(--home-700); color: var(--home-100);">
+      <h4 style="font-weight: 900; font-variation-settings: 'SOFT' 60, 'WONK' 1, 'opsz' 36;">The Storyteller</h4>
+      <div class="site">cnbb.pub</div>
+    </div>
+    <div class="body" style="background: var(--brand-100);">Warm, bold, welcoming. Full personality. Fraunces at maximum expression (SOFT 60, WONK 1). Terracotta accent. This is the front porch.</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 2. COLOUR SYSTEM -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section-label">Section 2</div>
+<h2>Colour System</h2>
+<p class="desc">All colours defined in OKLCH for perceptual uniformity — equal lightness steps produce equal perceived brightness. Palette extracted from logo artwork and extended into systematic tonal scales.</p>
+
+<h3>Brand Brown</h3>
+<p>Hue ~50° (warm amber-brown), shifting warmer at lighter values.</p>
+<div class="swatch-row">
+  <div class="swatch lt" style="background:var(--brand-950)"><span>950</span></div>
+  <div class="swatch lt" style="background:var(--brand-900)"><span>900</span></div>
+  <div class="swatch lt" style="background:var(--brand-800)"><span>800</span></div>
+  <div class="swatch lt" style="background:var(--brand-700)"><span>700</span></div>
+  <div class="swatch lt" style="background:var(--brand-600)"><span>600</span></div>
+  <div class="swatch dk" style="background:var(--brand-500)"><span>500</span></div>
+  <div class="swatch dk" style="background:var(--brand-400)"><span>400</span></div>
+  <div class="swatch dk" style="background:var(--brand-300)"><span>300</span></div>
+  <div class="swatch dk" style="background:var(--brand-200)"><span>200</span></div>
+  <div class="swatch dk" style="background:var(--brand-100)"><span>100</span></div>
+  <div class="swatch dk" style="background:var(--brand-50)"><span>50</span></div>
+</div>
+
+<h3>Warm Neutrals</h3>
+<p>Hue 55°, very low chroma. Grey with warm undertone.</p>
+<div class="swatch-row">
+  <div class="swatch lt" style="background:var(--neutral-950)"><span>950</span></div>
+  <div class="swatch lt" style="background:var(--neutral-900)"><span>900</span></div>
+  <div class="swatch lt" style="background:var(--neutral-800)"><span>800</span></div>
+  <div class="swatch lt" style="background:var(--neutral-700)"><span>700</span></div>
+  <div class="swatch lt" style="background:var(--neutral-600)"><span>600</span></div>
+  <div class="swatch dk" style="background:var(--neutral-500)"><span>500</span></div>
+  <div class="swatch dk" style="background:var(--neutral-400)"><span>400</span></div>
+  <div class="swatch dk" style="background:var(--neutral-300)"><span>300</span></div>
+  <div class="swatch dk" style="background:var(--neutral-200)"><span>200</span></div>
+  <div class="swatch dk" style="background:var(--neutral-100)"><span>100</span></div>
+  <div class="swatch dk" style="background:var(--neutral-50)"><span>50</span></div>
+</div>
+
+<h3>Per-Site Accents</h3>
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-s); margin: var(--space-s) 0;">
+  <div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--neutral-600); margin-bottom: 6px;">Books · Ink Blue · 255°</div>
+    <div class="swatch-row">
+      <div class="swatch lt" style="background:oklch(25% 0.08 255)"><span>900</span></div>
+      <div class="swatch lt" style="background:var(--books-700)"><span>700</span></div>
+      <div class="swatch lt" style="background:var(--books-500)"><span>500</span></div>
+      <div class="swatch dk" style="background:oklch(75% 0.07 255)"><span>300</span></div>
+      <div class="swatch dk" style="background:var(--books-100)"><span>100</span></div>
+    </div>
+  </div>
+  <div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--neutral-600); margin-bottom: 6px;">Art · Sage Green · 155°</div>
+    <div class="swatch-row">
+      <div class="swatch lt" style="background:oklch(25% 0.05 155)"><span>900</span></div>
+      <div class="swatch lt" style="background:oklch(40% 0.06 155)"><span>700</span></div>
+      <div class="swatch lt" style="background:var(--art-500)"><span>500</span></div>
+      <div class="swatch dk" style="background:oklch(78% 0.035 155)"><span>300</span></div>
+      <div class="swatch dk" style="background:var(--art-100)"><span>100</span></div>
+    </div>
+  </div>
+  <div>
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; color: var(--neutral-600); margin-bottom: 6px;">Home · Terracotta · 35°</div>
+    <div class="swatch-row">
+      <div class="swatch lt" style="background:oklch(28% 0.09 35)"><span>900</span></div>
+      <div class="swatch lt" style="background:var(--home-700)"><span>700</span></div>
+      <div class="swatch lt" style="background:var(--home-500)"><span>500</span></div>
+      <div class="swatch dk" style="background:var(--home-300)"><span>300</span></div>
+      <div class="swatch dk" style="background:var(--home-100)"><span>100</span></div>
+    </div>
+  </div>
+</div>
+
+<h3>Semantic Tokens</h3>
+<table class="token-table">
+  <thead><tr><th>Token</th><th>Maps To</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr><td>surface-primary</td><td>brand-50</td><td>Page background</td></tr>
+    <tr><td>surface-secondary</td><td>neutral-100</td><td>Card / section backgrounds</td></tr>
+    <tr><td>surface-inverse</td><td>brand-950</td><td>Dark sections, footers</td></tr>
+    <tr><td>text-primary</td><td>neutral-950</td><td>Body text, headings</td></tr>
+    <tr><td>text-secondary</td><td>neutral-700</td><td>Captions, metadata</td></tr>
+    <tr><td>text-brand</td><td>brand-700</td><td>Brand-coloured text</td></tr>
+    <tr><td>border-subtle</td><td>neutral-200</td><td>Soft dividers</td></tr>
+    <tr><td>border-default</td><td>neutral-300</td><td>Standard borders</td></tr>
+    <tr><td>interactive-primary</td><td>brand-700</td><td>Buttons, links</td></tr>
+    <tr><td>interactive-hover</td><td>brand-800</td><td>Hover states</td></tr>
+  </tbody>
+</table>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 3. TYPOGRAPHY -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section-label">Section 3</div>
+<h2>Typography</h2>
+<p class="desc">Three typefaces, three roles, one mathematical skeleton.</p>
+
+<h3>Display & Headlines: Fraunces</h3>
+<p>Soft-serif variable font with four axes: weight, optical size, softness, and "wonk." Per-site expression: Books uses it sharp (SOFT 20, WONK 0) — editorial precision. Art uses it light and airy (weight 300, SOFT 70) — recessive. Parent site uses full personality (weight 900, SOFT 60, WONK 1).</p>
+
+<h3>Body Text: Literata</h3>
+<p>Designed by TypeTogether as the custom typeface for Google Play Books. Scotch Roman roots with modern screen optimisation. Variable font with optical size axis. <strong>Newsreader</strong> by Production Type is offered as an alternative reader preference.</p>
+
+<h3>System & UI: IBM Plex Mono</h3>
+<p>Monospace with human warmth. Used for metadata, dates, ISBNs, prices, genre tags, navigation labels, and code.</p>
+
+<h3>The Modular Scale</h3>
+<p>Perfect fourth ratio (4:3 = 1.333), fluid between major third (1.25) at 360px and perfect fourth at 1440px.</p>
+
+<table class="scale-table">
+  <thead><tr><th>Step</th><th>Min</th><th>Max</th><th>Usage</th></tr></thead>
+  <tbody>
+    <tr><td>step 5</td><td>40px</td><td>90px</td><td>Display / hero (Fraunces)</td></tr>
+    <tr><td>step 4</td><td>33px</td><td>67px</td><td>Page title (Fraunces)</td></tr>
+    <tr><td>step 3</td><td>28px</td><td>51px</td><td>Section heading (Fraunces)</td></tr>
+    <tr><td>step 2</td><td>23px</td><td>38px</td><td>Subsection (Fraunces)</td></tr>
+    <tr><td>step 1</td><td>19px</td><td>28px</td><td>Lead paragraph (Literata)</td></tr>
+    <tr><td>step 0</td><td>16px</td><td>21px</td><td>Body text (Literata)</td></tr>
+    <tr><td>step −1</td><td>13px</td><td>16px</td><td>Caption (Literata)</td></tr>
+    <tr><td>step −2</td><td>11px</td><td>12px</td><td>Micro / metadata (Plex Mono)</td></tr>
+  </tbody>
+</table>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 4. SPACING -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section-label">Section 4</div>
+<h2>Spacing System</h2>
+<p class="desc">4px base, 8px primary rhythm, fluid scale.</p>
+
+<table class="scale-table">
+  <thead><tr><th>Token</th><th>Min</th><th>Max</th><th>Typical Use</th></tr></thead>
+  <tbody>
+    <tr><td>space-3xs</td><td>4px</td><td>5px</td><td>Tight inline gaps</td></tr>
+    <tr><td>space-2xs</td><td>8px</td><td>11px</td><td>Icon-to-label, tag padding</td></tr>
+    <tr><td>space-xs</td><td>12px</td><td>16px</td><td>Label-to-input, compact padding</td></tr>
+    <tr><td>space-s</td><td>16px</td><td>21px</td><td>Default component padding</td></tr>
+    <tr><td>space-m</td><td>24px</td><td>32px</td><td>Card padding, field-to-field</td></tr>
+    <tr><td>space-l</td><td>32px</td><td>43px</td><td>Section padding</td></tr>
+    <tr><td>space-xl</td><td>48px</td><td>64px</td><td>Major section gaps</td></tr>
+    <tr><td>space-2xl</td><td>64px</td><td>85px</td><td>Hero padding</td></tr>
+    <tr><td>space-3xl</td><td>96px</td><td>128px</td><td>Page-level vertical rhythm</td></tr>
+  </tbody>
+</table>
+
+<div class="notes" style="margin-top: var(--space-m);">
+  <h4>The Proximity Principle</h4>
+  <p><strong>Intra-group spacing must always be tighter than inter-group spacing.</strong> This activates gestalt proximity grouping — the perceptual mechanism that makes related elements feel connected. A card with uniform 16px everywhere destroys all spatial information. Title-to-author at 8px, card padding at 16px, between cards at 32px — three scales communicating three relationships.</p>
+</div>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════ -->
+<!-- 5. IMPLEMENTATION -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section-label">Section 5</div>
+<h2>Implementation</h2>
+
+<h3>Token Architecture</h3>
+<p><strong>Three tiers:</strong> Primitive tokens (<code>brand-700</code>) → Semantic tokens (<code>interactive-primary</code>) → Component tokens (<code>button-primary-bg</code>). This is the architecture that Material Design, Carbon, and Polaris converge on.</p>
+
+<h3>CSS Integration</h3>
+<p>Tokens are delivered as Tailwind CSS 4 <code>@theme</code> directives. Each site loads the shared base file plus its site-specific override. The accent colour tokens are the per-site override point — same class name, different hue.</p>
+
+<h3>Fluid Type & Space</h3>
+<p>All type and spacing values use CSS <code>clamp()</code> for fluid interpolation between 360px and 1440px viewports. No breakpoints needed for sizing. The <code>vi</code> unit (viewport inline) respects writing direction.</p>
+
+<div class="notes">
+  <h4>File Reference</h4>
+  <p><code>cnbb-design-tokens.json</code> — DTCG-aligned token definitions. Source of truth.</p>
+  <p><code>cnbb-tokens-base.css</code> — Shared Tailwind 4 theme file. All primitives and semantics.</p>
+  <p><code>cnbb-tokens-{site}.css</code> — Per-site overrides (books, art, home).</p>
+  <p><code>cnbb-colour-system.html</code> — Interactive colour swatch board.</p>
+  <p><code>cnbb-type-system.html</code> — Live type specimen.</p>
+</div>
+
+</div>
+
+</body>
+</html>
