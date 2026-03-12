@@ -1,834 +1,974 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cowboys & Beans — Breaking the Layout Monoculture</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cowboys & Beans — Breaking the Layout Monoculture</title>
 
-<!-- THE TYPE STACK -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <!-- THE TYPE STACK -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 
-<style>
-  :root {
-    --brand-950: oklch(15.0% 0.0400 50.0);
-    --brand-900: oklch(25.0% 0.0650 50.0);
-    --brand-800: oklch(35.0% 0.0850 48.0);
-    --brand-700: oklch(45.0% 0.1100 47.0);
-    --brand-600: oklch(53.0% 0.1000 50.0);
-    --brand-500: oklch(60.0% 0.0850 53.0);
-    --brand-400: oklch(68.0% 0.0700 58.0);
-    --brand-300: oklch(76.0% 0.0560 60.0);
-    --brand-200: oklch(85.0% 0.0400 65.0);
-    --brand-100: oklch(90.0% 0.0300 70.0);
-    --brand-50:  oklch(95.0% 0.0150 70.0);
-    --neutral-950: oklch(12.0% 0.0100 55.0);
-    --neutral-900: oklch(22.0% 0.0120 55.0);
-    --neutral-800: oklch(32.0% 0.0100 55.0);
-    --neutral-700: oklch(42.0% 0.0100 55.0);
-    --neutral-600: oklch(52.0% 0.0100 55.0);
-    --neutral-500: oklch(62.0% 0.0100 55.0);
-    --neutral-400: oklch(72.0% 0.0100 55.0);
-    --neutral-300: oklch(82.0% 0.0080 55.0);
-    --neutral-200: oklch(90.0% 0.0060 55.0);
-    --neutral-100: oklch(95.0% 0.0040 55.0);
-    --neutral-50:  oklch(97.5% 0.0020 55.0);
-    --books-700: oklch(40.0% 0.1200 255.0);
-    --books-500: oklch(55.0% 0.1100 255.0);
-    --books-100: oklch(92.0% 0.0250 255.0);
-    --art-700: oklch(40.0% 0.0600 155.0);
-    --art-500: oklch(55.0% 0.0550 155.0);
-    --art-100: oklch(93.0% 0.0150 155.0);
-    --home-700: oklch(45.0% 0.1400 35.0);
-    --home-500: oklch(58.0% 0.1500 35.0);
-    --home-100: oklch(92.0% 0.0300 35.0);
+    <style>
+        :root {
+            --brand-950: oklch(15.0% 0.0400 50.0);
+            --brand-900: oklch(25.0% 0.0650 50.0);
+            --brand-800: oklch(35.0% 0.0850 48.0);
+            --brand-700: oklch(45.0% 0.1100 47.0);
+            --brand-600: oklch(53.0% 0.1000 50.0);
+            --brand-500: oklch(60.0% 0.0850 53.0);
+            --brand-400: oklch(68.0% 0.0700 58.0);
+            --brand-300: oklch(76.0% 0.0560 60.0);
+            --brand-200: oklch(85.0% 0.0400 65.0);
+            --brand-100: oklch(90.0% 0.0300 70.0);
+            --brand-50: oklch(95.0% 0.0150 70.0);
+            --neutral-950: oklch(12.0% 0.0100 55.0);
+            --neutral-900: oklch(22.0% 0.0120 55.0);
+            --neutral-800: oklch(32.0% 0.0100 55.0);
+            --neutral-700: oklch(42.0% 0.0100 55.0);
+            --neutral-600: oklch(52.0% 0.0100 55.0);
+            --neutral-500: oklch(62.0% 0.0100 55.0);
+            --neutral-400: oklch(72.0% 0.0100 55.0);
+            --neutral-300: oklch(82.0% 0.0080 55.0);
+            --neutral-200: oklch(90.0% 0.0060 55.0);
+            --neutral-100: oklch(95.0% 0.0040 55.0);
+            --neutral-50: oklch(97.5% 0.0020 55.0);
+            --books-700: oklch(40.0% 0.1200 255.0);
+            --books-500: oklch(55.0% 0.1100 255.0);
+            --books-100: oklch(92.0% 0.0250 255.0);
+            --art-700: oklch(40.0% 0.0600 155.0);
+            --art-500: oklch(55.0% 0.0550 155.0);
+            --art-100: oklch(93.0% 0.0150 155.0);
+            --home-700: oklch(45.0% 0.1400 35.0);
+            --home-500: oklch(58.0% 0.1500 35.0);
+            --home-100: oklch(92.0% 0.0300 35.0);
 
-    --step--2: clamp(0.6944rem, 0.6546rem + 0.1988vi, 0.7502rem);
-    --step--1: clamp(0.8333rem, 0.7693rem + 0.3205vi, 1.0003rem);
-    --step-0:  clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
-    --step-1:  clamp(1.2rem, 1.0534rem + 0.7331vi, 1.7783rem);
-    --step-2:  clamp(1.44rem, 1.2266rem + 1.0672vi, 2.3706rem);
-    --step-3:  clamp(1.728rem, 1.4226rem + 1.5268vi, 3.1605rem);
-    --step-4:  clamp(2.0736rem, 1.6425rem + 2.1555vi, 4.2132rem);
-    --step-5:  clamp(2.4883rem, 1.8869rem + 3.0073vi, 5.6172rem);
+            --step--2: clamp(0.6944rem, 0.6546rem + 0.1988vi, 0.7502rem);
+            --step--1: clamp(0.8333rem, 0.7693rem + 0.3205vi, 1.0003rem);
+            --step-0: clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
+            --step-1: clamp(1.2rem, 1.0534rem + 0.7331vi, 1.7783rem);
+            --step-2: clamp(1.44rem, 1.2266rem + 1.0672vi, 2.3706rem);
+            --step-3: clamp(1.728rem, 1.4226rem + 1.5268vi, 3.1605rem);
+            --step-4: clamp(2.0736rem, 1.6425rem + 2.1555vi, 4.2132rem);
+            --step-5: clamp(2.4883rem, 1.8869rem + 3.0073vi, 5.6172rem);
 
-    --space-3xs: clamp(0.25rem, 0.2rem + 0.13vi, 0.3334rem);
-    --space-2xs: clamp(0.5rem, 0.4508rem + 0.2462vi, 0.6669rem);
-    --space-xs:  clamp(0.75rem, 0.6508rem + 0.4962vi, 1.0003rem);
-    --space-s:   clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
-    --space-m:   clamp(1.5rem, 1.3523rem + 0.7385vi, 2.0006rem);
-    --space-l:   clamp(2rem, 1.8030rem + 0.9848vi, 2.6674rem);
-    --space-xl:  clamp(3rem, 2.7045rem + 1.4773vi, 4.0011rem);
-    --space-2xl: clamp(4rem, 3.6061rem + 1.9697vi, 5.3348rem);
-    --space-3xl: clamp(6rem, 5.4091rem + 2.9545vi, 8.0022rem);
-  }
+            --space-3xs: clamp(0.25rem, 0.2rem + 0.13vi, 0.3334rem);
+            --space-2xs: clamp(0.5rem, 0.4508rem + 0.2462vi, 0.6669rem);
+            --space-xs: clamp(0.75rem, 0.6508rem + 0.4962vi, 1.0003rem);
+            --space-s: clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
+            --space-m: clamp(1.5rem, 1.3523rem + 0.7385vi, 2.0006rem);
+            --space-l: clamp(2rem, 1.8030rem + 0.9848vi, 2.6674rem);
+            --space-xl: clamp(3rem, 2.7045rem + 1.4773vi, 4.0011rem);
+            --space-2xl: clamp(4rem, 3.6061rem + 1.9697vi, 5.3348rem);
+            --space-3xl: clamp(6rem, 5.4091rem + 2.9545vi, 8.0022rem);
+        }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  body {
-    background: var(--neutral-50);
-    color: var(--neutral-950);
-    line-height: 1.6;
-  }
+        body {
+            background: var(--neutral-50);
+            color: var(--neutral-950);
+            line-height: 1.6;
+        }
 
-  /* ── HEADER ── */
-  .hero {
-    background: var(--brand-950);
-    color: var(--brand-50);
-    padding: var(--space-3xl) var(--space-xl) var(--space-xl);
-    position: relative;
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg,
-      var(--brand-700) 0%, var(--brand-400) 33%,
-      var(--books-500) 50%, var(--art-500) 67%,
-      var(--home-500) 100%);
-  }
-  .hero h1 {
-    font-family: 'Fraunces', serif;
-    font-size: var(--step-5);
-    font-weight: 800;
-    font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 144;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-    margin-bottom: var(--space-xs);
-    max-width: 20ch;
-  }
-  .hero .subtitle {
-    font-family: 'Literata', serif;
-    font-size: var(--step-0);
-    font-weight: 300;
-    font-style: italic;
-    font-variation-settings: 'opsz' 14;
-    color: var(--brand-300);
-    max-width: 55ch;
-    line-height: 1.55;
-  }
-  .hero .subtitle-sm {
-    display: block;
-    font-family: 'Literata', serif;
-    font-size: var(--step--1);
-    font-weight: 300;
-    font-style: italic;
-    font-variation-settings: 'opsz' 10;
-    color: var(--brand-400);
-    max-width: 60ch;
-    line-height: 1.55;
-    margin-top: var(--space-2xs);
-  }
-  .hero .tag-row {
-    display: flex;
-    gap: 8px;
-    margin-top: var(--space-m);
-    flex-wrap: wrap;
-  }
-  .hero .tag {
-    display: inline-block;
-    padding: 3px 10px;
-    border: 1px solid var(--brand-700);
-    border-radius: 3px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--brand-400);
-    letter-spacing: 0.04em;
-  }
+        /* ── HEADER ── */
+        .hero {
+            background: var(--brand-950);
+            color: var(--brand-50);
+            padding: var(--space-3xl) var(--space-xl) var(--space-xl);
+            position: relative;
+        }
 
-  /* ── LAYOUT ── */
-  .container {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: var(--space-xl) var(--space-l);
-  }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg,
+                    var(--brand-700) 0%, var(--brand-400) 33%,
+                    var(--books-500) 50%, var(--art-500) 67%,
+                    var(--home-500) 100%);
+        }
 
-  .section-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--neutral-500);
-    margin-bottom: 6px;
-  }
+        .hero .overline {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--step--2);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--brand-400);
+            margin-bottom: var(--space-xs);
+        }
 
-  h2 {
-    font-family: 'Fraunces', serif;
-    font-size: var(--step-3);
-    font-weight: 700;
-    font-variation-settings: 'SOFT' 30, 'WONK' 1, 'opsz' 72;
-    color: var(--brand-800);
-    margin-bottom: var(--space-2xs);
-    line-height: 1.15;
-  }
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: var(--step-4);
+            font-weight: 800;
+            font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 144;
+            letter-spacing: -0.02em;
+            line-height: 1.05;
+            margin-bottom: var(--space-xs);
+            max-width: 20ch;
+        }
 
-  h3 {
-    font-family: 'Fraunces', serif;
-    font-size: var(--step-1);
-    font-weight: 600;
-    font-variation-settings: 'SOFT' 30, 'WONK' 0, 'opsz' 36;
-    color: var(--brand-700);
-    margin-bottom: var(--space-2xs);
-    line-height: 1.25;
-  }
+        .hero .subtitle {
+            font-family: 'Newsreader', serif;
+            font-size: var(--step-1);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--brand-300);
+            max-width: 50ch;
+            line-height: 1.45;
+        }
 
-  .section-desc {
-    font-family: 'Literata', serif;
-    font-size: var(--step-0);
-    font-variation-settings: 'opsz' 14;
-    color: var(--neutral-700);
-    max-width: 60ch;
-    margin-bottom: var(--space-l);
-    line-height: 1.65;
-  }
+        .hero .subtitle-sm {
+            display: block;
+            font-family: 'Literata', serif;
+            font-size: var(--step--1);
+            font-weight: 300;
+            font-style: italic;
+            font-variation-settings: 'opsz' 10;
+            color: var(--brand-400);
+            max-width: 60ch;
+            line-height: 1.55;
+            margin-top: var(--space-2xs);
+        }
 
-  .divider {
-    border: none;
-    height: 1px;
-    background: var(--neutral-200);
-    margin: var(--space-xl) 0;
-  }
+        .hero .tag-row {
+            display: flex;
+            gap: 8px;
+            margin-top: var(--space-m);
+            flex-wrap: wrap;
+        }
 
-  /* ── PROSE ── */
-  .prose {
-    font-family: 'Literata', serif;
-    font-size: var(--step-0);
-    font-variation-settings: 'opsz' 14;
-    color: var(--neutral-800);
-    max-width: 62ch;
-    line-height: 1.7;
-  }
-  .prose p { margin-bottom: var(--space-s); }
-  .prose p:last-child { margin-bottom: 0; }
-  .prose strong { color: var(--neutral-950); font-weight: 700; }
-  .prose code {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.82em;
-    background: var(--brand-100);
-    padding: 1px 5px;
-    border-radius: 3px;
-    color: var(--brand-800);
-  }
+        .hero .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border: 1px solid var(--brand-700);
+            border-radius: 3px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--brand-400);
+            letter-spacing: 0.04em;
+        }
 
-  /* ── BLOCKQUOTE ── */
-  .epigraph {
-    border-left: 3px solid var(--brand-300);
-    padding: var(--space-s) var(--space-m);
-    margin: var(--space-m) 0;
-    background: var(--brand-50);
-    border-radius: 0 6px 6px 0;
-  }
-  .epigraph .quote-text {
-    font-family: 'Literata', serif;
-    font-size: var(--step-0);
-    font-style: italic;
-    font-variation-settings: 'opsz' 14;
-    color: var(--neutral-700);
-    line-height: 1.65;
-    max-width: 55ch;
-  }
-  .epigraph .attribution {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: var(--step--2);
-    color: var(--neutral-500);
-    margin-top: var(--space-2xs);
-    letter-spacing: 0.02em;
-  }
+        /* ── LAYOUT ── */
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-l);
+        }
 
-  /* ── FEATURE CARDS ── */
-  .feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--space-m);
-    margin: var(--space-l) 0;
-  }
-  .feature-card {
-    background: white;
-    border: 1px solid var(--neutral-200);
-    border-radius: 8px;
-    padding: var(--space-m);
-    box-shadow: 0 1px 4px oklch(0% 0 0 / 0.04);
-  }
-  .feature-card h4 {
-    font-family: 'Fraunces', serif;
-    font-size: var(--step-0);
-    font-weight: 600;
-    font-variation-settings: 'SOFT' 20, 'WONK' 0, 'opsz' 36;
-    color: var(--brand-800);
-    margin-bottom: var(--space-2xs);
-  }
-  .feature-card .support-tag {
-    display: inline-block;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    padding: 2px 8px;
-    border-radius: 3px;
-    margin-bottom: var(--space-xs);
-  }
-  .support-baseline {
-    background: oklch(93% 0.04 155);
-    color: oklch(30% 0.06 155);
-  }
-  .support-partial {
-    background: oklch(92% 0.03 85);
-    color: oklch(35% 0.08 85);
-  }
-  .feature-card p {
-    font-family: 'Literata', serif;
-    font-size: 0.9rem;
-    font-variation-settings: 'opsz' 12;
-    color: var(--neutral-700);
-    line-height: 1.65;
-  }
-  .feature-card code {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.8em;
-    background: var(--brand-100);
-    padding: 1px 4px;
-    border-radius: 2px;
-    color: var(--brand-800);
-  }
+        .section-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--neutral-500);
+            margin-bottom: 6px;
+        }
 
-  /* ── STACK TABLE ── */
-  .stack-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: var(--space-m) 0;
-    font-size: 0.85rem;
-  }
-  .stack-table th {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--neutral-600);
-    text-align: left;
-    padding: 8px 12px;
-    border-bottom: 2px solid var(--neutral-200);
-    font-weight: 500;
-  }
-  .stack-table td {
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--neutral-100);
-    color: var(--neutral-800);
-    vertical-align: top;
-    font-family: 'Literata', serif;
-    font-size: 0.85rem;
-    line-height: 1.5;
-  }
-  .stack-table td:first-child {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--neutral-600);
-    white-space: nowrap;
-    font-weight: 500;
-  }
-  .stack-table td:nth-child(2) {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--brand-700);
-  }
+        h2 {
+            font-family: 'Fraunces', serif;
+            font-size: var(--step-3);
+            font-weight: 700;
+            font-variation-settings: 'SOFT' 30, 'WONK' 1, 'opsz' 72;
+            color: var(--brand-800);
+            margin-bottom: var(--space-2xs);
+            line-height: 1.15;
+        }
 
-  /* ── APPROACH CARDS (numbered) ── */
-  .approach-card {
-    background: var(--neutral-50);
-    border: 1px solid var(--neutral-200);
-    border-radius: 8px;
-    padding: var(--space-m) var(--space-l);
-    margin-bottom: var(--space-m);
-    position: relative;
-  }
-  .approach-card::before {
-    content: attr(data-num);
-    position: absolute;
-    top: var(--space-m);
-    right: var(--space-l);
-    font-family: 'Fraunces', serif;
-    font-size: var(--step-3);
-    font-weight: 200;
-    font-variation-settings: 'SOFT' 80, 'WONK' 0, 'opsz' 144;
-    color: var(--brand-200);
-    line-height: 1;
-  }
-  .approach-card h3 { padding-right: 3rem; }
-  .approach-card .prose { max-width: 58ch; }
+        h3 {
+            font-family: 'Fraunces', serif;
+            font-size: var(--step-1);
+            font-weight: 600;
+            font-variation-settings: 'SOFT' 30, 'WONK' 0, 'opsz' 36;
+            color: var(--brand-700);
+            margin-bottom: var(--space-2xs);
+            line-height: 1.25;
+        }
 
-  /* ── MUSEUM EXAMPLE ── */
-  .museum-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--space-s);
-    margin: var(--space-l) 0;
-  }
-  .museum-item {
-    padding: var(--space-s);
-    background: white;
-    border-radius: 6px;
-    border: 1px solid var(--neutral-100);
-  }
-  .museum-item .museum-name {
-    font-family: 'Fraunces', serif;
-    font-size: var(--step--1);
-    font-weight: 600;
-    font-variation-settings: 'SOFT' 20, 'WONK' 0, 'opsz' 24;
-    color: var(--brand-800);
-    margin-bottom: 4px;
-  }
-  .museum-item p {
-    font-family: 'Literata', serif;
-    font-size: 0.82rem;
-    color: var(--neutral-600);
-    line-height: 1.6;
-    font-variation-settings: 'opsz' 10;
-  }
+        .section-desc {
+            font-family: 'Literata', serif;
+            font-size: var(--step-0);
+            font-variation-settings: 'opsz' 14;
+            color: var(--neutral-700);
+            max-width: 60ch;
+            margin-bottom: var(--space-l);
+            line-height: 1.65;
+        }
 
-  /* ── NOTES CARD ── */
-  .notes {
-    background: var(--brand-50);
-    border: 1px solid var(--brand-200);
-    border-radius: 8px;
-    padding: var(--space-m) var(--space-l);
-    margin: var(--space-l) 0;
-  }
-  .notes h3 {
-    color: var(--brand-800);
-    margin-bottom: var(--space-xs);
-  }
-  .notes p {
-    font-family: 'Literata', serif;
-    color: var(--neutral-800);
-    font-size: 0.92rem;
-    line-height: 1.7;
-    margin-bottom: var(--space-xs);
-    max-width: 65ch;
-  }
-  .notes p:last-child { margin-bottom: 0; }
-  .notes code {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.82em;
-    background: var(--brand-100);
-    padding: 1px 5px;
-    border-radius: 3px;
-    color: var(--brand-800);
-  }
+        .divider {
+            border: none;
+            height: 1px;
+            background: var(--neutral-200);
+            margin: var(--space-xl) 0;
+        }
 
-  /* ── REFERENCE LIST ── */
-  .ref-section {
-    margin-top: var(--space-l);
-  }
-  .ref-section h4 {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--neutral-500);
-    margin-bottom: var(--space-xs);
-    font-weight: 500;
-  }
-  .ref-section ul {
-    list-style: none;
-    padding: 0;
-  }
-  .ref-section li {
-    font-family: 'Literata', serif;
-    font-size: 0.85rem;
-    color: var(--neutral-700);
-    line-height: 1.6;
-    padding: 4px 0;
-    border-bottom: 1px solid var(--neutral-100);
-  }
-  .ref-section li:last-child { border-bottom: none; }
-  .ref-section li em {
-    color: var(--brand-600);
-  }
+        /* ── PROSE ── */
+        .prose {
+            font-family: 'Literata', serif;
+            font-size: var(--step-0);
+            font-variation-settings: 'opsz' 14;
+            color: var(--neutral-800);
+            max-width: 62ch;
+            line-height: 1.7;
+        }
 
-  @media (max-width: 800px) {
-    .container { padding: var(--space-l) var(--space-s); }
-    .hero { padding: var(--space-xl) var(--space-s) var(--space-l); }
-    .feature-grid { grid-template-columns: 1fr; }
-    .museum-grid { grid-template-columns: 1fr; }
-    .approach-card::before { display: none; }
-    .approach-card h3 { padding-right: 0; }
-    .stack-table { font-size: 0.75rem; }
-  }
+        .prose p {
+            margin-bottom: var(--space-s);
+        }
 
-  /* ── FOOTER ── */
-  .footer {
-    background: var(--brand-950);
-    color: var(--brand-400);
-    padding: var(--space-l);
-    margin-top: var(--space-xl);
-  }
-  .footer-inner {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .footer .brand {
-    font-family: 'Fraunces', serif;
-    font-size: var(--step-0);
-    font-weight: 700;
-    font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 36;
-    color: var(--brand-300);
-  }
-  .footer .brand .amp { color: var(--home-500); }
-  .footer .meta {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--brand-500);
-  }
-</style>
+        .prose p:last-child {
+            margin-bottom: 0;
+        }
+
+        .prose strong {
+            color: var(--neutral-950);
+            font-weight: 700;
+        }
+
+        .prose code {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.82em;
+            background: var(--brand-100);
+            padding: 1px 5px;
+            border-radius: 3px;
+            color: var(--brand-800);
+        }
+
+        /* ── BLOCKQUOTE ── */
+        .epigraph {
+            border-left: 3px solid var(--brand-300);
+            padding: var(--space-s) var(--space-m);
+            margin: var(--space-m) 0;
+            background: var(--brand-50);
+            border-radius: 0 6px 6px 0;
+        }
+
+        .epigraph .quote-text {
+            font-family: 'Literata', serif;
+            font-size: var(--step-0);
+            font-style: italic;
+            font-variation-settings: 'opsz' 14;
+            color: var(--neutral-700);
+            line-height: 1.65;
+            max-width: 55ch;
+        }
+
+        .epigraph .attribution {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--step--2);
+            color: var(--neutral-500);
+            margin-top: var(--space-2xs);
+            letter-spacing: 0.02em;
+        }
+
+        /* ── FEATURE CARDS ── */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-m);
+            margin: var(--space-l) 0;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid var(--neutral-200);
+            border-radius: 8px;
+            padding: var(--space-m);
+            box-shadow: 0 1px 4px oklch(0% 0 0 / 0.04);
+        }
+
+        .feature-card h4 {
+            font-family: 'Fraunces', serif;
+            font-size: var(--step-0);
+            font-weight: 600;
+            font-variation-settings: 'SOFT' 20, 'WONK' 0, 'opsz' 36;
+            color: var(--brand-800);
+            margin-bottom: var(--space-2xs);
+        }
+
+        .feature-card .support-tag {
+            display: inline-block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin-bottom: var(--space-xs);
+        }
+
+        .support-baseline {
+            background: oklch(93% 0.04 155);
+            color: oklch(30% 0.06 155);
+        }
+
+        .support-partial {
+            background: oklch(92% 0.03 85);
+            color: oklch(35% 0.08 85);
+        }
+
+        .feature-card p {
+            font-family: 'Literata', serif;
+            font-size: 0.9rem;
+            font-variation-settings: 'opsz' 12;
+            color: var(--neutral-700);
+            line-height: 1.65;
+        }
+
+        .feature-card code {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8em;
+            background: var(--brand-100);
+            padding: 1px 4px;
+            border-radius: 2px;
+            color: var(--brand-800);
+        }
+
+        /* ── STACK TABLE ── */
+        .stack-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-m) 0;
+            font-size: 0.85rem;
+        }
+
+        .stack-table th {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--neutral-600);
+            text-align: left;
+            padding: 8px 12px;
+            border-bottom: 2px solid var(--neutral-200);
+            font-weight: 500;
+        }
+
+        .stack-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--neutral-100);
+            color: var(--neutral-800);
+            vertical-align: top;
+            font-family: 'Literata', serif;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .stack-table td:first-child {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--neutral-600);
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .stack-table td:nth-child(2) {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--brand-700);
+        }
+
+        /* ── APPROACH CARDS (numbered) ── */
+        .approach-card {
+            background: var(--neutral-50);
+            border: 1px solid var(--neutral-200);
+            border-radius: 8px;
+            padding: var(--space-m) var(--space-l);
+            margin-bottom: var(--space-m);
+            position: relative;
+        }
+
+        .approach-card::before {
+            content: attr(data-num);
+            position: absolute;
+            top: var(--space-m);
+            right: var(--space-l);
+            font-family: 'Fraunces', serif;
+            font-size: var(--step-3);
+            font-weight: 200;
+            font-variation-settings: 'SOFT' 80, 'WONK' 0, 'opsz' 144;
+            color: var(--brand-200);
+            line-height: 1;
+        }
+
+        .approach-card h3 {
+            padding-right: 3rem;
+        }
+
+        .approach-card .prose {
+            max-width: 58ch;
+        }
+
+        /* ── MUSEUM EXAMPLE ── */
+        .museum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-s);
+            margin: var(--space-l) 0;
+        }
+
+        .museum-item {
+            padding: var(--space-s);
+            background: white;
+            border-radius: 6px;
+            border: 1px solid var(--neutral-100);
+        }
+
+        .museum-item .museum-name {
+            font-family: 'Fraunces', serif;
+            font-size: var(--step--1);
+            font-weight: 600;
+            font-variation-settings: 'SOFT' 20, 'WONK' 0, 'opsz' 24;
+            color: var(--brand-800);
+            margin-bottom: 4px;
+        }
+
+        .museum-item p {
+            font-family: 'Literata', serif;
+            font-size: 0.82rem;
+            color: var(--neutral-600);
+            line-height: 1.6;
+            font-variation-settings: 'opsz' 10;
+        }
+
+        /* ── NOTES CARD ── */
+        .notes {
+            background: var(--brand-50);
+            border: 1px solid var(--brand-200);
+            border-radius: 8px;
+            padding: var(--space-m) var(--space-l);
+            margin: var(--space-l) 0;
+        }
+
+        .notes h3 {
+            color: var(--brand-800);
+            margin-bottom: var(--space-xs);
+        }
+
+        .notes p {
+            font-family: 'Literata', serif;
+            color: var(--neutral-800);
+            font-size: 0.92rem;
+            line-height: 1.7;
+            margin-bottom: var(--space-xs);
+            max-width: 65ch;
+        }
+
+        .notes p:last-child {
+            margin-bottom: 0;
+        }
+
+        .notes code {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.82em;
+            background: var(--brand-100);
+            padding: 1px 5px;
+            border-radius: 3px;
+            color: var(--brand-800);
+        }
+
+        /* ── REFERENCE LIST ── */
+        .ref-section {
+            margin-top: var(--space-l);
+        }
+
+        .ref-section h4 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--neutral-500);
+            margin-bottom: var(--space-xs);
+            font-weight: 500;
+        }
+
+        .ref-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ref-section li {
+            font-family: 'Literata', serif;
+            font-size: 0.85rem;
+            color: var(--neutral-700);
+            line-height: 1.6;
+            padding: 4px 0;
+            border-bottom: 1px solid var(--neutral-100);
+        }
+
+        .ref-section li:last-child {
+            border-bottom: none;
+        }
+
+        .ref-section li em {
+            color: var(--brand-600);
+        }
+
+        @media (max-width: 800px) {
+            .container {
+                padding: var(--space-l) var(--space-s);
+            }
+
+            .hero {
+                padding: var(--space-xl) var(--space-s) var(--space-l);
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .museum-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .approach-card::before {
+                display: none;
+            }
+
+            .approach-card h3 {
+                padding-right: 0;
+            }
+
+            .stack-table {
+                font-size: 0.75rem;
+            }
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: var(--brand-950);
+            color: var(--brand-400);
+            padding: var(--space-l);
+            margin-top: var(--space-xl);
+        }
+
+        .footer-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer .brand {
+            font-family: 'Fraunces', serif;
+            font-size: var(--step-0);
+            font-weight: 700;
+            font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 36;
+            color: var(--brand-300);
+        }
+
+        .footer .brand .amp {
+            color: var(--home-500);
+        }
+
+        .footer .meta {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--brand-500);
+        }
+    </style>
 </head>
+
 <body>
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- HERO -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="hero">
-  <h1>Breaking the Layout Monoculture</h1>
-  <p class="subtitle">Research-Grounded Strategies for Post-Template Web Design</p>
-  <span class="subtitle-sm">A synthesis of academic research, modern CSS capabilities, editorial design traditions, and spatial cognition applied to the question every designer is asking: How do we make websites that don't all look the same?</span>
-  <div class="tag-row">
-    <span class="tag">CSS · Layout · Research</span>
-    <span class="tag">Intrinsic Design</span>
-    <span class="tag">Wayfinding</span>
-    <span class="tag">March 2026</span>
-  </div>
-</div>
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- HERO -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="hero">
+        <p class="overline">Strategies for Post-Template Web Design</p>
+        <h1>Breaking the Layout Monoculture</h1>
+        <p class="subtitle"></p>
+        <span class="subtitle">A synthesis of academic research, modern CSS capabilities, editorial design traditions, and spatial cognition applied to the question every designer is asking: How do we make websites that don't all look the same?</span>
+        <div class="tag-row">
+            <span class="tag">Research</span>
+            <span class="tag">CSS</span>
+            <span class="tag">Layout</span>
+            <span class="tag">Intrinsic Design</span>
+            <span class="tag">Wayfinding</span>
+            <span class="tag">March 2026</span>
+        </div>
+    </div>
 
-<div class="container">
+    <div class="container">
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- THE EMPIRICAL CASE -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="section-label">The Problem</div>
-<h2>The Empirical Case Against Template Thinking</h2>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- THE EMPIRICAL CASE -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="section-label">The Problem</div>
+        <h2>The Empirical Case Against Template Thinking</h2>
 
-<div class="prose">
-  <p>The critique of web homogenisation is not aesthetic snobbery — it is backed by measurement. A landmark <strong>CHI 2021 paper</strong> (Proceedings of the ACM Conference on Human Factors in Computing Systems) used computer vision on a large dataset of websites from 2003–2019 and found a <strong>30% decrease in visual distance between websites</strong> over that period, with layout homogenisation accelerating. Interviews with 11 professionals identified three drivers: shared code libraries, colour scheme standardisation, and mobile-responsive constraints.</p>
-</div>
+        <div class="prose">
+            <p>The critique of web homogenisation is not aesthetic snobbery — it is backed by measurement. A landmark <strong>CHI 2021 paper</strong> (Proceedings of the ACM Conference on Human Factors in Computing Systems) used computer vision on a large dataset of websites from 2003–2019 and found a <strong>30% decrease in visual distance between websites</strong> over that period, with layout homogenisation accelerating. Interviews with 11 professionals identified three drivers: shared code libraries, colour scheme standardisation, and mobile-responsive constraints.</p>
+        </div>
 
-<div class="epigraph">
-  <p class="quote-text">Every page consists of containers in containers in containers; sometimes text, sometimes images. Nothing is truly designed, it's simply assumed.</p>
-  <p class="attribution">— Boris Müller, Professor of Interaction Design, FH Potsdam</p>
-</div>
+        <div class="epigraph">
+            <p class="quote-text">Every page consists of containers in containers in containers; sometimes text, sometimes images. Nothing is truly designed, it's simply assumed.</p>
+            <p class="attribution">— Boris Müller, Professor of Interaction Design, FH Potsdam</p>
+        </div>
 
-<div class="prose">
-  <p>Miriam Suzanne, a member of the W3C CSS Working Group, frames the problem structurally: the 12-column grid that Bootstrap popularised was never a design principle — it was a workaround for CSS's layout limitations. Now that those limitations are gone, the workaround persists as convention.</p>
+        <div class="prose">
+            <p>Miriam Suzanne, a member of the W3C CSS Working Group, frames the problem structurally: the 12-column grid that Bootstrap popularised was never a design principle — it was a workaround for CSS's layout limitations. Now that those limitations are gone, the workaround persists as convention.</p>
 
-  <p>The <strong>cognitive cost</strong> is real. Nielsen Norman Group's three decades of banner blindness research demonstrates that users develop cognitive schemas for familiar visual patterns and begin filtering them automatically. The mechanism — inattentional blindness — extends beyond banner ads to entire layout patterns. When every SaaS landing page follows the same hero-features-testimonials-CTA-footer structure, users shift into autopilot scanning, missing content in expected-but-ignored zones. Research published in ACM Transactions on Computer-Human Interaction further shows that even unviewed patterned elements increase perceived cognitive workload and hinder visual search. Template predictability doesn't just bore users; it measurably degrades comprehension and engagement.</p>
+            <p>The <strong>cognitive cost</strong> is real. Nielsen Norman Group's three decades of banner blindness research demonstrates that users develop cognitive schemas for familiar visual patterns and begin filtering them automatically. The mechanism — inattentional blindness — extends beyond banner ads to entire layout patterns. When every SaaS landing page follows the same hero-features-testimonials-CTA-footer structure, users shift into autopilot scanning, missing content in expected-but-ignored zones. Research published in ACM Transactions on Computer-Human Interaction further shows that even unviewed patterned elements increase perceived cognitive workload and hinder visual search. Template predictability doesn't just bore users; it measurably degrades comprehension and engagement.</p>
 
-  <p><strong>Root causes are structural, not individual.</strong> Bootstrap powers over 7 million websites. WordPress powers roughly 30% of the web. The responsive design era's implicit bargain — "stick to columns and blocks and your layout will just work" — rewarded conformity. Design systems, while powerful for consistency, too often produce cookie-cutter environments. Vasilis van Gemert (Amsterdam University of Applied Sciences) argues that designers have reached "peak graphical user interface" and proposes designing for specificity of context rather than generic templates.</p>
-</div>
+            <p><strong>Root causes are structural, not individual.</strong> Bootstrap powers over 7 million websites. WordPress powers roughly 30% of the web. The responsive design era's implicit bargain — "stick to columns and blocks and your layout will just work" — rewarded conformity. Design systems, while powerful for consistency, too often produce cookie-cutter environments. Vasilis van Gemert (Amsterdam University of Applied Sciences) argues that designers have reached "peak graphical user interface" and proposes designing for specificity of context rather than generic templates.</p>
+        </div>
 
-<hr class="divider">
+        <hr class="divider">
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- THE NEW CSS TOOLKIT -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="section-label">The Toolkit</div>
-<h2>The New CSS Toolkit Makes Intrinsic Layout Real</h2>
-<p class="section-desc">The most important development of 2023–2025 is not any single CSS feature but their compound effect: for the first time, the web platform supports genuinely two-dimensional, content-responsive, breakpoint-free layout without JavaScript.</p>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- THE NEW CSS TOOLKIT -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="section-label">The Toolkit</div>
+        <h2>The New CSS Toolkit Makes Intrinsic Layout Real</h2>
+        <p class="section-desc">The most important development of 2023–2025 is not any single CSS feature but their compound effect: for the first time, the web platform supports genuinely two-dimensional, content-responsive, breakpoint-free layout without JavaScript.</p>
 
-<div class="feature-grid">
-  <div class="feature-card">
-    <span class="support-tag support-baseline">97%+ baseline</span>
-    <h4>CSS Subgrid</h4>
-    <p>Solves the long-standing problem of aligning nested content across sibling components. A parent grid's track definitions pass through to children via <code>grid-template-rows: subgrid</code>. This is the first web technology that genuinely implements compound grids as envisioned by Müller-Brockmann.</p>
-  </div>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span class="support-tag support-baseline">97%+ baseline</span>
+                <h4>CSS Subgrid</h4>
+                <p>Solves the long-standing problem of aligning nested content across sibling components. A parent grid's track definitions pass through to children via <code>grid-template-rows: subgrid</code>. This is the first web technology that genuinely implements compound grids as envisioned by Müller-Brockmann.</p>
+            </div>
 
-  <div class="feature-card">
-    <span class="support-tag support-baseline">93–96% baseline</span>
-    <h4>Container Queries</h4>
-    <p>Shift responsive design from viewport to component. Using <code>ch</code> units in container queries eliminates magic-number breakpoints entirely. Components adapt based on the space they actually occupy, not the browser window size. Combined with container query units (<code>cqw</code>, <code>cqh</code>), sizing becomes relative to context.</p>
-  </div>
+            <div class="feature-card">
+                <span class="support-tag support-baseline">93–96% baseline</span>
+                <h4>Container Queries</h4>
+                <p>Shift responsive design from viewport to component. Using <code>ch</code> units in container queries eliminates magic-number breakpoints entirely. Components adapt based on the space they actually occupy, not the browser window size. Combined with container query units (<code>cqw</code>, <code>cqh</code>), sizing becomes relative to context.</p>
+            </div>
 
-  <div class="feature-card">
-    <span class="support-tag support-partial">Chrome/Edge + Safari 26</span>
-    <h4>Scroll-Driven Animations</h4>
-    <p>Replace heavy JavaScript scroll libraries with native CSS. <code>animation-timeline: scroll()</code> maps animation progress to scroll position; <code>animation-timeline: view()</code> triggers as elements enter the viewport. Editorial pacing without a single line of JavaScript.</p>
-  </div>
+            <div class="feature-card">
+                <span class="support-tag support-partial">Chrome/Edge + Safari 26</span>
+                <h4>Scroll-Driven Animations</h4>
+                <p>Replace heavy JavaScript scroll libraries with native CSS. <code>animation-timeline: scroll()</code> maps animation progress to scroll position; <code>animation-timeline: view()</code> triggers as elements enter the viewport. Editorial pacing without a single line of JavaScript.</p>
+            </div>
 
-  <div class="feature-card">
-    <span class="support-tag support-partial">MPA + SPA support</span>
-    <h4>View Transitions API</h4>
-    <p>Animated transitions between pages or states. The CSS-only opt-in: <code>@view-transition { navigation: auto; }</code>. Elements maintain visual identity across page transitions via <code>view-transition-name</code> — what wayfinding researchers call "threshold design."</p>
-  </div>
-</div>
+            <div class="feature-card">
+                <span class="support-tag support-partial">MPA + SPA support</span>
+                <h4>View Transitions API</h4>
+                <p>Animated transitions between pages or states. The CSS-only opt-in: <code>@view-transition { navigation: auto; }</code>. Elements maintain visual identity across page transitions via <code>view-transition-name</code> — what wayfinding researchers call "threshold design."</p>
+            </div>
+        </div>
 
-<div class="notes">
-  <h3>Other Capabilities Worth Noting</h3>
-  <p><strong>CSS <code>:has()</code></strong> (90%+ support): parent-aware, content-conditional layout logic in pure CSS. Style a grid differently based on how many children it contains.</p>
-  <p><strong>Anchor positioning</strong> (Chrome/Edge, Safari 26): declarative positioning relative to other elements, replacing JavaScript libraries like Floating UI.</p>
-  <p><strong>CSS math functions</strong> (<code>round()</code>, <code>mod()</code>): snap fluid values to rhythm grids. George Francis demonstrated combining <code>round()</code> with fluid typography to achieve true baseline grid alignment — a 15-year quest finally resolved.</p>
-  <p><strong>CSS Grid Lanes (masonry)</strong>: led by Jen Simmons at WebKit, with Safari Technology Preview implementing <code>display: grid-lanes</code> for native waterfall layouts.</p>
-  <p><strong><code>@scope</code></strong> (Miriam Suzanne): bounded style ranges, preventing style leakage without heavy BEM conventions or CSS-in-JS.</p>
-  <p><strong>Every feature listed above is pure CSS.</strong> A sophisticated, distinctive layout system can be built without JavaScript for layout.</p>
-</div>
+        <div class="notes">
+            <h3>Other Capabilities Worth Noting</h3>
+            <p><strong>CSS <code>:has()</code></strong> (90%+ support): parent-aware, content-conditional layout logic in pure CSS. Style a grid differently based on how many children it contains.</p>
+            <p><strong>Anchor positioning</strong> (Chrome/Edge, Safari 26): declarative positioning relative to other elements, replacing JavaScript libraries like Floating UI.</p>
+            <p><strong>CSS math functions</strong> (<code>round()</code>, <code>mod()</code>): snap fluid values to rhythm grids. George Francis demonstrated combining <code>round()</code> with fluid typography to achieve true baseline grid alignment — a 15-year quest finally resolved.</p>
+            <p><strong>CSS Grid Lanes (masonry)</strong>: led by Jen Simmons at WebKit, with Safari Technology Preview implementing <code>display: grid-lanes</code> for native waterfall layouts.</p>
+            <p><strong><code>@scope</code></strong> (Miriam Suzanne): bounded style ranges, preventing style leakage without heavy BEM conventions or CSS-in-JS.</p>
+            <p><strong>Every feature listed above is pure CSS.</strong> A sophisticated, distinctive layout system can be built without JavaScript for layout.</p>
+        </div>
 
-<hr class="divider">
+        <hr class="divider">
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- THE INTRINSIC DESIGN STACK -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="section-label">The Stack</div>
-<h2>The Intrinsic Design Stack</h2>
-<p class="section-desc">The most intellectually rigorous approach to web layout currently available combines Every Layout's composable primitives with Utopia's fluid responsive mathematics.</p>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- THE INTRINSIC DESIGN STACK -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="section-label">The Stack</div>
+        <h2>The Intrinsic Design Stack</h2>
+        <p class="section-desc">The most intellectually rigorous approach to web layout currently available combines Every Layout's composable primitives with Utopia's fluid responsive mathematics.</p>
 
-<h3>Every Layout's Primitives</h3>
-<div class="prose">
-  <p>Every Layout (Heydon Pickering and Andy Bell) defines 12 layout primitives — Stack, Box, Center, Cluster, Sidebar, Switcher, Cover, Grid, Frame, Reel, Imposter, and Icon — designed for <strong>zero media queries</strong>. The philosophy is "the CSS of suggestion": set constraints rather than fixed dimensions, and let the browser resolve layout within those constraints. This anticipated what Jen Simmons calls "intrinsic web design" by several years.</p>
-  <p>Modern CSS enhances every primitive: the Stack benefits from CSS gap in flex; the Sidebar gets more elegant sizing via <code>fit-content()</code> in Grid; the Switcher can use container queries for clearer intent; the Grid primitive gains subgrid for nested alignment; the Cover uses <code>dvh</code> to fix mobile viewport height issues; the Reel gains scroll-driven animations for progress indicators.</p>
-</div>
+        <h3>Every Layout's Primitives</h3>
+        <div class="prose">
+            <p>Every Layout (Heydon Pickering and Andy Bell) defines 12 layout primitives — Stack, Box, Center, Cluster, Sidebar, Switcher, Cover, Grid, Frame, Reel, Imposter, and Icon — designed for <strong>zero media queries</strong>. The philosophy is "the CSS of suggestion": set constraints rather than fixed dimensions, and let the browser resolve layout within those constraints. This anticipated what Jen Simmons calls "intrinsic web design" by several years.</p>
+            <p>Modern CSS enhances every primitive: the Stack benefits from CSS gap in flex; the Sidebar gets more elegant sizing via <code>fit-content()</code> in Grid; the Switcher can use container queries for clearer intent; the Grid primitive gains subgrid for nested alignment; the Cover uses <code>dvh</code> to fix mobile viewport height issues; the Reel gains scroll-driven animations for progress indicators.</p>
+        </div>
 
-<h3 style="margin-top: var(--space-l);">Utopia's Fluid Mathematics</h3>
-<div class="prose">
-  <p>Utopia (James Gilyead and Trys Mudford) defines type and space at minimum and maximum viewport widths with different modular scale ratios, then interpolates between them via <code>clamp()</code> with mixed <code>rem</code> and <code>vi</code> units. The result: smooth, continuous type and spacing transitions with no jarring layout shifts at any viewport size. The use of <code>vi</code> (viewport inline) rather than <code>vw</code> preserves zoom accessibility, satisfying WCAG requirements.</p>
-  <p>Space tokens derived from the same modular scale as typography create what Massimo Vignelli called "syntactical consistency" — spacing and type as a unified mathematical system. When the type scale is built on musical interval ratios (perfect fourth at 4:3, perfect fifth at 3:2, major third at 5:4), the space system inherits that proportional harmony automatically.</p>
-</div>
+        <h3 style="margin-top: var(--space-l);">Utopia's Fluid Mathematics</h3>
+        <div class="prose">
+            <p>Utopia (James Gilyead and Trys Mudford) defines type and space at minimum and maximum viewport widths with different modular scale ratios, then interpolates between them via <code>clamp()</code> with mixed <code>rem</code> and <code>vi</code> units. The result: smooth, continuous type and spacing transitions with no jarring layout shifts at any viewport size. The use of <code>vi</code> (viewport inline) rather than <code>vw</code> preserves zoom accessibility, satisfying WCAG requirements.</p>
+            <p>Space tokens derived from the same modular scale as typography create what Massimo Vignelli called "syntactical consistency" — spacing and type as a unified mathematical system. When the type scale is built on musical interval ratios (perfect fourth at 4:3, perfect fifth at 3:2, major third at 5:4), the space system inherits that proportional harmony automatically.</p>
+        </div>
 
-<h3 style="margin-top: var(--space-l);">The Full Stack at a Glance</h3>
+        <h3 style="margin-top: var(--space-l);">The Full Stack at a Glance</h3>
 
-<table class="stack-table">
-  <thead>
-    <tr>
-      <th>Layer</th>
-      <th>Tool</th>
-      <th>Purpose</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>Typography</td><td>Utopia fluid type scale</td><td>Breakpoint-free, modular, accessible</td></tr>
-    <tr><td>Spacing</td><td>Utopia fluid space scale</td><td>Harmonised with type, clamp()-based</td></tr>
-    <tr><td>Colour</td><td>OKLCH + color-mix() + light-dark()</td><td>Perceptually uniform, CSS-native</td></tr>
-    <tr><td>Layout</td><td>Every Layout primitives</td><td>Composable, intrinsically responsive</td></tr>
-    <tr><td>Alignment</td><td>CSS Subgrid</td><td>Nested content alignment</td></tr>
-    <tr><td>Adaptation</td><td>Container queries</td><td>Component-level responsiveness</td></tr>
-    <tr><td>Transitions</td><td>View Transitions API</td><td>Perceptual continuity between pages</td></tr>
-    <tr><td>Scroll</td><td>Scroll-driven animations</td><td>Editorial pacing, progressive disclosure</td></tr>
-    <tr><td>Architecture</td><td>@scope + nesting + @layer</td><td>Clean cascade management</td></tr>
-    <tr><td>Methodology</td><td>CUBE CSS</td><td>Composition-first CSS architecture</td></tr>
-  </tbody>
-</table>
+        <table class="stack-table">
+            <thead>
+                <tr>
+                    <th>Layer</th>
+                    <th>Tool</th>
+                    <th>Purpose</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Typography</td>
+                    <td>Utopia fluid type scale</td>
+                    <td>Breakpoint-free, modular, accessible</td>
+                </tr>
+                <tr>
+                    <td>Spacing</td>
+                    <td>Utopia fluid space scale</td>
+                    <td>Harmonised with type, clamp()-based</td>
+                </tr>
+                <tr>
+                    <td>Colour</td>
+                    <td>OKLCH + color-mix() + light-dark()</td>
+                    <td>Perceptually uniform, CSS-native</td>
+                </tr>
+                <tr>
+                    <td>Layout</td>
+                    <td>Every Layout primitives</td>
+                    <td>Composable, intrinsically responsive</td>
+                </tr>
+                <tr>
+                    <td>Alignment</td>
+                    <td>CSS Subgrid</td>
+                    <td>Nested content alignment</td>
+                </tr>
+                <tr>
+                    <td>Adaptation</td>
+                    <td>Container queries</td>
+                    <td>Component-level responsiveness</td>
+                </tr>
+                <tr>
+                    <td>Transitions</td>
+                    <td>View Transitions API</td>
+                    <td>Perceptual continuity between pages</td>
+                </tr>
+                <tr>
+                    <td>Scroll</td>
+                    <td>Scroll-driven animations</td>
+                    <td>Editorial pacing, progressive disclosure</td>
+                </tr>
+                <tr>
+                    <td>Architecture</td>
+                    <td>@scope + nesting + @layer</td>
+                    <td>Clean cascade management</td>
+                </tr>
+                <tr>
+                    <td>Methodology</td>
+                    <td>CUBE CSS</td>
+                    <td>Composition-first CSS architecture</td>
+                </tr>
+            </tbody>
+        </table>
 
-<hr class="divider">
+        <hr class="divider">
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- EDITORIAL DESIGN PRINCIPLES -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="section-label">Historical Roots</div>
-<h2>Editorial Design Principles, Finally Expressible in CSS</h2>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- EDITORIAL DESIGN PRINCIPLES -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="section-label">Historical Roots</div>
+        <h2>Editorial Design Principles, Finally Expressible in CSS</h2>
 
-<div class="prose">
-  <p>The tension between print editorial ambition and web fluidity is dissolving. CSS Grid is the first web technology that is truly two-dimensional — enabling designers to think in rows and columns simultaneously, exactly as print designers always have.</p>
-</div>
+        <div class="prose">
+            <p>The tension between print editorial ambition and web fluidity is dissolving. CSS Grid is the first web technology that is truly two-dimensional — enabling designers to think in rows and columns simultaneously, exactly as print designers always have.</p>
+        </div>
 
-<div class="notes" style="margin-top: var(--space-m);">
-  <h3>Historical Principles Map to CSS with Remarkable Directness</h3>
-  <p><strong>Tschichold's asymmetric typography</strong> (1928) becomes <code>grid-template-columns: 2fr 5fr 3fr</code> instead of the ubiquitous <code>1fr 1fr 1fr</code>. His principle that "form must be created out of function" parallels intrinsic sizing (<code>min-content</code>, <code>max-content</code>, <code>fit-content()</code>).</p>
-  <p><strong>Müller-Brockmann's modular grids</strong> (1981) — rows AND columns creating discrete cells — are native CSS Grid: <code>grid-template-columns</code> plus <code>grid-template-rows</code>, with subgrid for compound grids and named areas for hierarchical structures.</p>
-  <p><strong>Vignelli's systematic restraint</strong> — limited typefaces, strict grids, spacing as syntax — is precisely the design token and custom property approach. Jon Yablonski's Swiss in CSS project (swissincss.com) recreates iconic Swiss Style posters entirely in CSS with animation.</p>
-</div>
+        <div class="notes" style="margin-top: var(--space-m);">
+            <h3>Historical Principles Map to CSS with Remarkable Directness</h3>
+            <p><strong>Tschichold's asymmetric typography</strong> (1928) becomes <code>grid-template-columns: 2fr 5fr 3fr</code> instead of the ubiquitous <code>1fr 1fr 1fr</code>. His principle that "form must be created out of function" parallels intrinsic sizing (<code>min-content</code>, <code>max-content</code>, <code>fit-content()</code>).</p>
+            <p><strong>Müller-Brockmann's modular grids</strong> (1981) — rows AND columns creating discrete cells — are native CSS Grid: <code>grid-template-columns</code> plus <code>grid-template-rows</code>, with subgrid for compound grids and named areas for hierarchical structures.</p>
+            <p><strong>Vignelli's systematic restraint</strong> — limited typefaces, strict grids, spacing as syntax — is precisely the design token and custom property approach. Jon Yablonski's Swiss in CSS project (swissincss.com) recreates iconic Swiss Style posters entirely in CSS with animation.</p>
+        </div>
 
-<div class="prose" style="margin-top: var(--space-l);">
-  <p><strong>Techniques that now work in pure CSS:</strong> named grid areas for layout declared in ASCII-art syntax; named grid lines for editorial column structures with full-bleed breakouts; overlapping elements via same-cell grid placement with z-index; baseline grids using the CSS <code>cap</code> unit; editorial pacing through alternating dense and airy sections; <code>shape-outside</code> for text wrapping; <code>clip-path</code> for non-rectangular crops; and <code>initial-letter</code> for drop caps.</p>
-</div>
+        <div class="prose" style="margin-top: var(--space-l);">
+            <p><strong>Techniques that now work in pure CSS:</strong> named grid areas for layout declared in ASCII-art syntax; named grid lines for editorial column structures with full-bleed breakouts; overlapping elements via same-cell grid placement with z-index; baseline grids using the CSS <code>cap</code> unit; editorial pacing through alternating dense and airy sections; <code>shape-outside</code> for text wrapping; <code>clip-path</code> for non-rectangular crops; and <code>initial-letter</code> for drop caps.</p>
+        </div>
 
-<hr class="divider">
+        <hr class="divider">
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- WAYFINDING SCIENCE -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="section-label">Spatial Cognition</div>
-<h2>Wayfinding Science and Spatial Navigation</h2>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- WAYFINDING SCIENCE -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="section-label">Spatial Cognition</div>
+        <h2>Wayfinding Science and Spatial Navigation</h2>
 
-<div class="prose">
-  <p>For hub pages, portal sites, and any page whose primary job is to help visitors find their way to deeper content, the most useful academic framework comes from <strong>Kevin Lynch's</strong> urban planning research, translated to digital spaces by Mark Foltz's MIT thesis "Designing Navigable Information Spaces." Lynch identified five elements of legible environments: <strong>paths, landmarks, regions, edges, and nodes</strong>. A homepage is a node; each major section is a region; the visual transitions between them are edges.</p>
-</div>
+        <div class="prose">
+            <p>For hub pages, portal sites, and any page whose primary job is to help visitors find their way to deeper content, the most useful academic framework comes from <strong>Kevin Lynch's</strong> urban planning research, translated to digital spaces by Mark Foltz's MIT thesis "Designing Navigable Information Spaces." Lynch identified five elements of legible environments: <strong>paths, landmarks, regions, edges, and nodes</strong>. A homepage is a node; each major section is a region; the visual transitions between them are edges.</p>
+        </div>
 
-<div class="notes" style="margin-top: var(--space-m);">
-  <h3>Key Principles from Spatial Cognition Research</h3>
-  <p><strong>Gestalt grouping:</strong> proximity groups related elements; similarity within sections creates coherence; dissimilarity across sections creates distinction. Common region (elements within shared boundaries) defines territory. Closure — the mind filling in gaps — means partial content revelation signals "there's more," a powerful progressive disclosure cue.</p>
-  <p><strong>Spatial memory:</strong> Nielsen Norman Group research shows that spatially stable interfaces reduce cognitive effort across return visits. Users develop spatial memory relative to boundaries and landmarks. Broad, shallow hierarchies are more efficient than narrow, deep ones.</p>
-  <p><strong>Information scent</strong> (Pirolli & Card, PARC): users are "informavores" following scent trails. Each section must emit strong, differentiated signals — unambiguous labels, visual context, and spatial grouping that keeps each area's cues coherent.</p>
-  <p><strong>Tufte's data-ink ratio:</strong> maximise the proportion of visual elements that communicate useful information. Support both overview scanning and detailed reading. Use "small multiples" — consistent templates across repeated content types.</p>
-</div>
+        <div class="notes" style="margin-top: var(--space-m);">
+            <h3>Key Principles from Spatial Cognition Research</h3>
+            <p><strong>Gestalt grouping:</strong> proximity groups related elements; similarity within sections creates coherence; dissimilarity across sections creates distinction. Common region (elements within shared boundaries) defines territory. Closure — the mind filling in gaps — means partial content revelation signals "there's more," a powerful progressive disclosure cue.</p>
+            <p><strong>Spatial memory:</strong> Nielsen Norman Group research shows that spatially stable interfaces reduce cognitive effort across return visits. Users develop spatial memory relative to boundaries and landmarks. Broad, shallow hierarchies are more efficient than narrow, deep ones.</p>
+            <p><strong>Information scent</strong> (Pirolli & Card, PARC): users are "informavores" following scent trails. Each section must emit strong, differentiated signals — unambiguous labels, visual context, and spatial grouping that keeps each area's cues coherent.</p>
+            <p><strong>Tufte's data-ink ratio:</strong> maximise the proportion of visual elements that communicate useful information. Support both overview scanning and detailed reading. Use "small multiples" — consistent templates across repeated content types.</p>
+        </div>
 
-<h3 style="margin-top: var(--space-xl);">Museum Wayfinding: The Strongest Design Analogue</h3>
-<p class="section-desc">Museum websites face the same challenge as any multi-section portal: making diverse content discoverable while creating a sense of exploration.</p>
+        <h3 style="margin-top: var(--space-xl);">Museum Wayfinding: The Strongest Design Analogue</h3>
+        <p class="section-desc">Museum websites face the same challenge as any multi-section portal: making diverse content discoverable while creating a sense of exploration.</p>
 
-<div class="museum-grid">
-  <div class="museum-item">
-    <div class="museum-name">Victoria & Albert Museum</div>
-    <p>Colour reserved exclusively for revenue-generating content as a "breadcrumb trail." A "city wayfinding" approach treating the museum as neighbourhoods, encouraging exploration of lesser-known areas.</p>
-  </div>
-  <div class="museum-item">
-    <div class="museum-name">Whitney Museum</div>
-    <p>A typographic grid derived from the logo serves as a container for directional information — functionally effective yet subdued enough not to compete with the art.</p>
-  </div>
-  <div class="museum-item">
-    <div class="museum-name">Nordiska Museet</div>
-    <p>2025 Webby winner. Each exhibition gets its own adapted colour palette while maintaining overall coherence, with scroll-responsive text animations within a unified system.</p>
-  </div>
-  <div class="museum-item">
-    <div class="museum-name">MIT Museum</div>
-    <p>Images behind blocks of colour with geometric "peephole" shapes created by CSS clip-path — partial revelation as an engagement mechanism, inviting curiosity without revealing everything.</p>
-  </div>
-  <div class="museum-item">
-    <div class="museum-name">British Museum</div>
-    <p>Each exhibition's colour is drawn from the exhibition content itself, appearing on hover elsewhere — content-derived theming.</p>
-  </div>
-  <div class="museum-item">
-    <div class="museum-name">Van Gogh Museum</div>
-    <p>Horizontal scrolling on the homepage, signalling "this is an exploration space" rather than linear consumption — achievable with CSS scroll-snap-type.</p>
-  </div>
-</div>
+        <div class="museum-grid">
+            <div class="museum-item">
+                <div class="museum-name">Victoria & Albert Museum</div>
+                <p>Colour reserved exclusively for revenue-generating content as a "breadcrumb trail." A "city wayfinding" approach treating the museum as neighbourhoods, encouraging exploration of lesser-known areas.</p>
+            </div>
+            <div class="museum-item">
+                <div class="museum-name">Whitney Museum</div>
+                <p>A typographic grid derived from the logo serves as a container for directional information — functionally effective yet subdued enough not to compete with the art.</p>
+            </div>
+            <div class="museum-item">
+                <div class="museum-name">Nordiska Museet</div>
+                <p>2025 Webby winner. Each exhibition gets its own adapted colour palette while maintaining overall coherence, with scroll-responsive text animations within a unified system.</p>
+            </div>
+            <div class="museum-item">
+                <div class="museum-name">MIT Museum</div>
+                <p>Images behind blocks of colour with geometric "peephole" shapes created by CSS clip-path — partial revelation as an engagement mechanism, inviting curiosity without revealing everything.</p>
+            </div>
+            <div class="museum-item">
+                <div class="museum-name">British Museum</div>
+                <p>Each exhibition's colour is drawn from the exhibition content itself, appearing on hover elsewhere — content-derived theming.</p>
+            </div>
+            <div class="museum-item">
+                <div class="museum-name">Van Gogh Museum</div>
+                <p>Horizontal scrolling on the homepage, signalling "this is an exploration space" rather than linear consumption — achievable with CSS scroll-snap-type.</p>
+            </div>
+        </div>
 
-<hr class="divider">
+        <hr class="divider">
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- SEVEN APPROACHES -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="section-label">The Approaches</div>
-<h2>Seven Concrete Approaches for Breaking Out</h2>
-<p class="section-desc">Synthesising across all the research streams above: the most research-grounded, CSS-implementable, intrinsic-design-compatible approaches for building layouts that break away from the template monoculture.</p>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- SEVEN APPROACHES -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="section-label">The Approaches</div>
+        <h2>Seven Concrete Approaches for Breaking Out</h2>
+        <p class="section-desc">Synthesising across all the research streams above: the most research-grounded, CSS-implementable, intrinsic-design-compatible approaches for building layouts that break away from the template monoculture.</p>
 
-<div class="approach-card" data-num="1">
-  <h3>Spatial Zoning Over Card Grids</h3>
-  <div class="prose">
-    <p>Treat the page as a <strong>spatial map with distinct zones</strong> — each occupying defined territory on the viewport with a unique visual identity. CSS Grid with named areas, OKLCH-derived per-section colour via custom properties, and typographic micro-variations per zone. This follows Lynch's "regions" principle and leverages Gestalt common region and proximity. The page becomes a landscape to survey, not a menu to read. Pure CSS, no JavaScript required.</p>
-  </div>
-</div>
+        <div class="approach-card" data-num="1">
+            <h3>Spatial Zoning Over Card Grids</h3>
+            <div class="prose">
+                <p>Treat the page as a <strong>spatial map with distinct zones</strong> — each occupying defined territory on the viewport with a unique visual identity. CSS Grid with named areas, OKLCH-derived per-section colour via custom properties, and typographic micro-variations per zone. This follows Lynch's "regions" principle and leverages Gestalt common region and proximity. The page becomes a landscape to survey, not a menu to read. Pure CSS, no JavaScript required.</p>
+            </div>
+        </div>
 
-<div class="approach-card" data-num="2">
-  <h3>Thematic Colour Differentiation with Content-Derived Palettes</h3>
-  <div class="prose">
-    <p>Following the Nordiska Museet and British Museum model, each section gets its own OKLCH colour palette cascading through custom properties. Colour becomes a wayfinding beacon, reserved for section identity rather than decoration. Use <code>color-mix()</code> in OKLCH for tint/shade variations. The V&A principle: colour as breadcrumb trail. Pure CSS.</p>
-  </div>
-</div>
+        <div class="approach-card" data-num="2">
+            <h3>Thematic Colour Differentiation with Content-Derived Palettes</h3>
+            <div class="prose">
+                <p>Following the Nordiska Museet and British Museum model, each section gets its own OKLCH colour palette cascading through custom properties. Colour becomes a wayfinding beacon, reserved for section identity rather than decoration. Use <code>color-mix()</code> in OKLCH for tint/shade variations. The V&A principle: colour as breadcrumb trail. Pure CSS.</p>
+            </div>
+        </div>
 
-<div class="approach-card" data-num="3">
-  <h3>View Transitions as Threshold Design</h3>
-  <div class="prose">
-    <p>When navigating between pages or major sections, CSS View Transitions provide perceptual continuity — the visual "threshold" that museum wayfinding research identifies as critical. Elements maintain identity across transitions via <code>view-transition-name</code>. For multi-page architecture: <code>@view-transition { navigation: auto; }</code>. CSS-only.</p>
-  </div>
-</div>
+        <div class="approach-card" data-num="3">
+            <h3>View Transitions as Threshold Design</h3>
+            <div class="prose">
+                <p>When navigating between pages or major sections, CSS View Transitions provide perceptual continuity — the visual "threshold" that museum wayfinding research identifies as critical. Elements maintain identity across transitions via <code>view-transition-name</code>. For multi-page architecture: <code>@view-transition { navigation: auto; }</code>. CSS-only.</p>
+            </div>
+        </div>
 
-<div class="approach-card" data-num="4">
-  <h3>Editorial Pacing Through Varied Grid Configurations</h3>
-  <div class="prose">
-    <p>Instead of uniform sections, alternate between dense and airy compositions. Use subgrid to maintain a macro typographic grid while varying column structures section by section. Asymmetric <code>fr</code> ratios (Tschichold) create visual interest; <code>auto-fit</code>/<code>auto-fill</code> with <code>minmax()</code> creates intrinsically responsive columns. Implement baseline alignment with the <code>cap</code> unit breakthrough. Pure CSS.</p>
-  </div>
-</div>
+        <div class="approach-card" data-num="4">
+            <h3>Editorial Pacing Through Varied Grid Configurations</h3>
+            <div class="prose">
+                <p>Instead of uniform sections, alternate between dense and airy compositions. Use subgrid to maintain a macro typographic grid while varying column structures section by section. Asymmetric <code>fr</code> ratios (Tschichold) create visual interest; <code>auto-fit</code>/<code>auto-fill</code> with <code>minmax()</code> creates intrinsically responsive columns. Implement baseline alignment with the <code>cap</code> unit breakthrough. Pure CSS.</p>
+            </div>
+        </div>
 
-<div class="approach-card" data-num="5">
-  <h3>Progressive Disclosure via Scroll-Driven Animation</h3>
-  <div class="prose">
-    <p>Use native CSS scroll-driven animations for subtle content revelation — not parallax spectacle, but informational unfolding. <code>animation-timeline: view()</code> triggers as elements enter the viewport; <code>animation-range</code> provides fine-grained control. Combined with <code>:has()</code> for content-conditional styling, layout can respond to what is present rather than requiring media queries.</p>
-  </div>
-</div>
+        <div class="approach-card" data-num="5">
+            <h3>Progressive Disclosure via Scroll-Driven Animation</h3>
+            <div class="prose">
+                <p>Use native CSS scroll-driven animations for subtle content revelation — not parallax spectacle, but informational unfolding. <code>animation-timeline: view()</code> triggers as elements enter the viewport; <code>animation-range</code> provides fine-grained control. Combined with <code>:has()</code> for content-conditional styling, layout can respond to what is present rather than requiring media queries.</p>
+            </div>
+        </div>
 
-<div class="approach-card" data-num="6">
-  <h3>Partial Revelation Using Clip-Path</h3>
-  <div class="prose">
-    <p>The MIT Museum's "peephole" approach — showing content behind geometric shapes that invite curiosity — translates directly to CSS <code>clip-path</code>. Tease imagery or content through shaped windows that signal "there's more." Combined with hover states that expand the reveal, this creates engagement without heavy imagery. Pure CSS.</p>
-  </div>
-</div>
+        <div class="approach-card" data-num="6">
+            <h3>Partial Revelation Using Clip-Path</h3>
+            <div class="prose">
+                <p>The MIT Museum's "peephole" approach — showing content behind geometric shapes that invite curiosity — translates directly to CSS <code>clip-path</code>. Tease imagery or content through shaped windows that signal "there's more." Combined with hover states that expand the reveal, this creates engagement without heavy imagery. Pure CSS.</p>
+            </div>
+        </div>
 
-<div class="approach-card" data-num="7">
-  <h3>Horizontal or Lateral Exploration</h3>
-  <div class="prose">
-    <p>For certain content types, horizontal scrolling with CSS <code>scroll-snap-type</code> signals exploration rather than linear consumption. The Van Gogh Museum demonstrates this at the page level. Every Layout's Reel primitive provides the composable abstraction. This creates a scanning pattern distinct from the vertical scroll and is achievable entirely in CSS with scroll-snap.</p>
-  </div>
-</div>
+        <div class="approach-card" data-num="7">
+            <h3>Horizontal or Lateral Exploration</h3>
+            <div class="prose">
+                <p>For certain content types, horizontal scrolling with CSS <code>scroll-snap-type</code> signals exploration rather than linear consumption. The Van Gogh Museum demonstrates this at the page level. Every Layout's Reel primitive provides the composable abstraction. This creates a scanning pattern distinct from the vertical scroll and is achievable entirely in CSS with scroll-snap.</p>
+            </div>
+        </div>
 
-<hr class="divider">
+        <hr class="divider">
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- THE DEEPER POINT -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="section-label">Synthesis</div>
-<h2>The Deeper Point</h2>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- THE DEEPER POINT -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="section-label">Synthesis</div>
+        <h2>The Deeper Point</h2>
 
-<div class="epigraph">
-  <p class="quote-text">The grid is not the enemy. It's our launchpad. Every audacious layout choice must be a stepping stone, not a stumbling block, on the user's path.</p>
-  <p class="attribution">— KOTA</p>
-</div>
+        <div class="epigraph">
+            <p class="quote-text">The grid is not the enemy. It's our launchpad. Every audacious layout choice must be a stepping stone, not a stumbling block, on the user's path.</p>
+            <p class="attribution">— KOTA</p>
+        </div>
 
-<div class="prose">
-  <p>The key insight from this research is that <strong>breaking layout conventions effectively requires stronger principles, not weaker ones</strong>. The sites and systems doing genuinely innovative work — Every Layout, Utopia, the Nordiska Museet, the V&A wayfinding system — are all characterised by extreme systematicity. They are not "creative" in the sense of arbitrary novelty; they are creative because their constraints are better chosen.</p>
+        <div class="prose">
+            <p>The key insight from this research is that <strong>breaking layout conventions effectively requires stronger principles, not weaker ones</strong>. The sites and systems doing genuinely innovative work — Every Layout, Utopia, the Nordiska Museet, the V&A wayfinding system — are all characterised by extreme systematicity. They are not "creative" in the sense of arbitrary novelty; they are creative because their constraints are better chosen.</p>
 
-  <p>The convergence of modern CSS capabilities with historical design principles creates a genuine inflection point. Subgrid enables Müller-Brockmann's compound grids. Asymmetric <code>fr</code> ratios express Tschichold's dynamic balance. Custom properties encode Vignelli's systematic restraint. Container queries make intrinsic design component-aware. Scroll-driven animations create editorial pacing without JavaScript.</p>
+            <p>The convergence of modern CSS capabilities with historical design principles creates a genuine inflection point. Subgrid enables Müller-Brockmann's compound grids. Asymmetric <code>fr</code> ratios express Tschichold's dynamic balance. Custom properties encode Vignelli's systematic restraint. Container queries make intrinsic design component-aware. Scroll-driven animations create editorial pacing without JavaScript.</p>
 
-  <p>The CHI 2021 research confirms web design has measurably homogenised — and the cognitive science (banner blindness, schema filtering, inattentional blindness) confirms this has real costs. But the antidote is not novelty for its own sake. It is principled design using better constraints. The tools are here. The research supports it. The only remaining question is whether we're willing to stop reaching for the template.</p>
-</div>
+            <p>The CHI 2021 research confirms web design has measurably homogenised — and the cognitive science (banner blindness, schema filtering, inattentional blindness) confirms this has real costs. But the antidote is not novelty for its own sake. It is principled design using better constraints. The tools are here. The research supports it. The only remaining question is whether we're willing to stop reaching for the template.</p>
+        </div>
 
-<hr class="divider">
+        <hr class="divider">
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- REFERENCES -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="section-label">Appendix</div>
-<h2>Key References and Resources</h2>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- REFERENCES -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="section-label">Appendix</div>
+        <h2>Key References and Resources</h2>
 
-<div class="ref-section">
-  <h4>Academic Research</h4>
-  <ul>
-    <li>CHI 2021: <em>Investigating the Homogenization of Web Design: A Mixed-Methods Approach</em> (ACM)</li>
-    <li>Czerwinski & Larson (2002): <em>Cognition and the Web</em>, Microsoft Research</li>
-    <li>Pirolli & Card: Information scent / information foraging theory, Xerox PARC</li>
-    <li>NN/g: <em>Banner Blindness Revisited</em>; <em>Spatial Memory: Why It Matters for UX Design</em></li>
-    <li>ACM TOCHI: <em>High-cost banner blindness: Ads increase perceived workload</em></li>
-    <li>ACM Interactions, May–June 2025: <em>Where Is 'Spatial' in Spatial Design?</em></li>
-    <li>Foltz, M.: <em>Designing Navigable Information Spaces</em> (MIT thesis)</li>
-  </ul>
-</div>
+        <div class="ref-section">
+            <h4>Academic Research</h4>
+            <ul>
+                <li>CHI 2021: <em>Investigating the Homogenization of Web Design: A Mixed-Methods Approach</em> (ACM)</li>
+                <li>Czerwinski & Larson (2002): <em>Cognition and the Web</em>, Microsoft Research</li>
+                <li>Pirolli & Card: Information scent / information foraging theory, Xerox PARC</li>
+                <li>NN/g: <em>Banner Blindness Revisited</em>; <em>Spatial Memory: Why It Matters for UX Design</em></li>
+                <li>ACM TOCHI: <em>High-cost banner blindness: Ads increase perceived workload</em></li>
+                <li>ACM Interactions, May–June 2025: <em>Where Is 'Spatial' in Spatial Design?</em></li>
+                <li>Foltz, M.: <em>Designing Navigable Information Spaces</em> (MIT thesis)</li>
+            </ul>
+        </div>
 
-<div class="ref-section">
-  <h4>Books and Primary Sources</h4>
-  <ul>
-    <li>Tschichold, J. (1928): <em>The New Typography</em></li>
-    <li>Müller-Brockmann, J. (1981): <em>Grid Systems in Graphic Design</em></li>
-    <li>Vignelli, M. (2010): <em>The Vignelli Canon</em> (free PDF)</li>
-    <li>Lynch, K. (1960): <em>The Image of the City</em></li>
-    <li>Tufte, E.: <em>The Visual Display of Quantitative Information</em>; <em>Envisioning Information</em></li>
-  </ul>
-</div>
+        <div class="ref-section">
+            <h4>Books and Primary Sources</h4>
+            <ul>
+                <li>Tschichold, J. (1928): <em>The New Typography</em></li>
+                <li>Müller-Brockmann, J. (1981): <em>Grid Systems in Graphic Design</em></li>
+                <li>Vignelli, M. (2010): <em>The Vignelli Canon</em> (free PDF)</li>
+                <li>Lynch, K. (1960): <em>The Image of the City</em></li>
+                <li>Tufte, E.: <em>The Visual Display of Quantitative Information</em>; <em>Envisioning Information</em></li>
+            </ul>
+        </div>
 
-<div class="ref-section">
-  <h4>Online Resources</h4>
-  <ul>
-    <li>Every Layout: every-layout.dev (Pickering & Bell)</li>
-    <li>Utopia: utopia.fyi (Gilyead & Mudford)</li>
-    <li>CUBE CSS: cube.fyi (Andy Bell)</li>
-    <li>Swiss in CSS: swissincss.com (Jon Yablonski)</li>
-    <li>Jen Simmons' Layout Lab: labs.jensimmons.com</li>
-    <li>Josh Comeau: joshwcomeau.com/css/subgrid/</li>
-    <li>Make Type Work (baseline grids): maketypework.com</li>
-    <li>MDN: Subgrid, Container Queries, View Transitions, Scroll-Driven Animations</li>
-    <li>Smashing Magazine: <em>Editorial Design Patterns with CSS Grid</em> (Rachel Andrew)</li>
-    <li>Boris Müller: <em>Why Do All Websites Look the Same?</em> (Medium)</li>
-  </ul>
-</div>
+        <div class="ref-section">
+            <h4>Online Resources</h4>
+            <ul>
+                <li>Every Layout: every-layout.dev (Pickering & Bell)</li>
+                <li>Utopia: utopia.fyi (Gilyead & Mudford)</li>
+                <li>CUBE CSS: cube.fyi (Andy Bell)</li>
+                <li>Swiss in CSS: swissincss.com (Jon Yablonski)</li>
+                <li>Jen Simmons' Layout Lab: labs.jensimmons.com</li>
+                <li>Josh Comeau: joshwcomeau.com/css/subgrid/</li>
+                <li>Make Type Work (baseline grids): maketypework.com</li>
+                <li>MDN: Subgrid, Container Queries, View Transitions, Scroll-Driven Animations</li>
+                <li>Smashing Magazine: <em>Editorial Design Patterns with CSS Grid</em> (Rachel Andrew)</li>
+                <li>Boris Müller: <em>Why Do All Websites Look the Same?</em> (Medium)</li>
+            </ul>
+        </div>
 
-</div>
+    </div>
 
-<!-- ═══════════════════════════════════════════════════════════════ -->
-<!-- FOOTER                                                        -->
-<!-- ═══════════════════════════════════════════════════════════════ -->
-<div class="footer">
-  <div class="footer-inner">
-    <div class="brand">Cowboys <span class="amp">&amp;</span> Beans</div>
-    <div class="meta">Breaking the Layout Monoculture · Research · March 2026 · CC0 Public Domain</div>
-  </div>
-</div>
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- FOOTER                                                        -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="footer">
+        <div class="footer-inner">
+            <div class="brand">Cowboys <span class="amp">&amp;</span> Beans</div>
+            <div class="meta">Breaking the Layout Monoculture · Research · March 2026 · CC0 Public Domain</div>
+        </div>
+    </div>
 
 </body>
+
 </html>

@@ -1,586 +1,648 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cowboys & Beans — Design as Engineering: A Manifesto</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cowboys & Beans — Design as Engineering: A Manifesto</title>
 
-<!-- THE TYPE STACK -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <!-- THE TYPE STACK -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 
-<style>
-  :root {
-    /* Brand colours from the palette system */
-    --brand-950: oklch(15.0% 0.0400 50.0);
-    --brand-900: oklch(25.0% 0.0650 50.0);
-    --brand-800: oklch(35.0% 0.0850 48.0);
-    --brand-700: oklch(45.0% 0.1100 47.0);
-    --brand-600: oklch(53.0% 0.1000 50.0);
-    --brand-500: oklch(60.0% 0.0850 53.0);
-    --brand-400: oklch(68.0% 0.0700 58.0);
-    --brand-300: oklch(76.0% 0.0560 60.0);
-    --brand-200: oklch(85.0% 0.0400 65.0);
-    --brand-100: oklch(90.0% 0.0300 70.0);
-    --brand-50:  oklch(95.0% 0.0150 70.0);
-    --neutral-950: oklch(12.0% 0.0100 55.0);
-    --neutral-900: oklch(22.0% 0.0120 55.0);
-    --neutral-800: oklch(32.0% 0.0100 55.0);
-    --neutral-700: oklch(42.0% 0.0100 55.0);
-    --neutral-600: oklch(52.0% 0.0100 55.0);
-    --neutral-500: oklch(62.0% 0.0100 55.0);
-    --neutral-400: oklch(72.0% 0.0100 55.0);
-    --neutral-300: oklch(82.0% 0.0080 55.0);
-    --neutral-200: oklch(90.0% 0.0060 55.0);
-    --neutral-100: oklch(95.0% 0.0040 55.0);
-    --neutral-50:  oklch(97.5% 0.0020 55.0);
-    --books-700: oklch(40.0% 0.1200 255.0);
-    --books-500: oklch(55.0% 0.1100 255.0);
-    --books-100: oklch(92.0% 0.0250 255.0);
-    --art-700: oklch(40.0% 0.0600 155.0);
-    --art-500: oklch(55.0% 0.0550 155.0);
-    --art-100: oklch(93.0% 0.0150 155.0);
-    --home-700: oklch(45.0% 0.1400 35.0);
-    --home-500: oklch(58.0% 0.1500 35.0);
-    --home-100: oklch(92.0% 0.0300 35.0);
+    <style>
+        :root {
+            /* Brand colours from the palette system */
+            --brand-950: oklch(15.0% 0.0400 50.0);
+            --brand-900: oklch(25.0% 0.0650 50.0);
+            --brand-800: oklch(35.0% 0.0850 48.0);
+            --brand-700: oklch(45.0% 0.1100 47.0);
+            --brand-600: oklch(53.0% 0.1000 50.0);
+            --brand-500: oklch(60.0% 0.0850 53.0);
+            --brand-400: oklch(68.0% 0.0700 58.0);
+            --brand-300: oklch(76.0% 0.0560 60.0);
+            --brand-200: oklch(85.0% 0.0400 65.0);
+            --brand-100: oklch(90.0% 0.0300 70.0);
+            --brand-50: oklch(95.0% 0.0150 70.0);
+            --neutral-950: oklch(12.0% 0.0100 55.0);
+            --neutral-900: oklch(22.0% 0.0120 55.0);
+            --neutral-800: oklch(32.0% 0.0100 55.0);
+            --neutral-700: oklch(42.0% 0.0100 55.0);
+            --neutral-600: oklch(52.0% 0.0100 55.0);
+            --neutral-500: oklch(62.0% 0.0100 55.0);
+            --neutral-400: oklch(72.0% 0.0100 55.0);
+            --neutral-300: oklch(82.0% 0.0080 55.0);
+            --neutral-200: oklch(90.0% 0.0060 55.0);
+            --neutral-100: oklch(95.0% 0.0040 55.0);
+            --neutral-50: oklch(97.5% 0.0020 55.0);
+            --books-700: oklch(40.0% 0.1200 255.0);
+            --books-500: oklch(55.0% 0.1100 255.0);
+            --books-100: oklch(92.0% 0.0250 255.0);
+            --art-700: oklch(40.0% 0.0600 155.0);
+            --art-500: oklch(55.0% 0.0550 155.0);
+            --art-100: oklch(93.0% 0.0150 155.0);
+            --home-700: oklch(45.0% 0.1400 35.0);
+            --home-500: oklch(58.0% 0.1500 35.0);
+            --home-100: oklch(92.0% 0.0300 35.0);
 
-    /* ── MODULAR SCALE: Perfect Fourth (4:3 = 1.333) ── */
-    --step--2: clamp(0.6944rem, 0.6546rem + 0.1988vi, 0.7502rem);
-    --step--1: clamp(0.8333rem, 0.7693rem + 0.3205vi, 1.0003rem);
-    --step-0:  clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
-    --step-1:  clamp(1.2rem, 1.0534rem + 0.7331vi, 1.7783rem);
-    --step-2:  clamp(1.44rem, 1.2266rem + 1.0672vi, 2.3706rem);
-    --step-3:  clamp(1.728rem, 1.4226rem + 1.5268vi, 3.1605rem);
-    --step-4:  clamp(2.0736rem, 1.6425rem + 2.1555vi, 4.2132rem);
-    --step-5:  clamp(2.4883rem, 1.8869rem + 3.0073vi, 5.6172rem);
+            /* ── MODULAR SCALE: Perfect Fourth (4:3 = 1.333) ── */
+            --step--2: clamp(0.6944rem, 0.6546rem + 0.1988vi, 0.7502rem);
+            --step--1: clamp(0.8333rem, 0.7693rem + 0.3205vi, 1.0003rem);
+            --step-0: clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
+            --step-1: clamp(1.2rem, 1.0534rem + 0.7331vi, 1.7783rem);
+            --step-2: clamp(1.44rem, 1.2266rem + 1.0672vi, 2.3706rem);
+            --step-3: clamp(1.728rem, 1.4226rem + 1.5268vi, 3.1605rem);
+            --step-4: clamp(2.0736rem, 1.6425rem + 2.1555vi, 4.2132rem);
+            --step-5: clamp(2.4883rem, 1.8869rem + 3.0073vi, 5.6172rem);
 
-    /* Spacing scale */
-    --space-3xs: clamp(0.25rem, 0.2rem + 0.13vi, 0.3334rem);
-    --space-2xs: clamp(0.5rem, 0.4508rem + 0.2462vi, 0.6669rem);
-    --space-xs:  clamp(0.75rem, 0.6508rem + 0.4962vi, 1.0003rem);
-    --space-s:   clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
-    --space-m:   clamp(1.5rem, 1.3523rem + 0.7385vi, 2.0006rem);
-    --space-l:   clamp(2rem, 1.8030rem + 0.9848vi, 2.6674rem);
-    --space-xl:  clamp(3rem, 2.7045rem + 1.4773vi, 4.0011rem);
-    --space-2xl: clamp(4rem, 3.6061rem + 1.9697vi, 5.3348rem);
-    --space-3xl: clamp(6rem, 5.4091rem + 2.9545vi, 8.0022rem);
-  }
+            /* Spacing scale */
+            --space-3xs: clamp(0.25rem, 0.2rem + 0.13vi, 0.3334rem);
+            --space-2xs: clamp(0.5rem, 0.4508rem + 0.2462vi, 0.6669rem);
+            --space-xs: clamp(0.75rem, 0.6508rem + 0.4962vi, 1.0003rem);
+            --space-s: clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
+            --space-m: clamp(1.5rem, 1.3523rem + 0.7385vi, 2.0006rem);
+            --space-l: clamp(2rem, 1.8030rem + 0.9848vi, 2.6674rem);
+            --space-xl: clamp(3rem, 2.7045rem + 1.4773vi, 4.0011rem);
+            --space-2xl: clamp(4rem, 3.6061rem + 1.9697vi, 5.3348rem);
+            --space-3xl: clamp(6rem, 5.4091rem + 2.9545vi, 8.0022rem);
+        }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  body {
-    background: var(--neutral-50);
-    color: var(--neutral-950);
-    line-height: 1.6;
-  }
+        body {
+            background: var(--neutral-50);
+            color: var(--neutral-950);
+            line-height: 1.6;
+        }
 
-  /* ── HEADER ── */
-  .hero {
-    background: var(--brand-950);
-    color: var(--brand-50);
-    padding: var(--space-3xl) var(--space-xl) var(--space-xl);
-    position: relative;
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg,
-      var(--brand-700) 0%, var(--brand-400) 33%,
-      var(--books-500) 50%, var(--art-500) 67%,
-      var(--home-500) 100%);
-  }
-  .hero h1 {
-    font-family: 'Fraunces', serif;
-    font-size: var(--step-5);
-    font-weight: 800;
-    font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 144;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-    margin-bottom: var(--space-xs);
-    max-width: 18ch;
-  }
-  .hero .subtitle {
-    font-family: 'Literata', serif;
-    font-size: var(--step-0);
-    font-weight: 300;
-    font-style: italic;
-    font-variation-settings: 'opsz' 14;
-    color: var(--brand-300);
-    max-width: 55ch;
-    line-height: 1.55;
-    margin-bottom: var(--space-3xs);
-  }
-  .hero .subtitle-line {
-    display: block;
-    font-family: 'Literata', serif;
-    font-size: var(--step--1);
-    font-weight: 300;
-    font-style: italic;
-    font-variation-settings: 'opsz' 10;
-    color: var(--brand-400);
-    max-width: 60ch;
-    line-height: 1.55;
-  }
-  .hero .tag-row {
-    display: flex;
-    gap: 8px;
-    margin-top: var(--space-m);
-    flex-wrap: wrap;
-  }
-  .hero .tag {
-    display: inline-block;
-    padding: 3px 10px;
-    border: 1px solid var(--brand-700);
-    border-radius: 3px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--brand-400);
-    letter-spacing: 0.04em;
-  }
+        /* ── HEADER ── */
+        .hero {
+            background: var(--brand-950);
+            color: var(--brand-50);
+            padding: var(--space-3xl) var(--space-xl) var(--space-xl);
+            position: relative;
+        }
 
-  /* ── LAYOUT ── */
-  .container {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: var(--space-xl) var(--space-l);
-  }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg,
+                    var(--brand-700) 0%, var(--brand-400) 33%,
+                    var(--books-500) 50%, var(--art-500) 67%,
+                    var(--home-500) 100%);
+        }
 
-  .section-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--neutral-500);
-    margin-bottom: 6px;
-  }
+        .hero .overline {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--step--2);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--brand-400);
+            margin-bottom: var(--space-xs);
+        }
 
-  h2 {
-    font-family: 'Fraunces', serif;
-    font-size: var(--step-3);
-    font-weight: 700;
-    font-variation-settings: 'SOFT' 30, 'WONK' 1, 'opsz' 72;
-    color: var(--brand-800);
-    margin-bottom: var(--space-2xs);
-    line-height: 1.15;
-  }
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: var(--step-4);
+            font-weight: 800;
+            font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 144;
+            letter-spacing: -0.02em;
+            line-height: 1.05;
+            margin-bottom: var(--space-xs);
+            max-width: 18ch;
+        }
 
-  h3 {
-    font-family: 'Fraunces', serif;
-    font-size: var(--step-1);
-    font-weight: 600;
-    font-variation-settings: 'SOFT' 30, 'WONK' 0, 'opsz' 36;
-    color: var(--brand-700);
-    margin-bottom: var(--space-2xs);
-    line-height: 1.25;
-  }
+        .hero .subtitle {
+            font-family: 'Newsreader', serif;
+            font-size: var(--step-1);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--brand-300);
+            max-width: 50ch;
+            line-height: 1.45;
+        }
 
-  .section-desc {
-    font-family: 'Literata', serif;
-    font-size: var(--step-0);
-    font-variation-settings: 'opsz' 14;
-    color: var(--neutral-700);
-    max-width: 60ch;
-    margin-bottom: var(--space-l);
-    line-height: 1.65;
-  }
+        .hero .subtitle-line {
+            display: block;
+            font-family: 'Literata', serif;
+            font-size: var(--step--1);
+            font-weight: 300;
+            font-style: italic;
+            font-variation-settings: 'opsz' 10;
+            color: var(--brand-400);
+            max-width: 60ch;
+            line-height: 1.55;
+        }
 
-  .divider {
-    border: none;
-    height: 1px;
-    background: var(--neutral-200);
-    margin: var(--space-xl) 0;
-  }
+        .hero .tag-row {
+            display: flex;
+            gap: 8px;
+            margin-top: var(--space-m);
+            flex-wrap: wrap;
+        }
 
-  .dot-divider {
-    text-align: center;
-    color: var(--brand-400);
-    font-size: var(--step-0);
-    letter-spacing: 0.5em;
-    margin: var(--space-xl) 0;
-  }
+        .hero .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border: 1px solid var(--brand-700);
+            border-radius: 3px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--brand-400);
+            letter-spacing: 0.04em;
+        }
 
-  /* ── PROSE ── */
-  .prose {
-    font-family: 'Literata', serif;
-    font-size: var(--step-0);
-    font-variation-settings: 'opsz' 14;
-    color: var(--neutral-800);
-    max-width: 62ch;
-    line-height: 1.7;
-  }
-  .prose p {
-    margin-bottom: var(--space-s);
-  }
-  .prose p:last-child { margin-bottom: 0; }
-  .prose strong {
-    color: var(--neutral-950);
-    font-weight: 700;
-  }
-  .prose code {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.82em;
-    background: var(--brand-100);
-    padding: 1px 5px;
-    border-radius: 3px;
-    color: var(--brand-800);
-  }
-  .prose em {
-    font-style: italic;
-  }
+        /* ── LAYOUT ── */
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-l);
+        }
 
-  /* ── BLOCKQUOTE (epigraph) ── */
-  .epigraph {
-    border-left: 3px solid var(--brand-300);
-    padding: var(--space-s) var(--space-m);
-    margin: var(--space-m) 0;
-    background: var(--brand-50);
-    border-radius: 0 6px 6px 0;
-  }
-  .epigraph .quote-text {
-    font-family: 'Literata', serif;
-    font-size: var(--step-0);
-    font-style: italic;
-    font-variation-settings: 'opsz' 14;
-    color: var(--neutral-700);
-    line-height: 1.65;
-    max-width: 55ch;
-  }
-  .epigraph .attribution {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: var(--step--2);
-    color: var(--neutral-500);
-    margin-top: var(--space-2xs);
-    letter-spacing: 0.02em;
-  }
+        .section-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--neutral-500);
+            margin-bottom: 6px;
+        }
 
-  /* ── PRINCIPLE CARDS ── */
-  .principle-card {
-    background: var(--neutral-50);
-    border: 1px solid var(--neutral-200);
-    border-radius: 8px;
-    padding: var(--space-m) var(--space-l);
-    margin-bottom: var(--space-l);
-    position: relative;
-  }
-  .principle-card::before {
-    content: attr(data-numeral);
-    position: absolute;
-    top: var(--space-m);
-    right: var(--space-l);
-    font-family: 'Fraunces', serif;
-    font-size: var(--step-4);
-    font-weight: 200;
-    font-variation-settings: 'SOFT' 80, 'WONK' 0, 'opsz' 144;
-    color: var(--brand-200);
-    line-height: 1;
-  }
-  .principle-card h3 {
-    padding-right: 3rem;
-  }
-  .principle-card .prose {
-    max-width: 58ch;
-  }
+        h2 {
+            font-family: 'Fraunces', serif;
+            font-size: var(--step-3);
+            font-weight: 700;
+            font-variation-settings: 'SOFT' 30, 'WONK' 1, 'opsz' 72;
+            color: var(--brand-800);
+            margin-bottom: var(--space-2xs);
+            line-height: 1.15;
+        }
 
-  /* ── NOTES CARD ── */
-  .notes {
-    background: var(--brand-50);
-    border: 1px solid var(--brand-200);
-    border-radius: 8px;
-    padding: var(--space-m) var(--space-l);
-    margin: var(--space-l) 0;
-  }
-  .notes h3 {
-    font-family: 'Fraunces', serif;
-    font-size: var(--step-1);
-    font-variation-settings: 'SOFT' 30, 'WONK' 0, 'opsz' 36;
-    color: var(--brand-800);
-    margin-bottom: var(--space-xs);
-  }
-  .notes p {
-    font-family: 'Literata', serif;
-    color: var(--neutral-800);
-    font-size: 0.92rem;
-    line-height: 1.7;
-    margin-bottom: var(--space-xs);
-    max-width: 65ch;
-  }
-  .notes p:last-child { margin-bottom: 0; }
-  .notes code {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.82em;
-    background: var(--brand-100);
-    padding: 1px 5px;
-    border-radius: 3px;
-    color: var(--brand-800);
-  }
-  .notes em { color: var(--brand-600); }
+        h3 {
+            font-family: 'Fraunces', serif;
+            font-size: var(--step-1);
+            font-weight: 600;
+            font-variation-settings: 'SOFT' 30, 'WONK' 0, 'opsz' 36;
+            color: var(--brand-700);
+            margin-bottom: var(--space-2xs);
+            line-height: 1.25;
+        }
 
-  /* ── PREAMBLE (distinct opening) ── */
-  .preamble {
-    font-family: 'Literata', serif;
-    font-size: var(--step-1);
-    font-variation-settings: 'opsz' 20;
-    color: var(--neutral-700);
-    max-width: 55ch;
-    line-height: 1.6;
-    font-weight: 300;
-  }
-  .preamble p {
-    margin-bottom: var(--space-s);
-  }
+        .section-desc {
+            font-family: 'Literata', serif;
+            font-size: var(--step-0);
+            font-variation-settings: 'opsz' 14;
+            color: var(--neutral-700);
+            max-width: 60ch;
+            margin-bottom: var(--space-l);
+            line-height: 1.65;
+        }
 
-  @media (max-width: 800px) {
-    .container { padding: var(--space-l) var(--space-s); }
-    .hero { padding: var(--space-xl) var(--space-s) var(--space-l); }
-    .principle-card::before { display: none; }
-    .principle-card h3 { padding-right: 0; }
-  }
+        .divider {
+            border: none;
+            height: 1px;
+            background: var(--neutral-200);
+            margin: var(--space-xl) 0;
+        }
 
-  /* ── FOOTER ── */
-  .footer {
-    background: var(--brand-950);
-    color: var(--brand-400);
-    padding: var(--space-l);
-    margin-top: var(--space-xl);
-  }
-  .footer-inner {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .footer .brand {
-    font-family: 'Fraunces', serif;
-    font-size: var(--step-0);
-    font-weight: 700;
-    font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 36;
-    color: var(--brand-300);
-  }
-  .footer .brand .amp { color: var(--home-500); }
-  .footer .meta {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--brand-500);
-  }
-</style>
+        .dot-divider {
+            text-align: center;
+            color: var(--brand-400);
+            font-size: var(--step-0);
+            letter-spacing: 0.5em;
+            margin: var(--space-xl) 0;
+        }
+
+        /* ── PROSE ── */
+        .prose {
+            font-family: 'Literata', serif;
+            font-size: var(--step-0);
+            font-variation-settings: 'opsz' 14;
+            color: var(--neutral-800);
+            max-width: 62ch;
+            line-height: 1.7;
+        }
+
+        .prose p {
+            margin-bottom: var(--space-s);
+        }
+
+        .prose p:last-child {
+            margin-bottom: 0;
+        }
+
+        .prose strong {
+            color: var(--neutral-950);
+            font-weight: 700;
+        }
+
+        .prose code {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.82em;
+            background: var(--brand-100);
+            padding: 1px 5px;
+            border-radius: 3px;
+            color: var(--brand-800);
+        }
+
+        .prose em {
+            font-style: italic;
+        }
+
+        /* ── BLOCKQUOTE (epigraph) ── */
+        .epigraph {
+            border-left: 3px solid var(--brand-300);
+            padding: var(--space-s) var(--space-m);
+            margin: var(--space-m) 0;
+            background: var(--brand-50);
+            border-radius: 0 6px 6px 0;
+        }
+
+        .epigraph .quote-text {
+            font-family: 'Literata', serif;
+            font-size: var(--step-0);
+            font-style: italic;
+            font-variation-settings: 'opsz' 14;
+            color: var(--neutral-700);
+            line-height: 1.65;
+            max-width: 55ch;
+        }
+
+        .epigraph .attribution {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--step--2);
+            color: var(--neutral-500);
+            margin-top: var(--space-2xs);
+            letter-spacing: 0.02em;
+        }
+
+        /* ── PRINCIPLE CARDS ── */
+        .principle-card {
+            background: var(--neutral-50);
+            border: 1px solid var(--neutral-200);
+            border-radius: 8px;
+            padding: var(--space-m) var(--space-l);
+            margin-bottom: var(--space-l);
+            position: relative;
+        }
+
+        .principle-card::before {
+            content: attr(data-numeral);
+            position: absolute;
+            top: var(--space-m);
+            right: var(--space-l);
+            font-family: 'Fraunces', serif;
+            font-size: var(--step-4);
+            font-weight: 200;
+            font-variation-settings: 'SOFT' 80, 'WONK' 0, 'opsz' 144;
+            color: var(--brand-200);
+            line-height: 1;
+        }
+
+        .principle-card h3 {
+            padding-right: 3rem;
+        }
+
+        .principle-card .prose {
+            max-width: 58ch;
+        }
+
+        /* ── NOTES CARD ── */
+        .notes {
+            background: var(--brand-50);
+            border: 1px solid var(--brand-200);
+            border-radius: 8px;
+            padding: var(--space-m) var(--space-l);
+            margin: var(--space-l) 0;
+        }
+
+        .notes h3 {
+            font-family: 'Fraunces', serif;
+            font-size: var(--step-1);
+            font-variation-settings: 'SOFT' 30, 'WONK' 0, 'opsz' 36;
+            color: var(--brand-800);
+            margin-bottom: var(--space-xs);
+        }
+
+        .notes p {
+            font-family: 'Literata', serif;
+            color: var(--neutral-800);
+            font-size: 0.92rem;
+            line-height: 1.7;
+            margin-bottom: var(--space-xs);
+            max-width: 65ch;
+        }
+
+        .notes p:last-child {
+            margin-bottom: 0;
+        }
+
+        .notes code {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.82em;
+            background: var(--brand-100);
+            padding: 1px 5px;
+            border-radius: 3px;
+            color: var(--brand-800);
+        }
+
+        .notes em {
+            color: var(--brand-600);
+        }
+
+        /* ── PREAMBLE (distinct opening) ── */
+        .preamble {
+            font-family: 'Literata', serif;
+            font-size: var(--step-1);
+            font-variation-settings: 'opsz' 20;
+            color: var(--neutral-700);
+            max-width: 55ch;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .preamble p {
+            margin-bottom: var(--space-s);
+        }
+
+        @media (max-width: 800px) {
+            .container {
+                padding: var(--space-l) var(--space-s);
+            }
+
+            .hero {
+                padding: var(--space-xl) var(--space-s) var(--space-l);
+            }
+
+            .principle-card::before {
+                display: none;
+            }
+
+            .principle-card h3 {
+                padding-right: 0;
+            }
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: var(--brand-950);
+            color: var(--brand-400);
+            padding: var(--space-l);
+            margin-top: var(--space-xl);
+        }
+
+        .footer-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer .brand {
+            font-family: 'Fraunces', serif;
+            font-size: var(--step-0);
+            font-weight: 700;
+            font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 36;
+            color: var(--brand-300);
+        }
+
+        .footer .brand .amp {
+            color: var(--home-500);
+        }
+
+        .footer .meta {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--brand-500);
+        }
+    </style>
 </head>
+
 <body>
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- HERO -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="hero">
-  <h1>Design as Engineering</h1>
-  <p class="subtitle">A Manifesto for Principled Visual Systems</p>
-  <span class="subtitle-line">On the convergence of mathematical proportion, perceptual science, and software architecture in the construction of visual identity.</span>
-  <div class="tag-row">
-    <span class="tag">Manifesto</span>
-    <span class="tag">Design Systems</span>
-    <span class="tag">Perceptual Science</span>
-    <span class="tag">March 2026</span>
-  </div>
-</div>
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- HERO -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="hero">
+        <p class="overline">A Manifesto for Visual Systems</p>
+        <h1>Design as Engineering</h1>
+        <span class="subtitle">On the convergence of mathematical proportion, perceptual science, and software architecture in the construction of visual identity.</span>
+        <div class="tag-row">
+            <span class="tag">Manifesto</span>
+            <span class="tag">Design Systems</span>
+            <span class="tag">Perceptual Science</span>
+            <span class="tag">March 2026</span>
+        </div>
+    </div>
 
-<div class="container">
+    <div class="container">
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- PREAMBLE -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="section-label">Preamble</div>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- PREAMBLE -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="section-label">Preamble</div>
 
-<div class="epigraph">
-  <p class="quote-text">The details are not the details. They make the design.</p>
-  <p class="attribution">— Charles Eames</p>
-</div>
+        <div class="epigraph">
+            <p class="quote-text">The details are not the details. They make the design.</p>
+            <p class="attribution">— Charles Eames</p>
+        </div>
 
-<div class="preamble" style="margin-top: var(--space-m);">
-  <p>This document is a statement of principles. It describes an approach to visual design that treats aesthetic decisions not as matters of taste but as engineering problems — constrained, measurable, and composable. It argues that the best design systems are not collections of components but algebraic structures: closed under composition, governed by invariants, and provably consistent.</p>
+        <div class="preamble" style="margin-top: var(--space-m);">
+            <p>This document is a statement of principles. It describes an approach to visual design that treats aesthetic decisions not as matters of taste but as engineering problems — constrained, measurable, and composable. It argues that the best design systems are not collections of components but algebraic structures: closed under composition, governed by invariants, and provably consistent.</p>
 
-  <p>These principles emerged from the practical work of building a unified identity for a small publishing and arts collective. But they are not specific to that project. They are an articulation of what happens when you take seriously the idea that visual design and software engineering are not adjacent disciplines but convergent ones — that the same mathematical structures underpin both, and that recognising this convergence produces better work in each.</p>
+            <p>These principles emerged from the practical work of building a unified identity for a small publishing and arts collective. But they are not specific to that project. They are an articulation of what happens when you take seriously the idea that visual design and software engineering are not adjacent disciplines but convergent ones — that the same mathematical structures underpin both, and that recognising this convergence produces better work in each.</p>
 
-  <p>This is not a style guide. Style guides describe what to do. This describes why.</p>
-</div>
+            <p>This is not a style guide. Style guides describe what to do. This describes why.</p>
+        </div>
 
-<div class="dot-divider">• • •</div>
+        <div class="dot-divider">• • •</div>
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- I. THE CONVERGENCE THESIS -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="section-label">Section I</div>
-<h2>The Convergence Thesis</h2>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- I. THE CONVERGENCE THESIS -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="section-label">Section I</div>
+        <h2>The Convergence Thesis</h2>
 
-<div class="prose">
-  <p>The three most influential design systems of the current era — Google's Material Design, IBM's Carbon, and Shopify's Polaris — were built independently, by different teams, for different products, serving different users. And yet they converged on the same fundamental architecture.</p>
+        <div class="prose">
+            <p>The three most influential design systems of the current era — Google's Material Design, IBM's Carbon, and Shopify's Polaris — were built independently, by different teams, for different products, serving different users. And yet they converged on the same fundamental architecture.</p>
 
-  <p>All three define a layered token system: primitive values at the base, semantic aliases in the middle, component-specific bindings at the top. All three use multiplicative type scales rather than arbitrary font sizes. All three enforce spacing systems built on a base unit with constrained multipliers. All three separate colour into tonal scales with systematic lightness progressions.</p>
+            <p>All three define a layered token system: primitive values at the base, semantic aliases in the middle, component-specific bindings at the top. All three use multiplicative type scales rather than arbitrary font sizes. All three enforce spacing systems built on a base unit with constrained multipliers. All three separate colour into tonal scales with systematic lightness progressions.</p>
 
-  <p>This convergence is not coincidence. It is the signature of underlying mathematical structure asserting itself through independent discovery — the same way calculus was discovered independently by Newton and Leibniz, because the problems they were solving demanded it. The problems of visual consistency at scale demand token architecture. The problems of typographic hierarchy demand geometric progression. The problems of colour harmony demand perceptually uniform spaces.</p>
+            <p>This convergence is not coincidence. It is the signature of underlying mathematical structure asserting itself through independent discovery — the same way calculus was discovered independently by Newton and Leibniz, because the problems they were solving demanded it. The problems of visual consistency at scale demand token architecture. The problems of typographic hierarchy demand geometric progression. The problems of colour harmony demand perceptually uniform spaces.</p>
 
-  <p><strong>When multiple teams, working independently, arrive at the same solution, the solution is no longer a design choice. It is a design fact.</strong></p>
-</div>
+            <p><strong>When multiple teams, working independently, arrive at the same solution, the solution is no longer a design choice. It is a design fact.</strong></p>
+        </div>
 
-<div class="dot-divider">• • •</div>
+        <div class="dot-divider">• • •</div>
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- II. SEVEN PRINCIPLES -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="section-label">Section II</div>
-<h2>Seven Principles</h2>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- II. SEVEN PRINCIPLES -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="section-label">Section II</div>
+        <h2>Seven Principles</h2>
 
-<!-- PRINCIPLE I -->
-<div class="principle-card" data-numeral="I">
-  <h3>Multiply, Never Add</h3>
-  <div class="epigraph" style="margin-top: var(--space-xs);">
-    <p class="quote-text">Just-noticeable differences are proportional to the stimulus intensity.</p>
-    <p class="attribution">— Ernst Heinrich Weber, 1834</p>
-  </div>
-  <div class="prose">
-    <p>Human perception is logarithmic. Weber and Fechner established this in the nineteenth century: the smallest detectable change in a stimulus is a constant proportion of the stimulus itself. This is why we perceive the difference between 12px and 16px text as roughly the same "jump" as between 24px and 32px — both are a ratio of 1.333, even though the absolute differences are 4px and 8px.</p>
-    <p>This means every quantitative scale in a design system — type sizes, spacing values, colour lightness steps — must be geometric (multiplicative), not arithmetic (additive). An arithmetic scale with a constant increment of 4px would produce steps that feel compressed at large sizes and spread apart at small ones. A geometric scale with a constant ratio produces steps that feel perceptually equal.</p>
-    <p><strong>The practical implication:</strong> choose a ratio and commit to it. The perfect fourth (4:3 = 1.333) is not the only valid choice, but it is a good one — assertive enough for clear hierarchy, gentle enough for nuanced intermediate levels. The ratio is the grammar of your visual language. Every departure from it is a grammatical error that the eye detects even when the mind cannot name it.</p>
-  </div>
-</div>
+        <!-- PRINCIPLE I -->
+        <div class="principle-card" data-numeral="I">
+            <h3>Multiply, Never Add</h3>
+            <div class="epigraph" style="margin-top: var(--space-xs);">
+                <p class="quote-text">Just-noticeable differences are proportional to the stimulus intensity.</p>
+                <p class="attribution">— Ernst Heinrich Weber, 1834</p>
+            </div>
+            <div class="prose">
+                <p>Human perception is logarithmic. Weber and Fechner established this in the nineteenth century: the smallest detectable change in a stimulus is a constant proportion of the stimulus itself. This is why we perceive the difference between 12px and 16px text as roughly the same "jump" as between 24px and 32px — both are a ratio of 1.333, even though the absolute differences are 4px and 8px.</p>
+                <p>This means every quantitative scale in a design system — type sizes, spacing values, colour lightness steps — must be geometric (multiplicative), not arithmetic (additive). An arithmetic scale with a constant increment of 4px would produce steps that feel compressed at large sizes and spread apart at small ones. A geometric scale with a constant ratio produces steps that feel perceptually equal.</p>
+                <p><strong>The practical implication:</strong> choose a ratio and commit to it. The perfect fourth (4:3 = 1.333) is not the only valid choice, but it is a good one — assertive enough for clear hierarchy, gentle enough for nuanced intermediate levels. The ratio is the grammar of your visual language. Every departure from it is a grammatical error that the eye detects even when the mind cannot name it.</p>
+            </div>
+        </div>
 
-<!-- PRINCIPLE II -->
-<div class="principle-card" data-numeral="II">
-  <h3>Perception Is the Only Coordinate System That Matters</h3>
-  <div class="prose">
-    <p>For most of typographic history, colour was specified in spaces that describe how displays produce light (sRGB) rather than how humans perceive it. This is like measuring distance in engine revolutions instead of kilometres. It tells you something about the machine and nothing about the journey.</p>
-    <p>OKLCH is, at present, the best available perceptually uniform colour space for design work. Its lightness axis is calibrated so that equal numerical steps produce equal perceived brightness — across all hues. This means you can hold chroma and hue constant, step lightness from 15% to 95% in equal increments, and produce a tonal scale where every adjacent pair feels like the same "jump." You cannot do this in HSL. You cannot do this in sRGB.</p>
-    <p>The same principle applies beyond colour. Fluid type scales that interpolate between viewport widths should use the <code>vi</code> unit (viewport inline), which respects writing direction. Spacing should be defined in <code>rem</code>, which scales with the user's font size preference. Every unit of measurement should describe the experience, not the mechanism.</p>
-  </div>
-</div>
+        <!-- PRINCIPLE II -->
+        <div class="principle-card" data-numeral="II">
+            <h3>Perception Is the Only Coordinate System That Matters</h3>
+            <div class="prose">
+                <p>For most of typographic history, colour was specified in spaces that describe how displays produce light (sRGB) rather than how humans perceive it. This is like measuring distance in engine revolutions instead of kilometres. It tells you something about the machine and nothing about the journey.</p>
+                <p>OKLCH is, at present, the best available perceptually uniform colour space for design work. Its lightness axis is calibrated so that equal numerical steps produce equal perceived brightness — across all hues. This means you can hold chroma and hue constant, step lightness from 15% to 95% in equal increments, and produce a tonal scale where every adjacent pair feels like the same "jump." You cannot do this in HSL. You cannot do this in sRGB.</p>
+                <p>The same principle applies beyond colour. Fluid type scales that interpolate between viewport widths should use the <code>vi</code> unit (viewport inline), which respects writing direction. Spacing should be defined in <code>rem</code>, which scales with the user's font size preference. Every unit of measurement should describe the experience, not the mechanism.</p>
+            </div>
+        </div>
 
-<!-- PRINCIPLE III -->
-<div class="principle-card" data-numeral="III">
-  <h3>Name the Role, Not the Value</h3>
-  <div class="prose">
-    <p>A colour called <code>brand-700</code> describes what it is. A colour called <code>interactive-primary</code> describes what it does. Both are necessary, but they serve different functions in the system, and conflating them is the single most common architectural error in design token systems.</p>
-    <p>The three-tier token architecture — primitive, semantic, component — is not a convention. It is the design equivalent of the separation of concerns that every competent software architecture enforces. Primitives are your type definitions. Semantic tokens are your interfaces. Component tokens are your implementations. Changing a primitive's value propagates automatically. Renaming a semantic token requires deliberate refactoring. This is not a limitation; it is a feature. It means the system is legible in the same way that well-structured code is legible: you can understand any part of it without understanding all of it.</p>
-    <p><strong>The practical implication:</strong> never write <code>background: var(--brand-700)</code> in a component. Write <code>background: var(--interactive-primary)</code>. When the brand evolves, the interactive colour changes in one place. When a new site joins the system, it maps its own primitives to the same semantic tokens and inherits every component for free.</p>
-  </div>
-</div>
+        <!-- PRINCIPLE III -->
+        <div class="principle-card" data-numeral="III">
+            <h3>Name the Role, Not the Value</h3>
+            <div class="prose">
+                <p>A colour called <code>brand-700</code> describes what it is. A colour called <code>interactive-primary</code> describes what it does. Both are necessary, but they serve different functions in the system, and conflating them is the single most common architectural error in design token systems.</p>
+                <p>The three-tier token architecture — primitive, semantic, component — is not a convention. It is the design equivalent of the separation of concerns that every competent software architecture enforces. Primitives are your type definitions. Semantic tokens are your interfaces. Component tokens are your implementations. Changing a primitive's value propagates automatically. Renaming a semantic token requires deliberate refactoring. This is not a limitation; it is a feature. It means the system is legible in the same way that well-structured code is legible: you can understand any part of it without understanding all of it.</p>
+                <p><strong>The practical implication:</strong> never write <code>background: var(--brand-700)</code> in a component. Write <code>background: var(--interactive-primary)</code>. When the brand evolves, the interactive colour changes in one place. When a new site joins the system, it maps its own primitives to the same semantic tokens and inherits every component for free.</p>
+            </div>
+        </div>
 
-<!-- PRINCIPLE IV -->
-<div class="principle-card" data-numeral="IV">
-  <h3>Constraint Liberates; Freedom Paralyses</h3>
-  <div class="epigraph" style="margin-top: var(--space-xs);">
-    <p class="quote-text">Real freedom is not the absence of structure but the presence of the right structure.</p>
-    <p class="attribution">— After Barry Schwartz</p>
-  </div>
-  <div class="prose">
-    <p>A spacing system with nine named values (3xs through 3xl) is more useful than one that permits arbitrary pixel values, for the same reason that a pentatonic scale is more useful to an improvising musician than the instruction "play any frequency you like." Constraint creates coherence. It makes the right choice easy and the wrong choice effortful.</p>
-    <p>This applies at every level of the system. A type stack of three families (display, body, mono) is a constraint. A palette with one accent hue per site is a constraint. A modular scale with a single ratio is a constraint. Each one eliminates a category of bad decisions while preserving the full space of good ones.</p>
-    <p>The test of a well-constrained system is not whether it prevents ugly outcomes — any sufficiently restrictive system does that — but whether it still permits beautiful ones. The best constraints are like the rules of a sonnet: they do not limit expression, they concentrate it.</p>
-  </div>
-</div>
+        <!-- PRINCIPLE IV -->
+        <div class="principle-card" data-numeral="IV">
+            <h3>Constraint Liberates; Freedom Paralyses</h3>
+            <div class="epigraph" style="margin-top: var(--space-xs);">
+                <p class="quote-text">Real freedom is not the absence of structure but the presence of the right structure.</p>
+                <p class="attribution">— After Barry Schwartz</p>
+            </div>
+            <div class="prose">
+                <p>A spacing system with nine named values (3xs through 3xl) is more useful than one that permits arbitrary pixel values, for the same reason that a pentatonic scale is more useful to an improvising musician than the instruction "play any frequency you like." Constraint creates coherence. It makes the right choice easy and the wrong choice effortful.</p>
+                <p>This applies at every level of the system. A type stack of three families (display, body, mono) is a constraint. A palette with one accent hue per site is a constraint. A modular scale with a single ratio is a constraint. Each one eliminates a category of bad decisions while preserving the full space of good ones.</p>
+                <p>The test of a well-constrained system is not whether it prevents ugly outcomes — any sufficiently restrictive system does that — but whether it still permits beautiful ones. The best constraints are like the rules of a sonnet: they do not limit expression, they concentrate it.</p>
+            </div>
+        </div>
 
-<!-- PRINCIPLE V -->
-<div class="principle-card" data-numeral="V">
-  <h3>Unity Is Not Uniformity</h3>
-  <div class="prose">
-    <p>Three sites that look identical are not a design system. They are a template applied three times. A design system is the set of shared principles and primitives that allows different expressions to be recognisably part of the same family — the way siblings share bone structure without sharing faces.</p>
-    <p>The mechanism is the separation of what is shared from what is site-specific. Shared: the colour primitives, the type scale ratio, the spacing rhythm, the semantic token names. Site-specific: the accent hue, the display font's axis settings, the surface temperature, the amount of whitespace, the attitude.</p>
-    <p>A variable font with multiple axes is the typographic embodiment of this principle. The same typeface — the same letterforms, the same underlying design — can be sharp and editorial in one context, soft and airy in another, and bold and playful in a third. The unity is in the skeleton. The variety is in the posture. This is what allows "different departments, each an expert in their own field" to produce work that belongs together without being interchangeable.</p>
-  </div>
-</div>
+        <!-- PRINCIPLE V -->
+        <div class="principle-card" data-numeral="V">
+            <h3>Unity Is Not Uniformity</h3>
+            <div class="prose">
+                <p>Three sites that look identical are not a design system. They are a template applied three times. A design system is the set of shared principles and primitives that allows different expressions to be recognisably part of the same family — the way siblings share bone structure without sharing faces.</p>
+                <p>The mechanism is the separation of what is shared from what is site-specific. Shared: the colour primitives, the type scale ratio, the spacing rhythm, the semantic token names. Site-specific: the accent hue, the display font's axis settings, the surface temperature, the amount of whitespace, the attitude.</p>
+                <p>A variable font with multiple axes is the typographic embodiment of this principle. The same typeface — the same letterforms, the same underlying design — can be sharp and editorial in one context, soft and airy in another, and bold and playful in a third. The unity is in the skeleton. The variety is in the posture. This is what allows "different departments, each an expert in their own field" to produce work that belongs together without being interchangeable.</p>
+            </div>
+        </div>
 
-<!-- PRINCIPLE VI -->
-<div class="principle-card" data-numeral="VI">
-  <h3>Proximity Carries Meaning; Uniformity Erases It</h3>
-  <div class="prose">
-    <p>Gestalt psychology established, a century ago, that the human visual system groups elements by proximity before it considers any other cue — colour, shape, size, label. Two elements 8px apart feel related. The same two elements 32px apart feel independent. This is not a design preference. It is a perceptual fact, as reliable as gravity.</p>
-    <p>A design that uses the same spacing value everywhere — 16px padding, 16px between items, 16px between sections — is a design that has destroyed all spatial information. The eye cannot determine what belongs together because everything is equidistant. This is the visual equivalent of writing without punctuation: technically complete, structurally illegible.</p>
-    <p><strong>The rule is simple and absolute:</strong> intra-group spacing must be tighter than inter-group spacing. Title to author: 8px. Card padding: 16px. Between cards: 32px. Three different scales communicate three different structural relationships. The numbers are secondary. The principle — that spacing is not decoration but syntax — is primary.</p>
-  </div>
-</div>
+        <!-- PRINCIPLE VI -->
+        <div class="principle-card" data-numeral="VI">
+            <h3>Proximity Carries Meaning; Uniformity Erases It</h3>
+            <div class="prose">
+                <p>Gestalt psychology established, a century ago, that the human visual system groups elements by proximity before it considers any other cue — colour, shape, size, label. Two elements 8px apart feel related. The same two elements 32px apart feel independent. This is not a design preference. It is a perceptual fact, as reliable as gravity.</p>
+                <p>A design that uses the same spacing value everywhere — 16px padding, 16px between items, 16px between sections — is a design that has destroyed all spatial information. The eye cannot determine what belongs together because everything is equidistant. This is the visual equivalent of writing without punctuation: technically complete, structurally illegible.</p>
+                <p><strong>The rule is simple and absolute:</strong> intra-group spacing must be tighter than inter-group spacing. Title to author: 8px. Card padding: 16px. Between cards: 32px. Three different scales communicate three different structural relationships. The numbers are secondary. The principle — that spacing is not decoration but syntax — is primary.</p>
+            </div>
+        </div>
 
-<!-- PRINCIPLE VII -->
-<div class="principle-card" data-numeral="VII">
-  <h3>Design the Invariants, Not the Instances</h3>
-  <div class="epigraph" style="margin-top: var(--space-xs);">
-    <p class="quote-text">Show me your flowchart and conceal your tables, and I shall continue to be mystified. Show me your tables, and I won't usually need your flowchart.</p>
-    <p class="attribution">— Fred Brooks (paraphrased)</p>
-  </div>
-  <div class="prose">
-    <p>A design system is not a collection of designed screens. It is a set of invariants — relationships that remain true across all screens, all viewports, all contexts. The ratio between heading sizes is an invariant. The mapping from semantic token to primitive token is an invariant. The rule that body text never exceeds 60ch is an invariant.</p>
-    <p>Screens are instances. They are generated by applying the invariants to specific content in specific contexts. If you have defined your invariants well, most screens design themselves — the constraints leave only a narrow corridor of valid compositions, and the corridor leads somewhere good.</p>
-    <p>This is why a token file and a type scale and a spacing system are not preliminary work that precedes design. <strong>They are the design.</strong> Everything else is layout.</p>
-  </div>
-</div>
+        <!-- PRINCIPLE VII -->
+        <div class="principle-card" data-numeral="VII">
+            <h3>Design the Invariants, Not the Instances</h3>
+            <div class="epigraph" style="margin-top: var(--space-xs);">
+                <p class="quote-text">Show me your flowchart and conceal your tables, and I shall continue to be mystified. Show me your tables, and I won't usually need your flowchart.</p>
+                <p class="attribution">— Fred Brooks (paraphrased)</p>
+            </div>
+            <div class="prose">
+                <p>A design system is not a collection of designed screens. It is a set of invariants — relationships that remain true across all screens, all viewports, all contexts. The ratio between heading sizes is an invariant. The mapping from semantic token to primitive token is an invariant. The rule that body text never exceeds 60ch is an invariant.</p>
+                <p>Screens are instances. They are generated by applying the invariants to specific content in specific contexts. If you have defined your invariants well, most screens design themselves — the constraints leave only a narrow corridor of valid compositions, and the corridor leads somewhere good.</p>
+                <p>This is why a token file and a type scale and a spacing system are not preliminary work that precedes design. <strong>They are the design.</strong> Everything else is layout.</p>
+            </div>
+        </div>
 
-<div class="dot-divider">• • •</div>
+        <div class="dot-divider">• • •</div>
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- III. THE DEEPER STRUCTURE -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="section-label">Section III</div>
-<h2>The Deeper Structure</h2>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- III. THE DEEPER STRUCTURE -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="section-label">Section III</div>
+        <h2>The Deeper Structure</h2>
 
-<div class="prose">
-  <p>Underneath these seven principles lies a single insight that unifies all of them: the visual properties that humans perceive as "harmonious" or "consistent" or "professional" are, without exception, properties that exhibit mathematical regularity. Geometric type scales. Perceptually uniform colour spaces. Proportional spacing. Systematic tonal progressions. Consistent axis ratios.</p>
+        <div class="prose">
+            <p>Underneath these seven principles lies a single insight that unifies all of them: the visual properties that humans perceive as "harmonious" or "consistent" or "professional" are, without exception, properties that exhibit mathematical regularity. Geometric type scales. Perceptually uniform colour spaces. Proportional spacing. Systematic tonal progressions. Consistent axis ratios.</p>
 
-  <p>This is not a coincidence and it is not a cultural construction. It is a consequence of how neural systems process sensory information. Pattern recognition is metabolically expensive; regular patterns are cheap to process and therefore experienced as pleasant. Irregular patterns demand more processing and are experienced as effortful — which the mind interprets as "something is wrong," even when it cannot identify what.</p>
+            <p>This is not a coincidence and it is not a cultural construction. It is a consequence of how neural systems process sensory information. Pattern recognition is metabolically expensive; regular patterns are cheap to process and therefore experienced as pleasant. Irregular patterns demand more processing and are experienced as effortful — which the mind interprets as "something is wrong," even when it cannot identify what.</p>
 
-  <p>This is why "it just looks off" is a reliable design critique even from non-designers. They are detecting a violation of mathematical regularity that they cannot name. The purpose of a principled design system is to make that violation structurally impossible — to ensure that every composition the system permits is one that the visual cortex will process as coherent.</p>
+            <p>This is why "it just looks off" is a reliable design critique even from non-designers. They are detecting a violation of mathematical regularity that they cannot name. The purpose of a principled design system is to make that violation structurally impossible — to ensure that every composition the system permits is one that the visual cortex will process as coherent.</p>
 
-  <p>This is also why the convergence of Material Design, Carbon, and Polaris is significant. These systems were built by teams with different aesthetic preferences, different brand requirements, different technical constraints. What they share is not style but structure. The structure is dictated by human perception, and human perception does not vary by brand.</p>
-</div>
+            <p>This is also why the convergence of Material Design, Carbon, and Polaris is significant. These systems were built by teams with different aesthetic preferences, different brand requirements, different technical constraints. What they share is not style but structure. The structure is dictated by human perception, and human perception does not vary by brand.</p>
+        </div>
 
-<div class="dot-divider">• • •</div>
+        <div class="dot-divider">• • •</div>
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- IV. ON TOOLS AND TECHNOLOGY -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="section-label">Section IV</div>
-<h2>On Tools and Technology</h2>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- IV. ON TOOLS AND TECHNOLOGY -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="section-label">Section IV</div>
+        <h2>On Tools and Technology</h2>
 
-<div class="prose">
-  <p><strong>Variable fonts</strong> are not an incremental improvement over static font files. They are a phase transition — the moment when a typeface stops being a fixed artifact and becomes a continuous design space. A four-axis variable font like Fraunces does not contain styles; it contains the mathematical surface from which any style can be derived. This is the difference between a table of values and a function. The function is infinitely more powerful because it can produce values that were never explicitly designed but are nonetheless correct.</p>
+        <div class="prose">
+            <p><strong>Variable fonts</strong> are not an incremental improvement over static font files. They are a phase transition — the moment when a typeface stops being a fixed artifact and becomes a continuous design space. A four-axis variable font like Fraunces does not contain styles; it contains the mathematical surface from which any style can be derived. This is the difference between a table of values and a function. The function is infinitely more powerful because it can produce values that were never explicitly designed but are nonetheless correct.</p>
 
-  <p><strong>OKLCH</strong> is not merely a "better colour picker." It is the first widely-supported colour space in CSS that is aligned with human perception rather than display hardware. Designing in OKLCH is the typographic equivalent of switching from imperial to metric: the numbers finally mean what you think they mean.</p>
+            <p><strong>OKLCH</strong> is not merely a "better colour picker." It is the first widely-supported colour space in CSS that is aligned with human perception rather than display hardware. Designing in OKLCH is the typographic equivalent of switching from imperial to metric: the numbers finally mean what you think they mean.</p>
 
-  <p><strong>Fluid type and spacing via CSS <code>clamp()</code></strong> is not a responsive design technique. It is the elimination of responsive design as a separate concern. When your type scale interpolates continuously between two viewport widths, there are no breakpoints to manage, no discrete jumps to smooth over, no "mobile version" and "desktop version." There is one design that is correct at every size, because the mathematical relationships that define it hold across the entire range.</p>
+            <p><strong>Fluid type and spacing via CSS <code>clamp()</code></strong> is not a responsive design technique. It is the elimination of responsive design as a separate concern. When your type scale interpolates continuously between two viewport widths, there are no breakpoints to manage, no discrete jumps to smooth over, no "mobile version" and "desktop version." There is one design that is correct at every size, because the mathematical relationships that define it hold across the entire range.</p>
 
-  <p><strong>The design token specification (DTCG)</strong> is not a file format. It is a contract — an agreement that the same semantic name means the same thing in every context, on every platform, in every tool. A token file is to a design system what a type signature is to a function: a guarantee about the shape of the input and the shape of the output, independent of implementation.</p>
-</div>
+            <p><strong>The design token specification (DTCG)</strong> is not a file format. It is a contract — an agreement that the same semantic name means the same thing in every context, on every platform, in every tool. A token file is to a design system what a type signature is to a function: a guarantee about the shape of the input and the shape of the output, independent of implementation.</p>
+        </div>
 
-<div class="dot-divider">• • •</div>
+        <div class="dot-divider">• • •</div>
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- V. CODA -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="section-label">Section V</div>
-<h2>Coda</h2>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- V. CODA -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <div class="section-label">Section V</div>
+        <h2>Coda</h2>
 
-<div class="prose">
-  <p>There is a persistent mythology that design and engineering are opposed — that rigour constrains creativity, that systems suppress expression, that mathematics is the enemy of beauty. The evidence says otherwise.</p>
+        <div class="prose">
+            <p>There is a persistent mythology that design and engineering are opposed — that rigour constrains creativity, that systems suppress expression, that mathematics is the enemy of beauty. The evidence says otherwise.</p>
 
-  <p>The most enduring visual works in human history — the Parthenon, the illuminated manuscripts, the Renaissance canvases, the Swiss typographic posters, the Braun products — are without exception works of profound mathematical regularity. Their creators did not experience the golden ratio and the modular grid and the baseline rhythm as constraints on their art. They experienced them as the medium through which their art became possible.</p>
+            <p>The most enduring visual works in human history — the Parthenon, the illuminated manuscripts, the Renaissance canvases, the Swiss typographic posters, the Braun products — are without exception works of profound mathematical regularity. Their creators did not experience the golden ratio and the modular grid and the baseline rhythm as constraints on their art. They experienced them as the medium through which their art became possible.</p>
 
-  <p>A well-built design system is not a cage. It is an instrument. Like any good instrument, it has constraints — a piano has 88 keys, not infinite frequencies — and those constraints are precisely what allow a skilled practitioner to produce music instead of noise.</p>
+            <p>A well-built design system is not a cage. It is an instrument. Like any good instrument, it has constraints — a piano has 88 keys, not infinite frequencies — and those constraints are precisely what allow a skilled practitioner to produce music instead of noise.</p>
 
-  <p><strong>Build the instrument well. Tune it to human perception. Then play.</strong></p>
-</div>
+            <p><strong>Build the instrument well. Tune it to human perception. Then play.</strong></p>
+        </div>
 
-<div class="dot-divider">• • •</div>
+        <div class="dot-divider">• • •</div>
 
-</div>
+    </div>
 
-<!-- ═══════════════════════════════════════════════════════════════ -->
-<!-- FOOTER                                                        -->
-<!-- ═══════════════════════════════════════════════════════════════ -->
-<div class="footer">
-  <div class="footer-inner">
-    <div class="brand">Cowboys <span class="amp">&amp;</span> Beans</div>
-    <div class="meta">Design Manifesto · March 2026 · CC0 Public Domain</div>
-  </div>
-</div>
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- FOOTER                                                        -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="footer">
+        <div class="footer-inner">
+            <div class="brand">Cowboys <span class="amp">&amp;</span> Beans</div>
+            <div class="meta">Design Manifesto · March 2026 · CC0 Public Domain</div>
+        </div>
+    </div>
 
 </body>
+
 </html>

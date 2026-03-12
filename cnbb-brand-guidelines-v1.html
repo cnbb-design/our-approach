@@ -71,7 +71,7 @@
             font-optical-sizing: auto;
         }
 
-        /* ── HERO ── */
+        /* ── HEADER ── */
         .hero {
             background: var(--brand-950);
             color: var(--brand-50);
@@ -85,8 +85,21 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--brand-700), var(--brand-400), var(--brand-700));
+            height: 3px;
+            background: linear-gradient(90deg,
+                    var(--brand-700) 0%, var(--brand-400) 33%,
+                    var(--books-500) 50%, var(--art-500) 67%,
+                    var(--home-500) 100%);
+        }
+
+        .hero .overline {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--step--2);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--brand-400);
+            margin-bottom: var(--space-xs);
         }
 
         .hero h1 {
@@ -96,28 +109,37 @@
             font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 144;
             letter-spacing: -0.02em;
             line-height: 1.1;
-            margin-bottom: 8px;
+            margin-bottom: var(--space-xs);
         }
 
         .hero .subtitle {
-            font-size: var(--step-0);
+            font-family: 'Newsreader', serif;
+            font-size: var(--step-1);
             font-weight: 300;
+            font-style: italic;
             color: var(--brand-300);
-            max-width: 60ch;
-            line-height: 1.5;
+            max-width: 50ch;
+            line-height: 1.45;
+        }
+
+        .hero .tag-row {
+            display: flex;
+            gap: 8px;
+            margin-top: var(--space-s);
+            flex-wrap: wrap;
         }
 
         .hero .tag {
             display: inline-block;
-            margin-top: var(--space-s);
             padding: 3px 10px;
             border: 1px solid var(--brand-700);
             border-radius: 3px;
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             color: var(--brand-400);
             letter-spacing: 0.04em;
         }
+
 
         /* ── LAYOUT ── */
         .container {
@@ -408,6 +430,7 @@
             padding: var(--space-l);
             margin-top: var(--space-xl);
         }
+
         .footer-inner {
             max-width: 1000px;
             margin: 0 auto;
@@ -415,6 +438,7 @@
             justify-content: space-between;
             align-items: center;
         }
+
         .footer .brand {
             font-family: 'Fraunces', serif;
             font-size: var(--step-0);
@@ -422,7 +446,11 @@
             font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 36;
             color: var(--brand-300);
         }
-        .footer .brand .amp { color: var(--home-500); }
+
+        .footer .brand .amp {
+            color: var(--home-500);
+        }
+
         .footer .meta {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.65rem;
@@ -434,9 +462,16 @@
 <body>
 
     <div class="hero">
+        <div class="overline">Design System Overview</div>
         <h1>Brand Guidelines</h1>
         <p class="subtitle">Unified identity system for Cowboys & Beans — covering logos, colour, typography, spacing, and implementation across cnbb.pub, books.cnbb.pub, and art.cnbb.pub.</p>
-        <span class="tag">Version 1.0 · March 2026</span>
+        <div class="tag-row">
+            <span class="tag">Logos</span>
+            <span class="tag">Colour</span>
+            <span class="tag">Typography</span>
+            <span class="tag">Version 1.0</span>
+            <span class="tag">March 2026</span>
+        </div>
     </div>
 
     <div class="container">
@@ -840,15 +875,15 @@
 
     </div>
 
-<!-- ═══════════════════════════════════════════════════════════════ -->
-<!-- FOOTER                                                        -->
-<!-- ═══════════════════════════════════════════════════════════════ -->
-<div class="footer">
-  <div class="footer-inner">
-    <div class="brand">Cowboys <span class="amp">&amp;</span> Beans</div>
-    <div class="meta">Brand Guidelines · v1.0 · March 2026 · CC0 Public Domain</div>
-  </div>
-</div>
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- FOOTER                                                        -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="footer">
+        <div class="footer-inner">
+            <div class="brand">Cowboys <span class="amp">&amp;</span> Beans</div>
+            <div class="meta">Brand Guidelines · v1.0 · March 2026 · CC0 Public Domain</div>
+        </div>
+    </div>
 
 </body>
 

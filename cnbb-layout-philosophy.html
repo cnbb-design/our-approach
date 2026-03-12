@@ -109,9 +109,19 @@
                     var(--home-500) 100%);
         }
 
+        .hero .overline {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--step--2);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--brand-400);
+            margin-bottom: var(--space-xs);
+        }
+
         .hero h1 {
             font-family: 'Fraunces', serif;
-            font-size: var(--step-5);
+            font-size: var(--step-4);
             font-weight: 800;
             font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 144;
             letter-spacing: -0.02em;
@@ -537,6 +547,7 @@
             padding: var(--space-l);
             margin-top: var(--space-xl);
         }
+
         .footer-inner {
             max-width: 1000px;
             margin: 0 auto;
@@ -544,6 +555,7 @@
             justify-content: space-between;
             align-items: center;
         }
+
         .footer .brand {
             font-family: 'Fraunces', serif;
             font-size: var(--step-0);
@@ -551,7 +563,11 @@
             font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 36;
             color: var(--brand-300);
         }
-        .footer .brand .amp { color: var(--home-500); }
+
+        .footer .brand .amp {
+            color: var(--home-500);
+        }
+
         .footer .meta {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.65rem;
@@ -584,6 +600,7 @@
     <!-- HERO                                                          -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <div class="hero">
+        <p class="overline">A Philosophy of Spatial Composition</p>
         <h1>The Layout Philosophy</h1>
         <p class="subtitle">On fluid composition, algorithmic restraint, and the art of letting the browser think. A unified layout design philosophy for Cowboys&nbsp;&amp;&nbsp;Beans projects.</p>
         <div class="tag-row">
@@ -1115,10 +1132,10 @@
     <!-- FOOTER                                                        -->
     <!-- ═══════════════════════════════════════════════════════════════ -->
     <div class="footer">
-      <div class="footer-inner">
-        <div class="brand">Cowboys <span class="amp">&amp;</span> Beans</div>
-        <div class="meta">Layout Philosophy · March 2026 · CC0 Public Domain</div>
-      </div>
+        <div class="footer-inner">
+            <div class="brand">Cowboys <span class="amp">&amp;</span> Beans</div>
+            <div class="meta">Layout Philosophy · March 2026 · CC0 Public Domain</div>
+        </div>
     </div>
 
 </body>

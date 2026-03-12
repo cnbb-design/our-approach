@@ -98,6 +98,16 @@
                     var(--home-500) 100%);
         }
 
+        .hero .overline {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--step--2);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--brand-400);
+            margin-bottom: var(--space-xs);
+        }
+
         .hero h1 {
             font-family: 'Fraunces', serif;
             font-size: var(--step-4);
@@ -110,14 +120,13 @@
         }
 
         .hero .subtitle {
-            font-family: 'Literata', serif;
-            font-size: var(--step--1);
+            font-family: 'Newsreader', serif;
+            font-size: var(--step-1);
             font-weight: 300;
             font-style: italic;
-            font-variation-settings: 'opsz' 10;
             color: var(--brand-300);
-            max-width: 70ch;
-            line-height: 1.6;
+            max-width: 50ch;
+            line-height: 1.45;
         }
 
         .hero .tag-row {
@@ -542,6 +551,7 @@
             padding: var(--space-l);
             margin-top: var(--space-xl);
         }
+
         .footer-inner {
             max-width: 1000px;
             margin: 0 auto;
@@ -549,6 +559,7 @@
             justify-content: space-between;
             align-items: center;
         }
+
         .footer .brand {
             font-family: 'Fraunces', serif;
             font-size: var(--step-0);
@@ -556,7 +567,11 @@
             font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 36;
             color: var(--brand-300);
         }
-        .footer .brand .amp { color: var(--home-500); }
+
+        .footer .brand .amp {
+            color: var(--home-500);
+        }
+
         .footer .meta {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.65rem;
@@ -571,10 +586,11 @@
     <!-- HERO -->
     <!-- ═══════════════════════════════════════════════════════ -->
     <div class="hero">
+        <p class="overline">Colour theory, typography, & layout-composition</p>
         <h1>Foundational Research for a Visual Design Knowledge Base</h1>
         <p class="subtitle">The field of visual design possesses formal structure, empirical grounding, and mathematical depth fully comparable to graduate-level mathematics or post-doctoral music theory. This research validates a domain taxonomy, maps 55 competency questions across three tiers, analyses 30+ foundational sources, and documents the mathematical underpinnings that will give a technically sophisticated reader first-principles access to the discipline.</p>
         <div class="tag-row">
-            <span class="tag">Phase 0 · Research</span>
+            <span class="tag">Research</span>
             <span class="tag">Domain Taxonomy</span>
             <span class="tag">Competency Questions</span>
             <span class="tag">Source Analysis</span>
@@ -1096,15 +1112,15 @@
 
     </div>
 
-<!-- ═══════════════════════════════════════════════════════════════ -->
-<!-- FOOTER                                                        -->
-<!-- ═══════════════════════════════════════════════════════════════ -->
-<div class="footer">
-  <div class="footer-inner">
-    <div class="brand">Cowboys <span class="amp">&amp;</span> Beans</div>
-    <div class="meta">Foundations of Design · Research · March 2026 · CC0 Public Domain</div>
-  </div>
-</div>
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- FOOTER                                                        -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="footer">
+        <div class="footer-inner">
+            <div class="brand">Cowboys <span class="amp">&amp;</span> Beans</div>
+            <div class="meta">Foundations of Design · Research · March 2026 · CC0 Public Domain</div>
+        </div>
+    </div>
 
 </body>
 

@@ -1,702 +1,877 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cowboys & Beans — Colour Token System</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colour Token System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Brand Brown */
+            --brand-950: oklch(15.0% 0.0400 50.0);
+            --brand-900: oklch(25.0% 0.0650 50.0);
+            --brand-800: oklch(35.0% 0.0850 48.0);
+            --brand-700: oklch(45.0% 0.1100 47.0);
+            --brand-600: oklch(53.0% 0.1000 50.0);
+            --brand-500: oklch(60.0% 0.0850 53.0);
+            --brand-400: oklch(68.0% 0.0700 58.0);
+            --brand-300: oklch(76.0% 0.0560 60.0);
+            --brand-200: oklch(85.0% 0.0400 65.0);
+            --brand-100: oklch(90.0% 0.0300 70.0);
+            --brand-50: oklch(95.0% 0.0150 70.0);
 
-  :root {
-    /* Brand Brown */
-    --brand-950: oklch(15.0% 0.0400 50.0);
-    --brand-900: oklch(25.0% 0.0650 50.0);
-    --brand-800: oklch(35.0% 0.0850 48.0);
-    --brand-700: oklch(45.0% 0.1100 47.0);
-    --brand-600: oklch(53.0% 0.1000 50.0);
-    --brand-500: oklch(60.0% 0.0850 53.0);
-    --brand-400: oklch(68.0% 0.0700 58.0);
-    --brand-300: oklch(76.0% 0.0560 60.0);
-    --brand-200: oklch(85.0% 0.0400 65.0);
-    --brand-100: oklch(90.0% 0.0300 70.0);
-    --brand-50:  oklch(95.0% 0.0150 70.0);
+            /* Warm Neutrals */
+            --neutral-950: oklch(12.0% 0.0100 55.0);
+            --neutral-900: oklch(22.0% 0.0120 55.0);
+            --neutral-800: oklch(32.0% 0.0100 55.0);
+            --neutral-700: oklch(42.0% 0.0100 55.0);
+            --neutral-600: oklch(52.0% 0.0100 55.0);
+            --neutral-500: oklch(62.0% 0.0100 55.0);
+            --neutral-400: oklch(72.0% 0.0100 55.0);
+            --neutral-300: oklch(82.0% 0.0080 55.0);
+            --neutral-200: oklch(90.0% 0.0060 55.0);
+            --neutral-100: oklch(95.0% 0.0040 55.0);
+            --neutral-50: oklch(97.5% 0.0020 55.0);
 
-    /* Warm Neutrals */
-    --neutral-950: oklch(12.0% 0.0100 55.0);
-    --neutral-900: oklch(22.0% 0.0120 55.0);
-    --neutral-800: oklch(32.0% 0.0100 55.0);
-    --neutral-700: oklch(42.0% 0.0100 55.0);
-    --neutral-600: oklch(52.0% 0.0100 55.0);
-    --neutral-500: oklch(62.0% 0.0100 55.0);
-    --neutral-400: oklch(72.0% 0.0100 55.0);
-    --neutral-300: oklch(82.0% 0.0080 55.0);
-    --neutral-200: oklch(90.0% 0.0060 55.0);
-    --neutral-100: oklch(95.0% 0.0040 55.0);
-    --neutral-50:  oklch(97.5% 0.0020 55.0);
+            /* Books Accent — Ink Blue */
+            --books-900: oklch(25.0% 0.0800 255.0);
+            --books-700: oklch(40.0% 0.1200 255.0);
+            --books-500: oklch(55.0% 0.1100 255.0);
+            --books-300: oklch(75.0% 0.0700 255.0);
+            --books-100: oklch(92.0% 0.0250 255.0);
 
-    /* Books Accent — Ink Blue */
-    --books-900: oklch(25.0% 0.0800 255.0);
-    --books-700: oklch(40.0% 0.1200 255.0);
-    --books-500: oklch(55.0% 0.1100 255.0);
-    --books-300: oklch(75.0% 0.0700 255.0);
-    --books-100: oklch(92.0% 0.0250 255.0);
+            /* Art Accent — Sage Green */
+            --art-900: oklch(25.0% 0.0500 155.0);
+            --art-700: oklch(40.0% 0.0600 155.0);
+            --art-500: oklch(55.0% 0.0550 155.0);
+            --art-300: oklch(78.0% 0.0350 155.0);
+            --art-100: oklch(93.0% 0.0150 155.0);
 
-    /* Art Accent — Sage Green */
-    --art-900: oklch(25.0% 0.0500 155.0);
-    --art-700: oklch(40.0% 0.0600 155.0);
-    --art-500: oklch(55.0% 0.0550 155.0);
-    --art-300: oklch(78.0% 0.0350 155.0);
-    --art-100: oklch(93.0% 0.0150 155.0);
+            /* Home Accent — Terracotta */
+            --home-900: oklch(28.0% 0.0900 35.0);
+            --home-700: oklch(45.0% 0.1400 35.0);
+            --home-500: oklch(58.0% 0.1500 35.0);
+            --home-300: oklch(75.0% 0.0900 35.0);
+            --home-100: oklch(92.0% 0.0300 35.0);
 
-    /* Home Accent — Terracotta */
-    --home-900: oklch(28.0% 0.0900 35.0);
-    --home-700: oklch(45.0% 0.1400 35.0);
-    --home-500: oklch(58.0% 0.1500 35.0);
-    --home-300: oklch(75.0% 0.0900 35.0);
-    --home-100: oklch(92.0% 0.0300 35.0);
-  }
+            /* ── MODULAR SCALE: Perfect Fourth (4:3 = 1.333) ── */
+            --step--2: clamp(0.6944rem, 0.6546rem + 0.1988vi, 0.7502rem);
+            --step--1: clamp(0.8333rem, 0.7693rem + 0.3205vi, 1.0003rem);
+            --step-0: clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
+            --step-1: clamp(1.2rem, 1.0534rem + 0.7331vi, 1.7783rem);
+            --step-2: clamp(1.44rem, 1.2266rem + 1.0672vi, 2.3706rem);
+            --step-3: clamp(1.728rem, 1.4226rem + 1.5268vi, 3.1605rem);
+            --step-4: clamp(2.0736rem, 1.6425rem + 2.1555vi, 4.2132rem);
+            --step-5: clamp(2.4883rem, 1.8869rem + 3.0073vi, 5.6172rem);
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+            /* Spacing scale */
+            --space-3xs: clamp(0.25rem, 0.2rem + 0.13vi, 0.3334rem);
+            --space-2xs: clamp(0.5rem, 0.4508rem + 0.2462vi, 0.6669rem);
+            --space-xs: clamp(0.75rem, 0.6508rem + 0.4962vi, 1.0003rem);
+            --space-s: clamp(1rem, 0.9015rem + 0.4924vi, 1.3337rem);
+            --space-m: clamp(1.5rem, 1.3523rem + 0.7385vi, 2.0006rem);
+            --space-l: clamp(2rem, 1.8030rem + 0.9848vi, 2.6674rem);
+            --space-xl: clamp(3rem, 2.7045rem + 1.4773vi, 4.0011rem);
+            --space-2xl: clamp(4rem, 3.6061rem + 1.9697vi, 5.3348rem);
+            --space-3xl: clamp(6rem, 5.4091rem + 2.9545vi, 8.0022rem);
+        }
 
-  body {
-    font-family: 'Literata', serif;
-    background: var(--neutral-50);
-    color: var(--neutral-950);
-    line-height: 1.6;
-    padding: 0;
-  }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  /* ── HEADER ── */
-  .hero {
-    background: var(--brand-950);
-    color: var(--brand-50);
-    padding: 64px 48px 56px;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--brand-700), var(--brand-400), var(--brand-700));
-  }
-  .hero h1 {
-    font-family: 'Fraunces', serif;
-    font-size: 2.4rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 8px;
-  }
-  .hero .subtitle {
-    font-size: 1.1rem;
-    font-weight: 300;
-    color: var(--brand-300);
-    max-width: 680px;
-  }
-  .hero .tag {
-    display: inline-block;
-    margin-top: 16px;
-    padding: 4px 12px;
-    border: 1px solid var(--brand-700);
-    border-radius: 3px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--brand-400);
-    letter-spacing: 0.05em;
-  }
+        body {
+            font-family: 'Literata', serif;
+            background: var(--neutral-50);
+            color: var(--neutral-950);
+            line-height: 1.6;
+            padding: 0;
+        }
 
-  /* ── LAYOUT ── */
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 48px 48px;
-  }
+        /* ── HEADER ── */
+        .hero {
+            background: var(--brand-950);
+            color: var(--brand-50);
+            padding: var(--space-3xl) var(--space-xl) var(--space-xl);
+            position: relative;
+        }
 
-  .section-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--neutral-600);
-    margin-bottom: 8px;
-  }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg,
+                    var(--brand-700) 0%, var(--brand-400) 33%,
+                    var(--books-500) 50%, var(--art-500) 67%,
+                    var(--home-500) 100%);
+        }
 
-  h2 {
-    font-family: 'Fraunces', serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--brand-800);
-    margin-bottom: 6px;
-  }
+        .hero .overline {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--step--2);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--brand-400);
+            margin-bottom: var(--space-xs);
+        }
 
-  .section-desc {
-    color: var(--neutral-700);
-    font-size: 0.95rem;
-    max-width: 640px;
-    margin-bottom: 32px;
-    line-height: 1.65;
-  }
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: var(--step-4);
+            font-weight: 800;
+            font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 144;
+            letter-spacing: -0.02em;
+            line-height: 1.05;
+            margin-bottom: var(--space-xs);
+            max-width: 18ch;
+        }
 
-  .divider {
-    border: none;
-    height: 1px;
-    background: var(--neutral-200);
-    margin: 48px 0;
-  }
+        .hero .subtitle {
+            font-family: 'Newsreader', serif;
+            font-size: var(--step-1);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--brand-300);
+            max-width: 50ch;
+            line-height: 1.45;
+        }
 
-  /* ── SWATCH ROWS ── */
-  .scale-row {
-    display: flex;
-    gap: 0;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 1px 3px oklch(0% 0 0 / 0.08), 0 4px 12px oklch(0% 0 0 / 0.04);
-    margin-bottom: 12px;
-  }
+        .hero .subtitle-line {
+            display: block;
+            font-family: 'Literata', serif;
+            font-size: var(--step--1);
+            font-weight: 300;
+            font-style: italic;
+            font-variation-settings: 'opsz' 10;
+            color: var(--brand-400);
+            max-width: 60ch;
+            line-height: 1.55;
+        }
 
-  .swatch {
-    flex: 1;
-    aspect-ratio: 1 / 1.15;
-    min-height: 80px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 8px 6px;
-    position: relative;
-    transition: transform 0.15s ease;
-  }
-  .swatch:hover {
-    transform: scale(1.08);
-    z-index: 2;
-    box-shadow: 0 4px 16px oklch(0% 0 0 / 0.2);
-    border-radius: 4px;
-  }
+        .hero .tag-row {
+            display: flex;
+            gap: 8px;
+            margin-top: var(--space-m);
+            flex-wrap: wrap;
+        }
 
-  .swatch-name {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.6rem;
-    font-weight: 500;
-    opacity: 0.85;
-    line-height: 1.3;
-  }
-  .swatch-value {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.5rem;
-    opacity: 0.6;
-    line-height: 1.3;
-  }
+        .hero .tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border: 1px solid var(--brand-700);
+            border-radius: 3px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--brand-400);
+            letter-spacing: 0.04em;
+        }
 
-  .swatch.light-text .swatch-name,
-  .swatch.light-text .swatch-value { color: var(--brand-50); }
-  .swatch.dark-text .swatch-name,
-  .swatch.dark-text .swatch-value { color: var(--brand-950); }
 
-  /* ── ACCENT GROUPS ── */
-  .accent-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 24px;
-  }
-  .accent-group h3 {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    margin-bottom: 12px;
-    color: var(--neutral-700);
-  }
-  .accent-row {
-    display: flex;
-    gap: 0;
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 0 1px 3px oklch(0% 0 0 / 0.06);
-  }
-  .accent-swatch {
-    flex: 1;
-    height: 56px;
-    display: flex;
-    align-items: flex-end;
-    padding: 4px 5px;
-    transition: transform 0.15s ease;
-  }
-  .accent-swatch:hover {
-    transform: scale(1.1);
-    z-index: 2;
-    border-radius: 3px;
-    box-shadow: 0 4px 12px oklch(0% 0 0 / 0.15);
-  }
-  .accent-swatch span {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.5rem;
-    opacity: 0.8;
-  }
 
-  /* ── SEMANTIC TOKENS TABLE ── */
-  .semantic-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin-top: 16px;
-  }
-  .sem-group h3 {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--neutral-600);
-    margin-bottom: 10px;
-  }
-  .sem-token {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 8px;
-  }
-  .sem-chip {
-    width: 32px;
-    height: 32px;
-    border-radius: 4px;
-    flex-shrink: 0;
-    box-shadow: inset 0 0 0 1px oklch(0% 0 0 / 0.08);
-  }
-  .sem-info {
-    line-height: 1.3;
-  }
-  .sem-name {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    font-weight: 500;
-    color: var(--neutral-900);
-  }
-  .sem-desc {
-    font-size: 0.7rem;
-    color: var(--neutral-600);
-  }
+        /* ── LAYOUT ── */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 48px 48px;
+        }
 
-  /* ── DESIGN NOTES ── */
-  .notes {
-    background: var(--brand-50);
-    border: 1px solid var(--brand-200);
-    border-radius: 8px;
-    padding: 28px 32px;
-    margin-top: 32px;
-  }
-  .notes h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 1.15rem;
-    color: var(--brand-800);
-    margin-bottom: 12px;
-  }
-  .notes p {
-    color: var(--neutral-800);
-    font-size: 0.9rem;
-    line-height: 1.7;
-    margin-bottom: 10px;
-  }
-  .notes code {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.8rem;
-    background: var(--brand-100);
-    padding: 1px 5px;
-    border-radius: 3px;
-    color: var(--brand-800);
-  }
+        .section-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--neutral-600);
+            margin-bottom: 8px;
+        }
 
-  /* ── TYPE PREVIEW ── */
-  .type-preview {
-    margin-top: 24px;
-  }
-  .type-sample {
-    margin-bottom: 20px;
-  }
-  .type-sample .meta {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--neutral-500);
-    margin-bottom: 2px;
-    letter-spacing: 0.04em;
-  }
+        h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--brand-800);
+            margin-bottom: 6px;
+        }
 
-  /* ── COMBO CARDS ── */
-  .combo-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: 24px;
-  }
-  .combo-card {
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px oklch(0% 0 0 / 0.06);
-  }
-  .combo-header {
-    padding: 24px 20px 20px;
-  }
-  .combo-header h4 {
-    font-family: 'Fraunces', serif;
-    font-size: 1.1rem;
-    margin-bottom: 4px;
-  }
-  .combo-header p {
-    font-size: 0.8rem;
-    opacity: 0.75;
-    line-height: 1.5;
-  }
-  .combo-body {
-    padding: 16px 20px;
-  }
-  .combo-body .label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-  .combo-btn {
-    display: inline-block;
-    padding: 8px 20px;
-    border-radius: 4px;
-    font-family: 'Literata', serif;
-    font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.02em;
-    border: none;
-    cursor: pointer;
-    transition: all 0.15s ease;
-  }
+        .section-desc {
+            color: var(--neutral-700);
+            font-size: 0.95rem;
+            max-width: 640px;
+            margin-bottom: 32px;
+            line-height: 1.65;
+        }
 
-  /* ── FOOTER ── */
-  .footer {
-    background: var(--brand-950);
-    color: var(--brand-400);
-    padding: 24px;
-    margin-top: 48px;
-  }
-  .footer-inner {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .footer .brand {
-    font-family: 'Fraunces', serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--brand-300);
-  }
-  .footer .brand .amp { color: var(--home-500); }
-  .footer .meta {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--brand-500);
-  }
+        .divider {
+            border: none;
+            height: 1px;
+            background: var(--neutral-200);
+            margin: 48px 0;
+        }
 
-  @media (max-width: 800px) {
-    .container { padding: 32px 24px; }
-    .hero { padding: 40px 24px 36px; }
-    .accent-grid { grid-template-columns: 1fr; }
-    .semantic-grid { grid-template-columns: 1fr; }
-    .combo-grid { grid-template-columns: 1fr; }
-    .swatch { min-height: 60px; }
-  }
-</style>
+        /* ── SWATCH ROWS ── */
+        .scale-row {
+            display: flex;
+            gap: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px oklch(0% 0 0 / 0.08), 0 4px 12px oklch(0% 0 0 / 0.04);
+            margin-bottom: 12px;
+        }
+
+        .swatch {
+            flex: 1;
+            aspect-ratio: 1 / 1.15;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 8px 6px;
+            position: relative;
+            transition: transform 0.15s ease;
+        }
+
+        .swatch:hover {
+            transform: scale(1.08);
+            z-index: 2;
+            box-shadow: 0 4px 16px oklch(0% 0 0 / 0.2);
+            border-radius: 4px;
+        }
+
+        .swatch-name {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            font-weight: 500;
+            opacity: 0.85;
+            line-height: 1.3;
+        }
+
+        .swatch-value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.5rem;
+            opacity: 0.6;
+            line-height: 1.3;
+        }
+
+        .swatch.light-text .swatch-name,
+        .swatch.light-text .swatch-value {
+            color: var(--brand-50);
+        }
+
+        .swatch.dark-text .swatch-name,
+        .swatch.dark-text .swatch-value {
+            color: var(--brand-950);
+        }
+
+        /* ── ACCENT GROUPS ── */
+        .accent-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .accent-group h3 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            margin-bottom: 12px;
+            color: var(--neutral-700);
+        }
+
+        .accent-row {
+            display: flex;
+            gap: 0;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px oklch(0% 0 0 / 0.06);
+        }
+
+        .accent-swatch {
+            flex: 1;
+            height: 56px;
+            display: flex;
+            align-items: flex-end;
+            padding: 4px 5px;
+            transition: transform 0.15s ease;
+        }
+
+        .accent-swatch:hover {
+            transform: scale(1.1);
+            z-index: 2;
+            border-radius: 3px;
+            box-shadow: 0 4px 12px oklch(0% 0 0 / 0.15);
+        }
+
+        .accent-swatch span {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.5rem;
+            opacity: 0.8;
+        }
+
+        /* ── SEMANTIC TOKENS TABLE ── */
+        .semantic-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .sem-group h3 {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--neutral-600);
+            margin-bottom: 10px;
+        }
+
+        .sem-token {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .sem-chip {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            flex-shrink: 0;
+            box-shadow: inset 0 0 0 1px oklch(0% 0 0 / 0.08);
+        }
+
+        .sem-info {
+            line-height: 1.3;
+        }
+
+        .sem-name {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--neutral-900);
+        }
+
+        .sem-desc {
+            font-size: 0.7rem;
+            color: var(--neutral-600);
+        }
+
+        /* ── DESIGN NOTES ── */
+        .notes {
+            background: var(--brand-50);
+            border: 1px solid var(--brand-200);
+            border-radius: 8px;
+            padding: 28px 32px;
+            margin-top: 32px;
+        }
+
+        .notes h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.15rem;
+            color: var(--brand-800);
+            margin-bottom: 12px;
+        }
+
+        .notes p {
+            color: var(--neutral-800);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .notes code {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            background: var(--brand-100);
+            padding: 1px 5px;
+            border-radius: 3px;
+            color: var(--brand-800);
+        }
+
+        /* ── TYPE PREVIEW ── */
+        .type-preview {
+            margin-top: 24px;
+        }
+
+        .type-sample {
+            margin-bottom: 20px;
+        }
+
+        .type-sample .meta {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--neutral-500);
+            margin-bottom: 2px;
+            letter-spacing: 0.04em;
+        }
+
+        /* ── COMBO CARDS ── */
+        .combo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .combo-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px oklch(0% 0 0 / 0.06);
+        }
+
+        .combo-header {
+            padding: 24px 20px 20px;
+        }
+
+        .combo-header h4 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .combo-header p {
+            font-size: 0.8rem;
+            opacity: 0.75;
+            line-height: 1.5;
+        }
+
+        .combo-body {
+            padding: 16px 20px;
+        }
+
+        .combo-body .label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .combo-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-family: 'Literata', serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.02em;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: var(--brand-950);
+            color: var(--brand-400);
+            padding: var(--space-l);
+            margin-top: var(--space-xl);
+        }
+
+        .footer-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer .brand {
+            font-family: 'Fraunces', serif;
+            font-size: var(--step-0);
+            font-weight: 700;
+            font-variation-settings: 'SOFT' 50, 'WONK' 1, 'opsz' 36;
+            color: var(--brand-300);
+        }
+
+        .footer .brand .amp {
+            color: var(--home-500);
+        }
+
+        .footer .meta {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--brand-500);
+        }
+
+        @media (max-width: 800px) {
+            .container {
+                padding: 32px 24px;
+            }
+
+            .hero {
+                padding: 40px 24px 36px;
+            }
+
+            .accent-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .semantic-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .combo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .swatch {
+                min-height: 60px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="hero">
-  <h1>Cowboys & Beans — Colour System</h1>
-  <p class="subtitle">A unified colour token architecture for cnbb.pub, books.cnbb.pub, and art.cnbb.pub. Built in OKLCH for perceptual uniformity — equal lightness steps produce equal perceived brightness across all hues.</p>
-  <span class="tag">OKLCH · DTCG-aligned · 3 sites, 1 system</span>
-</div>
-
-<div class="container">
-
-  <!-- BRAND BROWN -->
-  <div class="section-label">Primary Scale</div>
-  <h2>Brand Brown</h2>
-  <p class="section-desc">Extracted from your logo palette. Hue anchored at ~50° (warm amber-brown), chroma peaks in the midtones at 700 — natural for earth tones. The hue shifts slightly warmer (toward golden) at lighter values, mimicking how your logo's creams and tans naturally drift.</p>
-
-  <div class="scale-row">
-    <div class="swatch light-text" style="background: var(--brand-950)">
-      <span class="swatch-name">950</span><span class="swatch-value">L:15</span>
-    </div>
-    <div class="swatch light-text" style="background: var(--brand-900)">
-      <span class="swatch-name">900</span><span class="swatch-value">L:25</span>
-    </div>
-    <div class="swatch light-text" style="background: var(--brand-800)">
-      <span class="swatch-name">800</span><span class="swatch-value">L:35</span>
-    </div>
-    <div class="swatch light-text" style="background: var(--brand-700)">
-      <span class="swatch-name">700</span><span class="swatch-value">L:45</span>
-    </div>
-    <div class="swatch light-text" style="background: var(--brand-600)">
-      <span class="swatch-name">600</span><span class="swatch-value">L:53</span>
-    </div>
-    <div class="swatch dark-text" style="background: var(--brand-500)">
-      <span class="swatch-name">500</span><span class="swatch-value">L:60</span>
-    </div>
-    <div class="swatch dark-text" style="background: var(--brand-400)">
-      <span class="swatch-name">400</span><span class="swatch-value">L:68</span>
-    </div>
-    <div class="swatch dark-text" style="background: var(--brand-300)">
-      <span class="swatch-name">300</span><span class="swatch-value">L:76</span>
-    </div>
-    <div class="swatch dark-text" style="background: var(--brand-200)">
-      <span class="swatch-name">200</span><span class="swatch-value">L:85</span>
-    </div>
-    <div class="swatch dark-text" style="background: var(--brand-100)">
-      <span class="swatch-name">100</span><span class="swatch-value">L:90</span>
-    </div>
-    <div class="swatch dark-text" style="background: var(--brand-50)">
-      <span class="swatch-name">50</span><span class="swatch-value">L:95</span>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <!-- WARM NEUTRALS -->
-  <div class="section-label">Neutral Scale</div>
-  <h2>Warm Neutrals</h2>
-  <p class="section-desc">Very low chroma at hue 55° — these read as grey but carry a warm undertone. For body text, surfaces, borders, and any element that shouldn't call attention to itself. A pure grey (chroma 0) would feel cold against the brand browns.</p>
-
-  <div class="scale-row">
-    <div class="swatch light-text" style="background: var(--neutral-950)">
-      <span class="swatch-name">950</span><span class="swatch-value">L:12</span>
-    </div>
-    <div class="swatch light-text" style="background: var(--neutral-900)">
-      <span class="swatch-name">900</span><span class="swatch-value">L:22</span>
-    </div>
-    <div class="swatch light-text" style="background: var(--neutral-800)">
-      <span class="swatch-name">800</span><span class="swatch-value">L:32</span>
-    </div>
-    <div class="swatch light-text" style="background: var(--neutral-700)">
-      <span class="swatch-name">700</span><span class="swatch-value">L:42</span>
-    </div>
-    <div class="swatch light-text" style="background: var(--neutral-600)">
-      <span class="swatch-name">600</span><span class="swatch-value">L:52</span>
-    </div>
-    <div class="swatch dark-text" style="background: var(--neutral-500)">
-      <span class="swatch-name">500</span><span class="swatch-value">L:62</span>
-    </div>
-    <div class="swatch dark-text" style="background: var(--neutral-400)">
-      <span class="swatch-name">400</span><span class="swatch-value">L:72</span>
-    </div>
-    <div class="swatch dark-text" style="background: var(--neutral-300)">
-      <span class="swatch-name">300</span><span class="swatch-value">L:82</span>
-    </div>
-    <div class="swatch dark-text" style="background: var(--neutral-200)">
-      <span class="swatch-name">200</span><span class="swatch-value">L:90</span>
-    </div>
-    <div class="swatch dark-text" style="background: var(--neutral-100)">
-      <span class="swatch-name">100</span><span class="swatch-value">L:95</span>
-    </div>
-    <div class="swatch dark-text" style="background: var(--neutral-50)">
-      <span class="swatch-name">50</span><span class="swatch-value">L:97.5</span>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <!-- PER-SITE ACCENTS -->
-  <div class="section-label">Per-Site Accents</div>
-  <h2>Three Sites, Three Personalities</h2>
-  <p class="section-desc">Each site gets its own accent hue. Ink blue for editorial gravitas (books), muted sage for gallery restraint (art), and terracotta for warmth and welcome (parent brand). All three share the brand browns and warm neutrals.</p>
-
-  <div class="accent-grid">
-    <div class="accent-group">
-      <h3>books.cnbb.pub · Ink Blue · 255°</h3>
-      <div class="accent-row">
-        <div class="accent-swatch light-text" style="background: var(--books-900)"><span>900</span></div>
-        <div class="accent-swatch light-text" style="background: var(--books-700)"><span>700</span></div>
-        <div class="accent-swatch light-text" style="background: var(--books-500)"><span>500</span></div>
-        <div class="accent-swatch dark-text" style="background: var(--books-300)"><span>300</span></div>
-        <div class="accent-swatch dark-text" style="background: var(--books-100)"><span>100</span></div>
-      </div>
-    </div>
-    <div class="accent-group">
-      <h3>art.cnbb.pub · Sage Green · 155°</h3>
-      <div class="accent-row">
-        <div class="accent-swatch light-text" style="background: var(--art-900)"><span>900</span></div>
-        <div class="accent-swatch light-text" style="background: var(--art-700)"><span>700</span></div>
-        <div class="accent-swatch light-text" style="background: var(--art-500)"><span>500</span></div>
-        <div class="accent-swatch dark-text" style="background: var(--art-300)"><span>300</span></div>
-        <div class="accent-swatch dark-text" style="background: var(--art-100)"><span>100</span></div>
-      </div>
-    </div>
-    <div class="accent-group">
-      <h3>cnbb.pub · Terracotta · 35°</h3>
-      <div class="accent-row">
-        <div class="accent-swatch light-text" style="background: var(--home-900)"><span>900</span></div>
-        <div class="accent-swatch light-text" style="background: var(--home-700)"><span>700</span></div>
-        <div class="accent-swatch light-text" style="background: var(--home-500)"><span>500</span></div>
-        <div class="accent-swatch dark-text" style="background: var(--home-300)"><span>300</span></div>
-        <div class="accent-swatch dark-text" style="background: var(--home-100)"><span>100</span></div>
-      </div>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <!-- SEMANTIC TOKENS -->
-  <div class="section-label">Semantic Layer</div>
-  <h2>Semantic Tokens</h2>
-  <p class="section-desc">Role-based aliases that all three sites share. The primitive tokens (brand-700, neutral-200) get mapped to purpose-based names. This is the DRY layer — change one mapping, every site updates.</p>
-
-  <div class="semantic-grid">
-    <div class="sem-group">
-      <h3>Surfaces</h3>
-      <div class="sem-token">
-        <div class="sem-chip" style="background: var(--brand-50)"></div>
-        <div class="sem-info"><div class="sem-name">surface-primary</div><div class="sem-desc">Page background → brand-50</div></div>
-      </div>
-      <div class="sem-token">
-        <div class="sem-chip" style="background: var(--neutral-100)"></div>
-        <div class="sem-info"><div class="sem-name">surface-secondary</div><div class="sem-desc">Cards, sections → neutral-100</div></div>
-      </div>
-      <div class="sem-token">
-        <div class="sem-chip" style="background: var(--neutral-50)"></div>
-        <div class="sem-info"><div class="sem-name">surface-elevated</div><div class="sem-desc">Modals, dropdowns → neutral-50</div></div>
-      </div>
-      <div class="sem-token">
-        <div class="sem-chip" style="background: var(--brand-950)"></div>
-        <div class="sem-info"><div class="sem-name">surface-inverse</div><div class="sem-desc">Dark sections, footer → brand-950</div></div>
-      </div>
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- HERO -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="hero">
+        <p class="overline">A Colour Token Architecture</p>
+        <h1>Colour Token System</h1>
+        <span class="subtitle">The colour system for cnbb.pub, books.cnbb.pub, and art.cnbb.pub. Built in OKLCH for perceptual uniformity — equal lightness steps produce equal perceived brightness across all hues.</span>
+        <div class="tag-row">
+            <span class="tag">OKLCH</span>
+            <span class="tag">DTCG-aligned</span>
+            <span class="tag">3 sites, 1 system</span>
+        </div>
     </div>
 
-    <div class="sem-group">
-      <h3>Text</h3>
-      <div class="sem-token">
-        <div class="sem-chip" style="background: var(--neutral-950)"></div>
-        <div class="sem-info"><div class="sem-name">text-primary</div><div class="sem-desc">Body, headings → neutral-950</div></div>
-      </div>
-      <div class="sem-token">
-        <div class="sem-chip" style="background: var(--neutral-700)"></div>
-        <div class="sem-info"><div class="sem-name">text-secondary</div><div class="sem-desc">Captions, metadata → neutral-700</div></div>
-      </div>
-      <div class="sem-token">
-        <div class="sem-chip" style="background: var(--neutral-500)"></div>
-        <div class="sem-info"><div class="sem-name">text-tertiary</div><div class="sem-desc">Placeholder, disabled → neutral-500</div></div>
-      </div>
-      <div class="sem-token">
-        <div class="sem-chip" style="background: var(--brand-700)"></div>
-        <div class="sem-info"><div class="sem-name">text-brand</div><div class="sem-desc">Brand-coloured text → brand-700</div></div>
-      </div>
+    <div class="container">
+
+        <!-- BRAND BROWN -->
+        <div class="section-label">Primary Scale</div>
+        <h2>Brand Brown</h2>
+        <p class="section-desc">Extracted from your logo palette. Hue anchored at ~50° (warm amber-brown), chroma peaks in the midtones at 700 — natural for earth tones. The hue shifts slightly warmer (toward golden) at lighter values, mimicking how your logo's creams and tans naturally drift.</p>
+
+        <div class="scale-row">
+            <div class="swatch light-text" style="background: var(--brand-950)">
+                <span class="swatch-name">950</span><span class="swatch-value">L:15</span>
+            </div>
+            <div class="swatch light-text" style="background: var(--brand-900)">
+                <span class="swatch-name">900</span><span class="swatch-value">L:25</span>
+            </div>
+            <div class="swatch light-text" style="background: var(--brand-800)">
+                <span class="swatch-name">800</span><span class="swatch-value">L:35</span>
+            </div>
+            <div class="swatch light-text" style="background: var(--brand-700)">
+                <span class="swatch-name">700</span><span class="swatch-value">L:45</span>
+            </div>
+            <div class="swatch light-text" style="background: var(--brand-600)">
+                <span class="swatch-name">600</span><span class="swatch-value">L:53</span>
+            </div>
+            <div class="swatch dark-text" style="background: var(--brand-500)">
+                <span class="swatch-name">500</span><span class="swatch-value">L:60</span>
+            </div>
+            <div class="swatch dark-text" style="background: var(--brand-400)">
+                <span class="swatch-name">400</span><span class="swatch-value">L:68</span>
+            </div>
+            <div class="swatch dark-text" style="background: var(--brand-300)">
+                <span class="swatch-name">300</span><span class="swatch-value">L:76</span>
+            </div>
+            <div class="swatch dark-text" style="background: var(--brand-200)">
+                <span class="swatch-name">200</span><span class="swatch-value">L:85</span>
+            </div>
+            <div class="swatch dark-text" style="background: var(--brand-100)">
+                <span class="swatch-name">100</span><span class="swatch-value">L:90</span>
+            </div>
+            <div class="swatch dark-text" style="background: var(--brand-50)">
+                <span class="swatch-name">50</span><span class="swatch-value">L:95</span>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- WARM NEUTRALS -->
+        <div class="section-label">Neutral Scale</div>
+        <h2>Warm Neutrals</h2>
+        <p class="section-desc">Very low chroma at hue 55° — these read as grey but carry a warm undertone. For body text, surfaces, borders, and any element that shouldn't call attention to itself. A pure grey (chroma 0) would feel cold against the brand browns.</p>
+
+        <div class="scale-row">
+            <div class="swatch light-text" style="background: var(--neutral-950)">
+                <span class="swatch-name">950</span><span class="swatch-value">L:12</span>
+            </div>
+            <div class="swatch light-text" style="background: var(--neutral-900)">
+                <span class="swatch-name">900</span><span class="swatch-value">L:22</span>
+            </div>
+            <div class="swatch light-text" style="background: var(--neutral-800)">
+                <span class="swatch-name">800</span><span class="swatch-value">L:32</span>
+            </div>
+            <div class="swatch light-text" style="background: var(--neutral-700)">
+                <span class="swatch-name">700</span><span class="swatch-value">L:42</span>
+            </div>
+            <div class="swatch light-text" style="background: var(--neutral-600)">
+                <span class="swatch-name">600</span><span class="swatch-value">L:52</span>
+            </div>
+            <div class="swatch dark-text" style="background: var(--neutral-500)">
+                <span class="swatch-name">500</span><span class="swatch-value">L:62</span>
+            </div>
+            <div class="swatch dark-text" style="background: var(--neutral-400)">
+                <span class="swatch-name">400</span><span class="swatch-value">L:72</span>
+            </div>
+            <div class="swatch dark-text" style="background: var(--neutral-300)">
+                <span class="swatch-name">300</span><span class="swatch-value">L:82</span>
+            </div>
+            <div class="swatch dark-text" style="background: var(--neutral-200)">
+                <span class="swatch-name">200</span><span class="swatch-value">L:90</span>
+            </div>
+            <div class="swatch dark-text" style="background: var(--neutral-100)">
+                <span class="swatch-name">100</span><span class="swatch-value">L:95</span>
+            </div>
+            <div class="swatch dark-text" style="background: var(--neutral-50)">
+                <span class="swatch-name">50</span><span class="swatch-value">L:97.5</span>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- PER-SITE ACCENTS -->
+        <div class="section-label">Per-Site Accents</div>
+        <h2>Three Sites, Three Personalities</h2>
+        <p class="section-desc">Each site gets its own accent hue. Ink blue for editorial gravitas (books), muted sage for gallery restraint (art), and terracotta for warmth and welcome (parent brand). All three share the brand browns and warm neutrals.</p>
+
+        <div class="accent-grid">
+            <div class="accent-group">
+                <h3>books.cnbb.pub · Ink Blue · 255°</h3>
+                <div class="accent-row">
+                    <div class="accent-swatch light-text" style="background: var(--books-900)"><span>900</span></div>
+                    <div class="accent-swatch light-text" style="background: var(--books-700)"><span>700</span></div>
+                    <div class="accent-swatch light-text" style="background: var(--books-500)"><span>500</span></div>
+                    <div class="accent-swatch dark-text" style="background: var(--books-300)"><span>300</span></div>
+                    <div class="accent-swatch dark-text" style="background: var(--books-100)"><span>100</span></div>
+                </div>
+            </div>
+            <div class="accent-group">
+                <h3>art.cnbb.pub · Sage Green · 155°</h3>
+                <div class="accent-row">
+                    <div class="accent-swatch light-text" style="background: var(--art-900)"><span>900</span></div>
+                    <div class="accent-swatch light-text" style="background: var(--art-700)"><span>700</span></div>
+                    <div class="accent-swatch light-text" style="background: var(--art-500)"><span>500</span></div>
+                    <div class="accent-swatch dark-text" style="background: var(--art-300)"><span>300</span></div>
+                    <div class="accent-swatch dark-text" style="background: var(--art-100)"><span>100</span></div>
+                </div>
+            </div>
+            <div class="accent-group">
+                <h3>cnbb.pub · Terracotta · 35°</h3>
+                <div class="accent-row">
+                    <div class="accent-swatch light-text" style="background: var(--home-900)"><span>900</span></div>
+                    <div class="accent-swatch light-text" style="background: var(--home-700)"><span>700</span></div>
+                    <div class="accent-swatch light-text" style="background: var(--home-500)"><span>500</span></div>
+                    <div class="accent-swatch dark-text" style="background: var(--home-300)"><span>300</span></div>
+                    <div class="accent-swatch dark-text" style="background: var(--home-100)"><span>100</span></div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- SEMANTIC TOKENS -->
+        <div class="section-label">Semantic Layer</div>
+        <h2>Semantic Tokens</h2>
+        <p class="section-desc">Role-based aliases that all three sites share. The primitive tokens (brand-700, neutral-200) get mapped to purpose-based names. This is the DRY layer — change one mapping, every site updates.</p>
+
+        <div class="semantic-grid">
+            <div class="sem-group">
+                <h3>Surfaces</h3>
+                <div class="sem-token">
+                    <div class="sem-chip" style="background: var(--brand-50)"></div>
+                    <div class="sem-info">
+                        <div class="sem-name">surface-primary</div>
+                        <div class="sem-desc">Page background → brand-50</div>
+                    </div>
+                </div>
+                <div class="sem-token">
+                    <div class="sem-chip" style="background: var(--neutral-100)"></div>
+                    <div class="sem-info">
+                        <div class="sem-name">surface-secondary</div>
+                        <div class="sem-desc">Cards, sections → neutral-100</div>
+                    </div>
+                </div>
+                <div class="sem-token">
+                    <div class="sem-chip" style="background: var(--neutral-50)"></div>
+                    <div class="sem-info">
+                        <div class="sem-name">surface-elevated</div>
+                        <div class="sem-desc">Modals, dropdowns → neutral-50</div>
+                    </div>
+                </div>
+                <div class="sem-token">
+                    <div class="sem-chip" style="background: var(--brand-950)"></div>
+                    <div class="sem-info">
+                        <div class="sem-name">surface-inverse</div>
+                        <div class="sem-desc">Dark sections, footer → brand-950</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sem-group">
+                <h3>Text</h3>
+                <div class="sem-token">
+                    <div class="sem-chip" style="background: var(--neutral-950)"></div>
+                    <div class="sem-info">
+                        <div class="sem-name">text-primary</div>
+                        <div class="sem-desc">Body, headings → neutral-950</div>
+                    </div>
+                </div>
+                <div class="sem-token">
+                    <div class="sem-chip" style="background: var(--neutral-700)"></div>
+                    <div class="sem-info">
+                        <div class="sem-name">text-secondary</div>
+                        <div class="sem-desc">Captions, metadata → neutral-700</div>
+                    </div>
+                </div>
+                <div class="sem-token">
+                    <div class="sem-chip" style="background: var(--neutral-500)"></div>
+                    <div class="sem-info">
+                        <div class="sem-name">text-tertiary</div>
+                        <div class="sem-desc">Placeholder, disabled → neutral-500</div>
+                    </div>
+                </div>
+                <div class="sem-token">
+                    <div class="sem-chip" style="background: var(--brand-700)"></div>
+                    <div class="sem-info">
+                        <div class="sem-name">text-brand</div>
+                        <div class="sem-desc">Brand-coloured text → brand-700</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sem-group">
+                <h3>Borders</h3>
+                <div class="sem-token">
+                    <div class="sem-chip" style="background: var(--neutral-200); border: 1px solid var(--neutral-300)"></div>
+                    <div class="sem-info">
+                        <div class="sem-name">border-subtle</div>
+                        <div class="sem-desc">Soft dividers → neutral-200</div>
+                    </div>
+                </div>
+                <div class="sem-token">
+                    <div class="sem-chip" style="background: var(--neutral-300)"></div>
+                    <div class="sem-info">
+                        <div class="sem-name">border-default</div>
+                        <div class="sem-desc">Standard borders → neutral-300</div>
+                    </div>
+                </div>
+                <div class="sem-token">
+                    <div class="sem-chip" style="background: var(--brand-400)"></div>
+                    <div class="sem-info">
+                        <div class="sem-name">border-strong</div>
+                        <div class="sem-desc">Emphasis → brand-400</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sem-group">
+                <h3>Interactive</h3>
+                <div class="sem-token">
+                    <div class="sem-chip" style="background: var(--brand-700)"></div>
+                    <div class="sem-info">
+                        <div class="sem-name">interactive-primary</div>
+                        <div class="sem-desc">Buttons, links → brand-700</div>
+                    </div>
+                </div>
+                <div class="sem-token">
+                    <div class="sem-chip" style="background: var(--brand-800)"></div>
+                    <div class="sem-info">
+                        <div class="sem-name">interactive-hover</div>
+                        <div class="sem-desc">Hover → brand-800</div>
+                    </div>
+                </div>
+                <div class="sem-token">
+                    <div class="sem-chip" style="background: var(--brand-900)"></div>
+                    <div class="sem-info">
+                        <div class="sem-name">interactive-active</div>
+                        <div class="sem-desc">Pressed → brand-900</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- COMBINATION PREVIEWS -->
+        <div class="section-label">In Context</div>
+        <h2>How the Three Sites Feel</h2>
+        <p class="section-desc">Same brand foundation, different accents and surface treatments. Each card previews the dominant mood of its site.</p>
+
+        <div class="combo-grid">
+            <!-- Books -->
+            <div class="combo-card">
+                <div class="combo-header" style="background: var(--brand-950); color: var(--brand-100);">
+                    <h4>books.cnbb.pub</h4>
+                    <p>Editorial · Literary · Structured</p>
+                </div>
+                <div class="combo-body" style="background: var(--brand-50);">
+                    <div class="label" style="color: var(--neutral-600);">Featured Title</div>
+                    <p style="font-family: 'Fraunces', serif; font-size: 1.15rem; color: var(--neutral-950); margin-bottom: 4px;">The Weight of Stars</p>
+                    <p style="font-size: 0.8rem; color: var(--neutral-700); margin-bottom: 12px;">A blend-genre science fiction novel</p>
+                    <button class="combo-btn" style="background: var(--books-700); color: var(--books-100);">Read More</button>
+                </div>
+            </div>
+
+            <!-- Art -->
+            <div class="combo-card">
+                <div class="combo-header" style="background: var(--neutral-100); color: var(--neutral-900); border-bottom: 1px solid var(--neutral-200);">
+                    <h4>art.cnbb.pub</h4>
+                    <p>Gallery · Restrained · Visual-first</p>
+                </div>
+                <div class="combo-body" style="background: var(--neutral-50);">
+                    <div class="label" style="color: var(--neutral-500);">Current Exhibition</div>
+                    <p style="font-family: 'Fraunces', serif; font-size: 1.15rem; color: var(--neutral-950); margin-bottom: 4px;">Landscapes in Ink</p>
+                    <p style="font-size: 0.8rem; color: var(--neutral-600); margin-bottom: 12px;">Traditional drawings, new perspectives</p>
+                    <button class="combo-btn" style="background: transparent; color: var(--art-700); border: 1px solid var(--art-500);">View Gallery</button>
+                </div>
+            </div>
+
+            <!-- Parent -->
+            <div class="combo-card">
+                <div class="combo-header" style="background: var(--home-700); color: var(--home-100);">
+                    <h4>cnbb.pub</h4>
+                    <p>Brand · Warm · Welcoming</p>
+                </div>
+                <div class="combo-body" style="background: var(--brand-100);">
+                    <div class="label" style="color: var(--brand-600);">Welcome</div>
+                    <p style="font-family: 'Fraunces', serif; font-size: 1.15rem; color: var(--brand-950); margin-bottom: 4px;">Cowboys & Beans</p>
+                    <p style="font-size: 0.8rem; color: var(--neutral-700); margin-bottom: 12px;">Art · Music · Film · Publishing</p>
+                    <button class="combo-btn" style="background: var(--home-500); color: var(--home-100);">Explore</button>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- DESIGN NOTES -->
+        <div class="notes">
+            <h3>Design Rationale</h3>
+            <p><strong>Why OKLCH?</strong> Equal lightness steps in OKLCH produce equal perceived brightness — so brand-300 to brand-400 feels the same "jump" as brand-700 to brand-800. This is the perceptual uniformity property the Phase 0 research identifies as analogous to equal temperament in music: both uniformise a space that is inherently non-uniform.</p>
+            <p><strong>Why warm neutrals instead of pure greys?</strong> A chroma of 0.01 at hue 55° reads as grey to the eye but doesn't create a cold/clinical dissonance against the warm brand browns. This is Albers's principle of colour relativity in practice — the "grey" changes character based on what's next to it.</p>
+            <p><strong>Why only 5 accent steps instead of 11?</strong> The accents are supporting cast, not leads. Five steps (900/700/500/300/100) give you a dark for text, a medium for buttons, a light for backgrounds, and two intermediaries. If any accent needs the full 11-step treatment later, we can extend — but starting lean keeps the system governable.</p>
+            <p><strong>The token architecture follows DTCG:</strong> Primitive tokens (<code>brand-700</code>) → semantic tokens (<code>interactive-primary</code>) → component tokens (to come, e.g. <code>button-primary-bg</code>). This three-tier stack is what Material Design, Carbon, and Polaris converge on.</p>
+        </div>
+
     </div>
 
-    <div class="sem-group">
-      <h3>Borders</h3>
-      <div class="sem-token">
-        <div class="sem-chip" style="background: var(--neutral-200); border: 1px solid var(--neutral-300)"></div>
-        <div class="sem-info"><div class="sem-name">border-subtle</div><div class="sem-desc">Soft dividers → neutral-200</div></div>
-      </div>
-      <div class="sem-token">
-        <div class="sem-chip" style="background: var(--neutral-300)"></div>
-        <div class="sem-info"><div class="sem-name">border-default</div><div class="sem-desc">Standard borders → neutral-300</div></div>
-      </div>
-      <div class="sem-token">
-        <div class="sem-chip" style="background: var(--brand-400)"></div>
-        <div class="sem-info"><div class="sem-name">border-strong</div><div class="sem-desc">Emphasis → brand-400</div></div>
-      </div>
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- FOOTER                                                        -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <div class="footer">
+        <div class="footer-inner">
+            <div class="brand">Cowboys <span class="amp">&amp;</span> Beans</div>
+            <div class="meta">Colour Token System · March 2026 · CC0 Public Domain</div>
+        </div>
     </div>
-
-    <div class="sem-group">
-      <h3>Interactive</h3>
-      <div class="sem-token">
-        <div class="sem-chip" style="background: var(--brand-700)"></div>
-        <div class="sem-info"><div class="sem-name">interactive-primary</div><div class="sem-desc">Buttons, links → brand-700</div></div>
-      </div>
-      <div class="sem-token">
-        <div class="sem-chip" style="background: var(--brand-800)"></div>
-        <div class="sem-info"><div class="sem-name">interactive-hover</div><div class="sem-desc">Hover → brand-800</div></div>
-      </div>
-      <div class="sem-token">
-        <div class="sem-chip" style="background: var(--brand-900)"></div>
-        <div class="sem-info"><div class="sem-name">interactive-active</div><div class="sem-desc">Pressed → brand-900</div></div>
-      </div>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <!-- COMBINATION PREVIEWS -->
-  <div class="section-label">In Context</div>
-  <h2>How the Three Sites Feel</h2>
-  <p class="section-desc">Same brand foundation, different accents and surface treatments. Each card previews the dominant mood of its site.</p>
-
-  <div class="combo-grid">
-    <!-- Books -->
-    <div class="combo-card">
-      <div class="combo-header" style="background: var(--brand-950); color: var(--brand-100);">
-        <h4>books.cnbb.pub</h4>
-        <p>Editorial · Literary · Structured</p>
-      </div>
-      <div class="combo-body" style="background: var(--brand-50);">
-        <div class="label" style="color: var(--neutral-600);">Featured Title</div>
-        <p style="font-family: 'Fraunces', serif; font-size: 1.15rem; color: var(--neutral-950); margin-bottom: 4px;">The Weight of Stars</p>
-        <p style="font-size: 0.8rem; color: var(--neutral-700); margin-bottom: 12px;">A blend-genre science fiction novel</p>
-        <button class="combo-btn" style="background: var(--books-700); color: var(--books-100);">Read More</button>
-      </div>
-    </div>
-
-    <!-- Art -->
-    <div class="combo-card">
-      <div class="combo-header" style="background: var(--neutral-100); color: var(--neutral-900); border-bottom: 1px solid var(--neutral-200);">
-        <h4>art.cnbb.pub</h4>
-        <p>Gallery · Restrained · Visual-first</p>
-      </div>
-      <div class="combo-body" style="background: var(--neutral-50);">
-        <div class="label" style="color: var(--neutral-500);">Current Exhibition</div>
-        <p style="font-family: 'Fraunces', serif; font-size: 1.15rem; color: var(--neutral-950); margin-bottom: 4px;">Landscapes in Ink</p>
-        <p style="font-size: 0.8rem; color: var(--neutral-600); margin-bottom: 12px;">Traditional drawings, new perspectives</p>
-        <button class="combo-btn" style="background: transparent; color: var(--art-700); border: 1px solid var(--art-500);">View Gallery</button>
-      </div>
-    </div>
-
-    <!-- Parent -->
-    <div class="combo-card">
-      <div class="combo-header" style="background: var(--home-700); color: var(--home-100);">
-        <h4>cnbb.pub</h4>
-        <p>Brand · Warm · Welcoming</p>
-      </div>
-      <div class="combo-body" style="background: var(--brand-100);">
-        <div class="label" style="color: var(--brand-600);">Welcome</div>
-        <p style="font-family: 'Fraunces', serif; font-size: 1.15rem; color: var(--brand-950); margin-bottom: 4px;">Cowboys & Beans</p>
-        <p style="font-size: 0.8rem; color: var(--neutral-700); margin-bottom: 12px;">Art · Music · Film · Publishing</p>
-        <button class="combo-btn" style="background: var(--home-500); color: var(--home-100);">Explore</button>
-      </div>
-    </div>
-  </div>
-
-  <hr class="divider">
-
-  <!-- DESIGN NOTES -->
-  <div class="notes">
-    <h3>Design Rationale</h3>
-    <p><strong>Why OKLCH?</strong> Equal lightness steps in OKLCH produce equal perceived brightness — so brand-300 to brand-400 feels the same "jump" as brand-700 to brand-800. This is the perceptual uniformity property the Phase 0 research identifies as analogous to equal temperament in music: both uniformise a space that is inherently non-uniform.</p>
-    <p><strong>Why warm neutrals instead of pure greys?</strong> A chroma of 0.01 at hue 55° reads as grey to the eye but doesn't create a cold/clinical dissonance against the warm brand browns. This is Albers's principle of colour relativity in practice — the "grey" changes character based on what's next to it.</p>
-    <p><strong>Why only 5 accent steps instead of 11?</strong> The accents are supporting cast, not leads. Five steps (900/700/500/300/100) give you a dark for text, a medium for buttons, a light for backgrounds, and two intermediaries. If any accent needs the full 11-step treatment later, we can extend — but starting lean keeps the system governable.</p>
-    <p><strong>The token architecture follows DTCG:</strong> Primitive tokens (<code>brand-700</code>) → semantic tokens (<code>interactive-primary</code>) → component tokens (to come, e.g. <code>button-primary-bg</code>). This three-tier stack is what Material Design, Carbon, and Polaris converge on.</p>
-  </div>
-
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════════ -->
-<!-- FOOTER                                                        -->
-<!-- ═══════════════════════════════════════════════════════════════ -->
-<div class="footer">
-  <div class="footer-inner">
-    <div class="brand">Cowboys <span class="amp">&amp;</span> Beans</div>
-    <div class="meta">Colour Token System · March 2026 · CC0 Public Domain</div>
-  </div>
-</div>
 
 </body>
+
 </html>
